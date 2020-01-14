@@ -7,21 +7,27 @@ namespace ToolBox.Tools
 {
     public static class ToolHandle
     {
-        public static void SetIntBuffer(List<string> buffer, List<int> value, int index)
+        public static void SetBuffer(IList<string> buffer, IList<int> variable, int index)
         {
-            buffer.Add(value[index].ToString());
-            buffer[index] = value[index].ToString();
+            buffer.Add(variable[index].ToString());
+            buffer[index] = variable[index].ToString();
+        }
+
+        public static void SetBuffer(IList<string> buffer, IList<string> variable, int index)
+        {
+            buffer.Add(variable[index].ToString());
+            buffer[index] = variable[index].ToString();
         }
 
         private static char[] num = "0123456789".ToArray();
         private static char[] letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToArray();
         private static char[] special = "`~!@#$%^&*()-_=+\\|]}[{'\";:/?.>,<".ToArray();
-        public static int SortToInt(string input, int charCount = 9, int valLimit = 999999999)
+        public static int Sort(string input, int length, int valLimit)
         {
             int num = 0;
-            if (input.Length > charCount)
+            if (input.Length > length)
             {
-                input = input.Remove(charCount);
+                input = input.Remove(length);
             }
 
             int newInput = 0;
@@ -39,20 +45,25 @@ namespace ToolBox.Tools
             return num;
         }
 
-        public static void SetCount(int maxNum, List<int> list)
+        public static string Sort(string input, int length)
         {
-            while (list.Count <= (maxNum - 1))
+            if (input.Length > length)
             {
-                if (list.Count == 0)
-                {
-                    list.Add(0);
-                }
-                else
-                {
-                    list.Add(list.Count);
-                }
+                return input.Remove(length);
             }
+            return input;
         }
 
+        public static IList<int> SetCount(int maxNum)
+        {
+            IList<int> list = new List<int>();
+            int num = 0;
+            while (list.Count <= (maxNum - 1))
+            {
+                list.Add(num);
+                num++;
+            }
+            return list;
+        }
     }
 }

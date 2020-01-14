@@ -79,8 +79,8 @@ namespace ToolBox.Tools
 
         public static void NumericField(float line, float width, float height, List<string> buffer, List<int> value, int index, int charCount, int valLimit)
         {
-            ToolHandle.SetIntBuffer(buffer, value, index);
-            value[index] = ToolHandle.SortToInt(Widgets.TextField(Rect(index + line, width, height), buffer[index]), charCount, valLimit);
+            //ToolHandle.SetIntBuffer(buffer, value, index);
+            //value[index] = ToolHandle.SortToInt(Widgets.TextField(Rect(index + line, width, height), buffer[index]), charCount, valLimit);
         }
     }
 }

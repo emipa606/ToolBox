@@ -125,7 +125,6 @@ namespace ToolBox
 
         public void Content(Rect rect, Rect rectView) 
         {
-            
             if (!drawContent.NullOrEmpty()) 
             {
                 foreach (Container container in drawContent)
@@ -133,7 +132,6 @@ namespace ToolBox
                     container.Compile();
                 }
             }
-            
         }
 
         public static CategoryDef Named(string defName)
