@@ -9,21 +9,25 @@ using Verse;
 
 namespace ToolBox.SettingsComp
 {
+    [StaticConstructorOnStartup]
     public class Container
     {
         public string listID;
         public float x = 0;
         public float y = 0;
-        public LabelCol labelCol;
+        public LabelCol labelCol = new LabelCol();
         public CostCol costCol;
 
-        public Container()
+        static IEnumerable<ThingDef> thingDef;
+        public static List<int> cost;
+        public static List<string> costBuffer;
+        
+        static Container()
         {
-            IEnumerable<ThingDef> thingDef = new List<ThingDef>(DefDatabase<ThingDef>.AllDefs
-                .Where(t => t.HasComp(typeof(ToolBoxComp)))
-                .Where(l => l.GetCompProperties<ToolBoxCompProperties>().list.Equals(listID))
-                .OrderBy(t => t.GetCompProperties<ToolBoxCompProperties>().position));
+            //cost.AddRange(thingDef.Select(t => t.costStuffCount).ToList());
+            //costBuffer.AddRange(thingDef.Select(c => c.costStuffCount.ToString()).ToList());
         }
+
         public bool HasListID
         {
             get
@@ -36,48 +40,49 @@ namespace ToolBox.SettingsComp
             }
         }
 
-        //public int vary = 0;
-        //Make a variable specifically for data saving.
-        //Example: 
-        //outside Compile* varCost;
-        //inside Compile* varCost = widgetInput;
-        static bool runFlag = true;
-        static IEnumerable<ThingDef> thingDef = DefDatabase<ThingDef>.AllDefs;
-        static List<int> cost = new List<int>();
-        IList<string> costBuffer = new List<string>();
         public void Compile() 
         {
-            thingDef = thingDef
+            thingDef = DefDatabase<ThingDef>.AllDefs
                 .Where(t => t.HasComp(typeof(ToolBoxComp)))
                 .Where(l => l.GetCompProperties<ToolBoxCompProperties>().list.Equals(listID))
                 .OrderBy(t => t.GetCompProperties<ToolBoxCompProperties>().position);
+            cost = thingDef.Select(t => t.costStuffCount).ToList();
+            costBuffer = thingDef.Select(c => c.costStuffCount.ToString()).ToList();
             if (labelCol != null) 
             {
                 IEnumerable<string> thingLabel = thingDef.Select(l => l.label);
                 Construct.LabelCol(labelCol.x, labelCol.y, labelCol.width, thingLabel, labelCol.header, labelCol.headerPos, listID);
             }
 
-            //Current problem:
-            //>Crashes when inserting input too fast.
-            //>Slow on performance.
-            //>Can't change input value.
-            //
-            //Do a single foreach outside instead of having to use InputCol which uses too much foreach and takes up performance!
-            //Reference StructurePlus.
             if (costCol != null)
             {
-                //while (runFlag)
-                //{
-                    //cost.AddRange(thingDef.Select(c => c.costStuffCount).ToList());
-                //}
-                Construct.InputCol(costCol.x, costCol.y, costCol.width, cost, costBuffer, 4, 10000, costCol.header, costCol.headerPos, "Cost");
+                //Try and see if its possible to directly go and change the thingDef value instead.
+                //Example:
+                //thingDef.cost.Select.Replace(Input)
+                costBuffer[0] = cost[0].ToString();
+                cost[0] = ToolHandle.Sort(Widgets.TextField(new Rect(costCol.x, costCol.y, costCol.width, 22f), costBuffer[0]), 4, 99999);
             }
-            runFlag = false;
-            //Construct.InputField(0f, 100f, 50f, vary, buffy, 4, 99999);
-            
-            //string buffy = vary.ToString();
-            //vary = ToolHandle.Sort(Widgets.TextField(new Rect(0f, 100f, 50f, 22f), buffy), 4, 99999);
-            
         }
     }
 }
+
+//Current problem:
+//>Crashes when inserting input too fast.
+//>Slow on performance.
+//>Can't change input value.
+//
+//Do a single foreach outside instead of having to use InputCol which uses too much foreach and takes up performance!
+//Reference StructurePlus.
+
+//AddRange doesn't work but .Add works. Range, for some reason, takes IEnumerables.
+//See if it's possible to send ranges just like .Add
+//Also look into Array, it may have a better solution.
+
+//LabelCol labelCol = new LabelCol();
+/*
+thingDef = DefDatabase<ThingDef>.AllDefs
+    .Where(t => t.HasComp(typeof(ToolBoxComp)))
+    .Where(l => l.GetCompProperties<ToolBoxCompProperties>().list.Equals(labelCol))
+    .OrderBy(t => t.GetCompProperties<ToolBoxCompProperties>().position);*/
+
+//Construct.InputCol(costCol.x, costCol.y, costCol.width, cost, costBuffer, 4, 10000, costCol.header, costCol.headerPos, "Cost");
