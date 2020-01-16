@@ -6,6 +6,7 @@ using ToolBox.Tools;
 using ToolBox.SettingsComp;
 using Verse;
 using UnityEngine;
+using RimWorld;
 
 namespace ToolBox
 {
@@ -86,24 +87,24 @@ namespace ToolBox
             get 
             {
                 int count = 0;
-                if (!drawContent.NullOrEmpty()) 
+                if (!drawContent.NullOrEmpty())
                 {
-                    foreach (bool HasListID in drawContent.Select(c => !c.HasListID)) 
+                    foreach (bool HasListID in drawContent.Select(c => !c.HasListID))
                     {
-                        if (HasListID) 
+                        if (HasListID)
                         {
                             count++;
                         }
                     }
-                }
-                if (count > 0) 
-                {
-                    return false;
+                    if (count > 0)
+                    {
+                        return false;
+                    }
                 }
                 return true;
             }
         }
-
+        
         public int MissingListID 
         {
             get 
@@ -125,7 +126,7 @@ namespace ToolBox
 
         public void Content(Rect rect, Rect rectView) 
         {
-            if (!drawContent.NullOrEmpty()) 
+            if (!drawContent.NullOrEmpty())
             {
                 foreach (Container container in drawContent)
                 {

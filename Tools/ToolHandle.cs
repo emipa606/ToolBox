@@ -19,6 +19,26 @@ namespace ToolBox.Tools
             buffer[index] = variable[index].ToString();
         }
 
+        public static int ValLimit(string input, int valLimit = 999999999)
+        {
+            int num = Convert.ToInt32(input);
+            if (num > valLimit)
+            {
+                num = valLimit;
+            }
+            return num;
+        }
+
+        public static int ValLimit(int input, int valLimit = 999999999)
+        {
+            int num = input;
+            if (num > valLimit)
+            {
+                num = valLimit;
+            }
+            return num;
+        }
+
         private static char[] num = "0123456789".ToArray();
         private static char[] letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToArray();
         private static char[] special = "`~!@#$%^&*()-_=+\\|]}[{'\";:/?.>,<".ToArray();
