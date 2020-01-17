@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="BlueprintCheckDef.cs" />
     <Compile Include="BundleCheckDef.cs" />
+    <Compile Include="Core\Initialization.cs" />
     <Compile Include="SettingsComp\Container.cs" />
     <Compile Include="SettingsComp\CategoryLevel.cs" />
     <Compile Include="SettingsComp\CostCol.cs" />

@@ -30,7 +30,7 @@ namespace ToolBox.Tools
             variable = ToolHandle.ValLimit(Widgets.TextField(new Rect(x, y, width, 22f), buffer, length, new Regex("^[0-9]+$")), valLimit);
         }
 
-        public static void InputField(float x, float y, float width, List<int> variable, IList<string> buffer, int length = 9, int valLimit = 999999999, int index = 0)
+        public static void InputField(float x, float y, float width, IList<int> variable, IList<string> buffer, int length = 9, int valLimit = 999999999, int index = 0)
         {
             buffer[index] = variable[index].ToString();
             variable[index] = ToolHandle.ValLimit(Widgets.TextField(new Rect(x, y, width, 22f), buffer[index], length, new Regex("^[0-9]+$")), valLimit);

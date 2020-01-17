@@ -10,13 +10,19 @@ using RimWorld;
 
 namespace ToolBox
 {
-    public class CategoryDef : Def
+    public class CategoryDef : Def, IExposable
     {
+        //Consider implementing a height and width here, instead of per container.
         public float position = 0;
         public CategoryLevel level = 0;
         public bool horiScrollbar = false;
         public bool vertiScrollbar = false;
         public List<Container> drawContent = new List<Container>();
+
+        void IExposable.ExposeData()
+        {
+            Scribe_Collections.Look(ref drawContent, "Content", LookMode.Undefined);
+        }
 
         public bool HasLabel
         {
