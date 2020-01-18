@@ -86,6 +86,7 @@ namespace ToolBox.Settings
             listing_Content.Begin(contentRect);
             foreach (CategoryDef category in categoryList) 
             {
+                category.Constant();
                 if (categoryFlag.Equals(category.label)) 
                 {
                     category.Content(contentRect, contentView);

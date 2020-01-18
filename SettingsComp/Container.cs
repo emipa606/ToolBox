@@ -17,18 +17,22 @@ namespace ToolBox.SettingsComp
         public float y = 0;
         public LabelCol labelCol;
         public CostCol costCol;
+        //Reset button!
 
-        static IEnumerable<ThingDef> thingDef;
-        static string ID = "null";
-        static List<int> cost = new List<int>();
-        static IList<string> costBuffer;
+        IEnumerable<ThingDef> thingDef;
+        IList<string> thingLabel;
+        IList<int> indexer;
+        public string ID = "null";
+        public List<int> cost = new List<int>(); //Always initialize a list! Static makes it load as one 
+        IList<string> costBuffer;
 
         void IExposable.ExposeData()
         {
             Scribe_Values.Look(ref ID, "ID");
             Scribe_Collections.Look(ref cost, "Cost", LookMode.Value);
         }
-
+        
+        //Create an exception for listID
         public bool HasListID
         {
             get
@@ -41,15 +45,29 @@ namespace ToolBox.SettingsComp
             }
         }
 
-        public void Compile() 
+        public void Initialize()
         {
             ID = listID;
             thingDef = DefDatabase<ThingDef>.AllDefs
                 .Where(t => t.HasComp(typeof(ToolBoxComp)))
                 .Where(l => l.GetCompProperties<ToolBoxCompProperties>().list.Equals(listID))
                 .OrderBy(t => t.GetCompProperties<ToolBoxCompProperties>().position);
-            
-            IList<int> indexer = ToolHandle.SetCount(thingDef.Count());
+            if (labelCol != null)
+            {
+                thingLabel = thingDef.Select(l => l.label).ToList();
+            }
+            if (costCol != null)
+            {
+                if (cost.NullOrEmpty()) { cost.AddRange(thingDef.Select(t => t.costStuffCount).ToList()); }
+                costBuffer = cost.Select(c => c.ToString()).ToList();
+            }
+        }
+        //Make a method called Data() and insert cost and listID initializer.
+        //Use the method on CategoryDef
+
+        public void Compile() 
+        {
+            indexer = ToolHandle.SetCount(thingDef.Count());
             float labelLine = labelCol.y;
             float costLine = costCol.y;
 
@@ -68,14 +86,11 @@ namespace ToolBox.SettingsComp
             {
                 if (labelCol != null)
                 {
-                    IList<string> thingLabel = thingDef.Select(l => l.label).ToList();
                     Construct.Label(labelCol.x, labelLine, labelCol.width, thingLabel, index);
                     labelLine += 24f;
                 }
                 if (costCol != null)
                 {
-                    if (cost.NullOrEmpty()) { cost.AddRange(thingDef.Select(t => t.costStuffCount).ToList()); }
-                    costBuffer = cost.Select(c => c.ToString()).ToList();
                     Construct.InputField(costCol.x, costLine, costCol.width, cost, costBuffer, 4, 10000, index);
                     costLine += 24f;
                 }

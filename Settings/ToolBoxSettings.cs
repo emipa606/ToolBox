@@ -8,15 +8,12 @@ namespace ToolBox.Settings
 {
     public class ToolBoxSettings : ModSettings
     {
-        public List<CategoryDef> categoryDef = new List<CategoryDef>();
+        public List<Container> containers = new List<Container>();
         public override void ExposeData()
         {
-            categoryDef = DefDatabase<CategoryDef>.AllDefs.ToList(); //Must always be in here!
-            Scribe_Collections.Look(ref categoryDef, "categoryDef", LookMode.Deep);
+            containers = DefDatabase<CategoryDef>.AllDefs.SelectMany(x => x.drawContent).ToList(); //Must always be in here!
+            Scribe_Collections.Look(ref containers, "Container", LookMode.Deep);
             base.ExposeData();
         }
-        //Objective: Collect all the containers and put them on a singular list.
-        //Concat the container lists
-        //Merge the same named list
     }
 }

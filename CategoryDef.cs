@@ -7,21 +7,38 @@ using ToolBox.SettingsComp;
 using Verse;
 using UnityEngine;
 using RimWorld;
+using ToolBox.Core;
 
 namespace ToolBox
 {
-    public class CategoryDef : Def, IExposable
+    public class CategoryDef : Def
     {
-        //Consider implementing a height and width here, instead of per container.
+        //Adjustable height and width
         public float position = 0;
         public CategoryLevel level = 0;
         public bool horiScrollbar = false;
         public bool vertiScrollbar = false;
         public List<Container> drawContent = new List<Container>();
 
-        void IExposable.ExposeData()
+        public void Check()
         {
-            Scribe_Collections.Look(ref drawContent, "Content", LookMode.Undefined);
+            string missingProp = "";
+            bool hasLabel = label != null && label.Length != 0;
+            bool hasLevel = level != 0;
+            bool hasMissing = !hasLabel || !hasLevel;
+            if (!hasLabel)
+            {
+                missingProp.Concat("<label>, ");
+            }
+            if (!hasLevel)
+            {
+                missingProp.Concat("<level>, ");
+            }
+            if (hasMissing)
+            {
+                //missingProp.Remove(missingProp.Count() - 2, 2);
+                throw new HasMissingException("");
+            }
         }
 
         public bool HasLabel
@@ -126,6 +143,18 @@ namespace ToolBox
                     }
                 }
                 return count;
+            }
+        }
+
+        //Do a select many on the ToolBox instead of having to foreach drawContent.
+        public void Constant()
+        {
+            if (!drawContent.NullOrEmpty())
+            {
+                foreach (Container container in drawContent)
+                {
+                    container.Initialize();
+                }
             }
         }
 
