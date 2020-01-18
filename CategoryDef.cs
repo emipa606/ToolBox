@@ -70,7 +70,6 @@ namespace ToolBox
                     textList += "<level>, ";
                 }
                 return textList.Remove(textList.Count() - 2, 2);
-
             }
         }
 

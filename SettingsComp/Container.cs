@@ -18,12 +18,14 @@ namespace ToolBox.SettingsComp
         public LabelCol labelCol;
         public CostCol costCol;
 
-        IEnumerable<ThingDef> thingDef;
-        public static List<int> cost = new List<int>();
+        static IEnumerable<ThingDef> thingDef;
+        static string ID = "null";
+        static List<int> cost = new List<int>();
         static IList<string> costBuffer;
 
         void IExposable.ExposeData()
         {
+            Scribe_Values.Look(ref ID, "ID");
             Scribe_Collections.Look(ref cost, "Cost", LookMode.Value);
         }
 
@@ -41,6 +43,7 @@ namespace ToolBox.SettingsComp
 
         public void Compile() 
         {
+            ID = listID;
             thingDef = DefDatabase<ThingDef>.AllDefs
                 .Where(t => t.HasComp(typeof(ToolBoxComp)))
                 .Where(l => l.GetCompProperties<ToolBoxCompProperties>().list.Equals(listID))

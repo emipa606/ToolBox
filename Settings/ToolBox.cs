@@ -81,6 +81,7 @@ namespace ToolBox.Settings
             Widgets.DrawLine(topHoriLine, bottomHoriLine, lineColor, 1f);
 
             //Content Sect.
+            //Note: Do an exception for the same label.
             Widgets.BeginScrollView(contentRect, ref contentScroll, contentView, true);
             listing_Content.Begin(contentRect);
             foreach (CategoryDef category in categoryList) 
