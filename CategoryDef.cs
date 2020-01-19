@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using ToolBox.Tools;
 using ToolBox.SettingsComp;
 using Verse;
 using UnityEngine;
-using RimWorld;
-using ToolBox.Core;
+using ToolBox.ExceptionHandle;
 
 namespace ToolBox
 {
@@ -20,134 +16,37 @@ namespace ToolBox
         public bool vertiScrollbar = false;
         public List<Container> drawContent = new List<Container>();
 
-        public void Check()
+        public static CategoryDef Named(string defName)
         {
-            string missingProp = "";
-            bool hasLabel = label != null && label.Length != 0;
+            return DefDatabase<CategoryDef>.GetNamed(defName, true);
+        }
+
+        public virtual void CheckMissing()
+        {
+            string prop = "";
+            int count = 0;
             bool hasLevel = level != 0;
-            bool hasMissing = !hasLabel || !hasLevel;
-            if (!hasLabel)
-            {
-                missingProp.Concat("<label>, ");
-            }
             if (!hasLevel)
             {
-                missingProp.Concat("<level>, ");
+                prop += "level";
             }
-            if (hasMissing)
+            if (!drawContent.NullOrEmpty())
             {
-                //missingProp.Remove(missingProp.Count() - 2, 2);
-                throw new HasMissingException("");
-            }
-        }
-
-        public bool HasLabel
-        {
-            get
-            {
-                if (label != null)
+                foreach (bool flag in drawContent.Select(c => !c.HasListID))
                 {
-                    return label.Length != 0;
-                }
-                return label != null;
-            }
-        }
-
-        public bool HasLevel 
-        { 
-            get 
-            {
-               return level != 0;
-            } 
-        }
-
-        public bool HasMissing
-        {
-            get
-            {
-                if (!HasLabel || !HasLevel)
-                {
-                    return true;
-                }
-                return false; 
-            }
-        }
-
-        public string GetMissing
-        {
-            get 
-            {
-                string textList = "";
-                if (!HasLabel)
-                {
-                    textList += "<label>, ";
-                }
-                if (!HasLevel) 
-                {
-                    textList += "<level>, ";
-                }
-                return textList.Remove(textList.Count() - 2, 2);
-            }
-        }
-
-        public int GetMissingCount 
-        {
-            get 
-            {
-                int count = 0;
-                bool[] flagList = new bool[] {HasLabel, HasLevel};
-                foreach (bool flag in flagList) 
-                {
-                    if (!flag) { count++; }
-                }
-                return count;
-            }
-        }
-
-        public bool HasListID 
-        {
-            get 
-            {
-                int count = 0;
-                if (!drawContent.NullOrEmpty())
-                {
-                    foreach (bool HasListID in drawContent.Select(c => !c.HasListID))
+                    if (flag)
                     {
-                        if (HasListID)
-                        {
-                            count++;
-                        }
-                    }
-                    if (count > 0)
-                    {
-                        return false;
+                        count++;
                     }
                 }
-                return true;
             }
-        }
-        
-        public int MissingListID 
-        {
-            get 
+            if (count > 0 || !hasLevel)
             {
-                int count = 0;
-                if (!drawContent.NullOrEmpty())
-                {
-                    foreach (bool HasListID in drawContent.Select(c => !c.HasListID))
-                    {
-                        if (HasListID)
-                        {
-                            count++;
-                        }
-                    }
-                }
-                return count;
+                throw new HasMissingException(prop, count);
             }
         }
 
-        //Do a select many on the ToolBox instead of having to foreach drawContent.
-        public void Constant()
+        public virtual void Constant()
         {
             if (!drawContent.NullOrEmpty())
             {
@@ -158,7 +57,7 @@ namespace ToolBox
             }
         }
 
-        public void Content(Rect rect, Rect rectView) 
+        public virtual void Content(Rect rect, Rect rectView) 
         {
             if (!drawContent.NullOrEmpty())
             {
@@ -167,11 +66,6 @@ namespace ToolBox
                     container.Compile();
                 }
             }
-        }
-
-        public static CategoryDef Named(string defName)
-        {
-            return DefDatabase<CategoryDef>.GetNamed(defName, true);
         }
     }
 }

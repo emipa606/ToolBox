@@ -52,14 +52,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlueprintCheckDef.cs" />
-    <Compile Include="BundleCheckDef.cs" />
-    <Compile Include="Core\HasMissingException.cs" />
+    <Compile Include="ExceptionHandle\HasMissingException.cs" />
     <Compile Include="Core\Initialization.cs" />
     <Compile Include="SettingsComp\Container.cs" />
     <Compile Include="SettingsComp\CategoryLevel.cs" />
     <Compile Include="SettingsComp\CostCol.cs" />
-    <Compile Include="Core\ExceptionHandle.cs" />
+    <Compile Include="ExceptionHandle\StartUpCheck.cs" />
     <Compile Include="SettingsComp\LabelCol.cs" />
     <Compile Include="ThingDefComp\ToolBoxCompProperties.cs" />
     <Compile Include="ThingDefComp\ToolBoxComp.cs" />

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ToolBox.SettingsComp;
-using ToolBox.Tools;
 using UnityEngine;
 using Verse;
 
@@ -47,7 +46,7 @@ namespace ToolBox.Settings
             {
                 if (listing_Category.ButtonText(topCategory.label))
                 {
-                    categoryFlag = topCategory.label;
+                    categoryFlag = topCategory.defName;
                 }
             }
             if(hasTop && (hasMiddle || hasBottom)) //Divider under Top level
@@ -59,7 +58,7 @@ namespace ToolBox.Settings
             {
                 if (listing_Category.ButtonText(middleCategory.label))
                 {
-                    categoryFlag = middleCategory.label;
+                    categoryFlag = middleCategory.defName;
                 }
             }
             if (hasMiddle && hasBottom) //Divider under Middle level
@@ -71,7 +70,7 @@ namespace ToolBox.Settings
             {
                 if (listing_Category.ButtonText(bottomCategory.label))
                 {
-                    categoryFlag = bottomCategory.label;
+                    categoryFlag = bottomCategory.defName;
                 }
             }
             listing_Category.End();
@@ -81,13 +80,12 @@ namespace ToolBox.Settings
             Widgets.DrawLine(topHoriLine, bottomHoriLine, lineColor, 1f);
 
             //Content Sect.
-            //Note: Do an exception for the same label.
             Widgets.BeginScrollView(contentRect, ref contentScroll, contentView, true);
             listing_Content.Begin(contentRect);
             foreach (CategoryDef category in categoryList) 
             {
                 category.Constant();
-                if (categoryFlag.Equals(category.label)) 
+                if (categoryFlag.Equals(category.defName)) 
                 {
                     category.Content(contentRect, contentView);
                 }

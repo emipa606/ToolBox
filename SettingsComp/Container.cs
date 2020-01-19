@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using ToolBox.ThingDefComp;
 using ToolBox.Tools;
-using UnityEngine;
 using Verse;
 
 namespace ToolBox.SettingsComp
@@ -23,7 +19,7 @@ namespace ToolBox.SettingsComp
         IList<string> thingLabel;
         IList<int> indexer;
         public string ID = "null";
-        public List<int> cost = new List<int>(); //Always initialize a list! Static makes it load as one 
+        public List<int> cost = new List<int>();
         IList<string> costBuffer;
 
         void IExposable.ExposeData()
@@ -32,20 +28,30 @@ namespace ToolBox.SettingsComp
             Scribe_Collections.Look(ref cost, "Cost", LookMode.Value);
         }
         
-        //Create an exception for listID
         public bool HasListID
         {
             get
             {
-                if (listID != null)
+                if (labelCol != null || costCol != null)
                 {
-                    return listID.Length != 0;
+                    if (listID != null)
+                    {
+                        return listID.Length != 0;
+                    }
+                    return false;
                 }
-                return listID != null;
+                else
+                {
+                    if (listID != null)
+                    {
+                        return listID.Length != 0;
+                    }
+                    return true;
+                }
             }
         }
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             ID = listID;
             thingDef = DefDatabase<ThingDef>.AllDefs
@@ -62,21 +68,19 @@ namespace ToolBox.SettingsComp
                 costBuffer = cost.Select(c => c.ToString()).ToList();
             }
         }
-        //Make a method called Data() and insert cost and listID initializer.
-        //Use the method on CategoryDef
-
-        public void Compile() 
+        
+        public virtual void Compile() 
         {
             indexer = ToolHandle.SetCount(thingDef.Count());
             float labelLine = labelCol.y;
             float costLine = costCol.y;
 
-            if (labelCol.header)
+            if (labelCol.hasHeader)
             {
-                Construct.UnderlinedLabel(labelCol.x, labelCol.y, labelCol.width, labelCol.headerPos, listID);
+                Construct.UnderlinedLabel(labelCol.x, labelCol.y, labelCol.width, labelCol.headerPos, labelCol.header);
                 labelLine += 24f;
             }
-            if (costCol.header)
+            if (costCol.hasHeader)
             {
                 Construct.UnderlinedLabel(costCol.x, costCol.y, costCol.width, costCol.headerPos, "Cost");
                 costLine += 24f;

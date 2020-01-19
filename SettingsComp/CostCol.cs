@@ -2,7 +2,8 @@
 {
     public class CostCol
     {
-        public bool header = true;
+        public bool hasHeader = true;
+        public string header = "Cost";
         public float headerPos = 0;
         public float x = 0;
         public float y = 0;

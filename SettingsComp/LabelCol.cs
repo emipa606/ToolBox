@@ -2,7 +2,8 @@
 {
     public class LabelCol
     {
-        public bool header = true; //Make a check if header exist, headerPos should also.
+        public bool hasHeader = true;
+        public string header = "null";
         public float headerPos = 0;
         public float x = 0;
         public float y = 0;
