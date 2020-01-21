@@ -26,11 +26,9 @@ namespace ToolBox.ExceptionHandle
             //ThingDef check
             foreach (ThingDef thingDef in thingDefs)
             {
-                string defTypeCall = "ThingDef named";
                 if (!thingDef.GetCompProperties<ToolBoxCompProperties>().HasList)
                 {
-                    Log.Error($"{Error} {defTypeCall} \"{thingDef.defName}\" does not contain <defList> inside <comps>.");
-                    
+                    Log.Error($"{Error} ThingDef named \"{thingDef.defName}\" is missing a list(ID).");
                 }
             }
 
@@ -45,11 +43,11 @@ namespace ToolBox.ExceptionHandle
                 {
                     if (e.GetMissingProp.Length > 0)
                     {
-                        Log.Error($"{Error} ThingDef named \"{categoryDef.defName}\" does not contain: {e.GetMissingProp}.");
+                        Log.Error($"{Error} CategoryDef named \"{categoryDef.defName}\" does not contain: {e.GetMissingProp}.");
                     }
                     if (e.MissingIDCount > 0)
                     {
-                        Log.Error($"{Error} ThingDef named \"{categoryDef.defName}\" " +
+                        Log.Error($"{Error} CategoryDef named \"{categoryDef.defName}\" " +
                             $"does not contain: listID in {e.MissingIDCount} of its Container(s).");
                     }
                 }

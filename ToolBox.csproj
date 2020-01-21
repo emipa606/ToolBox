@@ -66,6 +66,7 @@
     <Compile Include="Settings\ToolBoxSettings.cs" />
     <Compile Include="CategoryDef.cs" />
     <Compile Include="Tools\Construct.cs" />
+    <Compile Include="Tools\CZip.cs" />
     <Compile Include="Tools\ToolHandle.cs" />
     <Compile Include="Tools\DrawInline.cs" />
   </ItemGroup>
