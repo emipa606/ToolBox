@@ -15,14 +15,13 @@ namespace ToolBox.CategoryDefComp
         public float y = 0;
         public float width = 0;
 
-        public static List<ThingDef> rawThingDef;
-        public IList<int> index;
+        public float vertLine = 0f;
 
-        public virtual void Base(string listID)
+        public virtual void ExposeData()
         {
         }
 
-        public virtual void ExposeData()
+        public virtual void Base()
         {
         }
     }

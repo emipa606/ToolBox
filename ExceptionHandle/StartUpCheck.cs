@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ToolBox.ThingDefComp;
 using Verse;
 
 namespace ToolBox.ExceptionHandle
@@ -9,8 +8,6 @@ namespace ToolBox.ExceptionHandle
     class StartUpCheck
     {
         private static IEnumerable<CategoryDef> categoryDefs = DefDatabase<CategoryDef>.AllDefs;
-        private static IEnumerable<ThingDef> thingDefs = DefDatabase<ThingDef>.AllDefs
-            .Where(t => t.HasComp(typeof(ToolBoxComp)));
 
         private static IEnumerable<string> listIDs = DefDatabase<CategoryDef>.AllDefs
             .SelectMany(x => x.drawContent)
@@ -23,37 +20,9 @@ namespace ToolBox.ExceptionHandle
 
         static StartUpCheck() 
         {
-            //ThingDef check
-            foreach (ThingDef thingDef in thingDefs)
-            {
-                if (!thingDef.GetCompProperties<ToolBoxCompProperties>().HasList)
-                {
-                    Log.Error($"{Error} ThingDef named \"{thingDef.defName}\" is missing a list(ID).");
-                }
-            }
+            //ListingDef ID check
 
-            //CategoryDef check
-            foreach (CategoryDef categoryDef in categoryDefs) 
-            {
-                try
-                {
-                    categoryDef.CheckMissing();
-                }
-                catch (HasMissingException e)
-                {
-                    if (e.GetMissingProp.Length > 0)
-                    {
-                        Log.Error($"{Error} CategoryDef named \"{categoryDef.defName}\" does not contain: {e.GetMissingProp}.");
-                    }
-                    if (e.MissingIDCount > 0)
-                    {
-                        Log.Error($"{Error} CategoryDef named \"{categoryDef.defName}\" " +
-                            $"does not contain: listID in {e.MissingIDCount} of its Container(s).");
-                    }
-                }
-            }
-
-            //ListID check
+            //ListID dup. check
             foreach (string listID in listIDs)
             {
                 Log.Error($"{Error} ListID named \"{listID}\" has duplicate(s). " + "Please do not open the settings!");

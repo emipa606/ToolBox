@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ToolBox.SettingsComp;
+using ToolBox.CategoryDefComp;
 using UnityEngine;
 using Verse;
 
@@ -84,10 +84,10 @@ namespace ToolBox.Settings
             listing_Content.Begin(contentRect);
             foreach (CategoryDef category in categoryList) 
             {
-                category.Constant();
+                category.Load();
                 if (categoryFlag.Equals(category.defName)) 
                 {
-                    category.Content(contentRect, contentView);
+                    category.Display(contentRect, contentView);
                 }
             }
             listing_Content.End();

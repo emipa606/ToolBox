@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ToolBox.SettingsComp;
+using ToolBox.CategoryDefComp;
 using Verse;
 using UnityEngine;
-using ToolBox.ExceptionHandle;
+using ToolBox.Tools;
 
 namespace ToolBox
 {
@@ -21,17 +21,15 @@ namespace ToolBox
             return DefDatabase<CategoryDef>.GetNamed(defName, true);
         }
 
-        public virtual void CheckMissing()
+        public override IEnumerable<string> ConfigErrors()
         {
-            string prop = "";
-            int count = 0;
-            bool hasLevel = level != 0;
-            if (!hasLevel)
+            if (level == 0)
             {
-                prop += "level";
+                yield return $"[ToolBox : ERROR] CategoryDef {defName} is missing a position level.";
             }
             if (!drawContent.NullOrEmpty())
             {
+                int count = 0;
                 foreach (bool flag in drawContent.Select(c => !c.HasListID))
                 {
                     if (flag)
@@ -39,32 +37,35 @@ namespace ToolBox
                         count++;
                     }
                 }
+                if (count > 0)
+                {
+                    yield return $"[ToolBox : ERROR] CategoryDef {defName} is missing a listID in {count} of its containers.";
+                }
             }
-            if (count > 0 || !hasLevel)
+            yield break;
+        }
+
+        public virtual void PreLoad()//Get an initializer and list all categorydef and get their preload
+        {
+            foreach (Container container in drawContent)
             {
-                throw new HasMissingException(prop, count);
+                container.LoadBase();
             }
         }
 
-        public virtual void Constant()
+        public virtual void Load()
         {
-            if (!drawContent.NullOrEmpty())
+            foreach (Container container in drawContent)
             {
-                foreach (Container container in drawContent)
-                {
-                    container.Initialize();
-                }
+                container.LoadSubWidgets();
             }
         }
 
-        public virtual void Content(Rect rect, Rect rectView) 
+        public virtual void Display(Rect rect, Rect rectView) 
         {
-            if (!drawContent.NullOrEmpty())
+            foreach (Container container in drawContent)
             {
-                foreach (Container container in drawContent)
-                {
-                    container.Compile();
-                }
+                container.LoadWidgets();
             }
         }
     }

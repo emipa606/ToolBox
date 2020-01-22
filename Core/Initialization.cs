@@ -2,8 +2,6 @@
 using System.Linq;
 using Verse;
 using ToolBox.Settings;
-using ToolBox.ThingDefComp;
-using ToolBox.SettingsComp;
 using ToolBox.Tools;
 
 namespace ToolBox.Core
@@ -15,6 +13,12 @@ namespace ToolBox.Core
         static List<int> indexer = new List<int>();
         static Initialization()
         {
+            
+            IEnumerable<CategoryDef> iniThing = DefDatabase<CategoryDef>.AllDefs;
+            foreach (CategoryDef item in iniThing)
+            {
+                item.PreLoad();
+            }
             /*
             List<Container> conts = LoadedModManager.GetMod<Settings.ToolBox>().GetSettings<ToolBoxSettings>().containers;
             IEnumerable<ThingDef> thingDef = DefDatabase<ThingDef>.AllDefs
