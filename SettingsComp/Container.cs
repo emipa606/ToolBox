@@ -16,16 +16,11 @@ namespace ToolBox.SettingsComp
         //Reset button!
 
         IEnumerable<ThingDef> thingDef;
-        IList<string> thingLabel;
         IList<int> indexer;
-        public string ID = "null";
-        public List<int> cost = new List<int>();
-        IList<string> costBuffer;
 
         void IExposable.ExposeData()
         {
-            Scribe_Values.Look(ref ID, "ID");
-            Scribe_Collections.Look(ref cost, "Cost", LookMode.Value);
+            Scribe_Deep.Look(ref costCol, "costCol");
         }
         
         public bool HasListID
@@ -53,51 +48,42 @@ namespace ToolBox.SettingsComp
 
         public virtual void Initialize()
         {
-            ID = listID;
             thingDef = DefDatabase<ThingDef>.AllDefs
                 .Where(t => t.HasComp(typeof(ToolBoxComp)))
                 .Where(l => l.GetCompProperties<ToolBoxCompProperties>().list.Equals(listID))
                 .OrderBy(t => t.GetCompProperties<ToolBoxCompProperties>().position);
             if (labelCol != null)
             {
-                thingLabel = thingDef.Select(l => l.label).ToList();
+                labelCol.Base(thingDef);
             }
             if (costCol != null)
             {
-                if (cost.NullOrEmpty()) { cost.AddRange(thingDef.Select(t => t.costStuffCount).ToList()); }
-                costBuffer = cost.Select(c => c.ToString()).ToList();
+                costCol.Base(thingDef);
             }
         }
         
         public virtual void Compile() 
         {
             indexer = ToolHandle.SetCount(thingDef.Count());
-            float labelLine = labelCol.y;
-            float costLine = costCol.y;
+            float labelLine = 0;
+            float costLine = 0;
 
-            if (labelCol.hasHeader)
+            if (labelCol != null)
             {
-                Construct.UnderlinedLabel(labelCol.x, labelCol.y, labelCol.width, labelCol.headerPos, labelCol.header);
-                labelLine += 24f;
+                labelLine = labelCol.y;
+                labelCol.Header(ref labelLine);
             }
-            if (costCol.hasHeader)
+
+            if (costCol != null)
             {
-                Construct.UnderlinedLabel(costCol.x, costCol.y, costCol.width, costCol.headerPos, "Cost");
-                costLine += 24f;
+                costLine = costCol.y;
+                costCol.Header(ref costLine);
             }
 
             foreach (int index in indexer)
             {
-                if (labelCol != null)
-                {
-                    Construct.Label(labelCol.x, labelLine, labelCol.width, thingLabel, index);
-                    labelLine += 24f;
-                }
-                if (costCol != null)
-                {
-                    Construct.InputField(costCol.x, costLine, costCol.width, cost, costBuffer, 4, 10000, index);
-                    costLine += 24f;
-                }
+                if (labelCol != null) { labelCol.Body(index, ref labelLine); }
+                if (costCol != null) { costCol.Body(index, ref costLine); }
             }
         }
     }
