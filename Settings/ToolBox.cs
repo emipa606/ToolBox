@@ -84,7 +84,6 @@ namespace ToolBox.Settings
             listing_Content.Begin(contentRect);
             foreach (CategoryDef category in categoryList) 
             {
-                category.Reload();
                 if (categoryFlag.Equals(category.defName)) 
                 {
                     category.Display(contentRect, contentView);
@@ -96,12 +95,12 @@ namespace ToolBox.Settings
 
         public override void WriteSettings()
         {
+            foreach (CategoryDef category in categoryList)
+            {
+                category.Reload();
+            }
             base.WriteSettings();
-            PostLoadData();
         }
 
-        public void PostLoadData()
-        {
-        }
     }
 }

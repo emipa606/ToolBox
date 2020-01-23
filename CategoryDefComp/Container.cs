@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ToolBox.Tools;
 using Verse;
 
@@ -14,8 +12,12 @@ namespace ToolBox.CategoryDefComp
         public List<string> thingList = new List<string>();
         public LabelCol labelCol = new LabelCol();
         public CostCol costCol = new CostCol();
-
         public IList<int> indexer;
+
+        public virtual void ExposeData()
+        {
+            Scribe_Deep.Look(ref costCol, "costCol");
+        }
 
         /*
         public bool HasListID
@@ -42,22 +44,18 @@ namespace ToolBox.CategoryDefComp
         }
         */
 
-        public virtual void ExposeData()
-        {
-
-        }
-
         public virtual void LoadBase() 
         {
             indexer = ToolHandle.SetCount(thingList.Count());
             labelCol.Base(thingList);
-            costCol.Base(thingList);
+            costCol.Base(thingList, this.indexer.ToList());
         }
 
-        public virtual void LoadConstant()
+        public virtual void LoadData()
         {
+            costCol.Data(indexer);
         }
-
+        
         public virtual void LoadWidgets()
         {
             float labeLine = labelCol.y;

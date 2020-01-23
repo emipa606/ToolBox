@@ -5,12 +5,14 @@ namespace ToolBox.CategoryDefComp
 {
     public class LabelCol : BaseCol
     {
-
         public IList<string> label;
 
         public void Base(IList<string> defName)
         {
-            label = defName;
+            if (linked)
+            {
+                label = defName;
+            }
         }
 
         public void Header(ref float vertLine)

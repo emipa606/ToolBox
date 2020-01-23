@@ -58,7 +58,6 @@
     <Compile Include="CategoryDefComp\CostCol.cs" />
     <Compile Include="CategoryDefComp\LabelCol.cs" />
     <Compile Include="Core\StartUpLoad.cs" />
-    <Compile Include="ListingDef.cs" />
     <Compile Include="Core\StartUpCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\ToolBox.cs" />

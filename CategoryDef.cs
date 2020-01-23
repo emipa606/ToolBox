@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ToolBox.CategoryDefComp;
 using Verse;
 using UnityEngine;
-using ToolBox.Tools;
 
 namespace ToolBox
 {
@@ -25,23 +23,7 @@ namespace ToolBox
         {
             if (level == 0)
             {
-                yield return "CategoryDef is missing a position level.";
-            }
-            if (!drawContent.NullOrEmpty())
-            {
-                int count = 0;
-                /*
-                foreach (bool flag in drawContent.Select(c => !c.HasListID))
-                {
-                    if (flag)
-                    {
-                        count++;
-                    }
-                }*/
-                if (count > 0)
-                {
-                    yield return $"CategoryDef is missing a listID in {count} of its containers.";
-                }
+                yield return "CategoryDef is missing a level.";
             }
             yield break;
         }
@@ -58,7 +40,7 @@ namespace ToolBox
         {
             foreach (Container container in drawContent)
             {
-                container.LoadConstant();
+                container.LoadData();
             }
         }
 
