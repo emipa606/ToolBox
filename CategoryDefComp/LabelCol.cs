@@ -1,30 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using ToolBox.Tools;
-using Verse;
 
 namespace ToolBox.CategoryDefComp
 {
     public class LabelCol : BaseCol
     {
-        public override void Base()
+
+        public IList<string> label;
+
+        public void Base(IList<string> defName)
         {
-            vertLine = y;
+            label = defName;
         }
 
-        public virtual void Header(ref float vertLine)
+        public void Header(ref float vertLine)
         {
-            Construct.UnderlinedLabel(x, vertLine, width, headerPos, header);
-            vertLine += 24f;
+            if (linked && hasHeader)
+            {
+                Construct.UnderlinedLabel(x, vertLine, width, headerPos, header);
+                vertLine += 24f;
+            }
         }
 
-        public virtual void Body(string label)
+        public void Body(ref float vertLine, int index)
         {
-            Construct.Label(x, vertLine, width, label);
-            //vertLine += 24f;
+            if (linked)
+            {
+                Construct.Label(x, vertLine, width, label, index);
+                vertLine += 24f;
+            }
         }
-
     }
 }

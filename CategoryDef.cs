@@ -25,27 +25,28 @@ namespace ToolBox
         {
             if (level == 0)
             {
-                yield return $"[ToolBox : ERROR] CategoryDef {defName} is missing a position level.";
+                yield return "CategoryDef is missing a position level.";
             }
             if (!drawContent.NullOrEmpty())
             {
                 int count = 0;
+                /*
                 foreach (bool flag in drawContent.Select(c => !c.HasListID))
                 {
                     if (flag)
                     {
                         count++;
                     }
-                }
+                }*/
                 if (count > 0)
                 {
-                    yield return $"[ToolBox : ERROR] CategoryDef {defName} is missing a listID in {count} of its containers.";
+                    yield return $"CategoryDef is missing a listID in {count} of its containers.";
                 }
             }
             yield break;
         }
 
-        public virtual void PreLoad()//Get an initializer and list all categorydef and get their preload
+        public virtual void PreLoad()
         {
             foreach (Container container in drawContent)
             {
@@ -53,11 +54,11 @@ namespace ToolBox
             }
         }
 
-        public virtual void Load()
+        public virtual void Reload()
         {
             foreach (Container container in drawContent)
             {
-                container.LoadSubWidgets();
+                container.LoadConstant();
             }
         }
 

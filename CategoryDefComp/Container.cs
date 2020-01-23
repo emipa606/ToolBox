@@ -9,17 +9,20 @@ namespace ToolBox.CategoryDefComp
 {
     public class Container : IExposable
     {
-        public string listID;
         public float x = 0;
         public float y = 0;
+        public List<string> thingList = new List<string>();
         public LabelCol labelCol = new LabelCol();
-        public IEnumerable<ListingDef> thingList;
+        public CostCol costCol = new CostCol();
 
+        public IList<int> indexer;
+
+        /*
         public bool HasListID
         {
             get
             {
-                if (labelCol != null /*|| costCol != null*/)
+                if (labelCol != null || costCol != null)
                 {
                     if (listID != null)
                     {
@@ -37,6 +40,7 @@ namespace ToolBox.CategoryDefComp
                 }
             }
         }
+        */
 
         public virtual void ExposeData()
         {
@@ -45,43 +49,26 @@ namespace ToolBox.CategoryDefComp
 
         public virtual void LoadBase() 
         {
-            thingList = DefDatabase<ListingDef>.AllDefs.Where(x => x.ID.Equals(this.listID));
-            labelCol.Base();
-            /*
-            foreach (ListingDef lol in thingList)
-            {
-                Log.Error(lol.ID);
-                foreach (string item in lol.list)
-                {
-                    Log.Error(item);
-                }
-            }*/
+            indexer = ToolHandle.SetCount(thingList.Count());
+            labelCol.Base(thingList);
+            costCol.Base(thingList);
         }
 
-        public virtual void LoadSubWidgets()
+        public virtual void LoadConstant()
         {
-            float vertLine = labelCol.y;
-            if (labelCol != null)
-            {
-                labelCol.Header(ref vertLine);
-            }
         }
 
         public virtual void LoadWidgets()
         {
-            foreach (ListingDef thing in thingList)
+            float labeLine = labelCol.y;
+            float costLine = costCol.y;
+            labelCol.Header(ref labeLine);
+            costCol.Header(ref costLine);
+            foreach (int index in indexer)
             {
-                if (labelCol != null)
-                {
-                    foreach (string defName in thing.list)
-                    {
-                        labelCol.Body(ThingDef.Named(defName).label);
-                        Log.Error(ThingDef.Named(defName).label);
-                    }
-                }
+                labelCol.Body(ref labeLine, index);
+                costCol.Body(ref costLine, index);
             }
         }
-
-
     }
 }

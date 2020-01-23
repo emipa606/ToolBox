@@ -26,7 +26,7 @@ namespace ToolBox
             {
                 if (ID.Length.Equals(0))
                 {
-                    yield return $"ListingDef is missing an ID.";
+                    yield return "ListingDef is missing an ID.";
                 }
             }
             yield break;
