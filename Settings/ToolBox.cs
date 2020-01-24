@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ToolBox.CategoryDefComp;
+using ToolBox.SettingsDefComp;
 using UnityEngine;
 using Verse;
 
@@ -16,7 +16,7 @@ namespace ToolBox.Settings
         private Color lineColor = new Color(105f, 105f, 105f, 0.5f);
         private Listing_Standard listing_Category = new Listing_Standard();
         private Listing_Standard listing_Content = new Listing_Standard();
-        private IEnumerable<CategoryDef> categoryList = DefDatabase<CategoryDef>.AllDefs.OrderBy(c => c.position);
+        private IEnumerable<SettingsDef> categoryList = DefDatabase<SettingsDef>.AllDefs.OrderBy(c => c.position);
         private string categoryFlag = "Home";
         
         public override string SettingsCategory() => "ToolBox";
@@ -42,7 +42,7 @@ namespace ToolBox.Settings
             Widgets.BeginScrollView(categoryRect, ref categoryScroll, categoryView, true);
             listing_Category.Begin(categoryRect);
             listing_Category.ColumnWidth = categoryRect.width - 15.5f;
-            foreach (CategoryDef topCategory in categoryList.Where(c => c.level.Equals(CategoryLevel.Top)))
+            foreach (SettingsDef topCategory in categoryList.Where(c => c.level.Equals(CategoryLevel.Top)))
             {
                 if (listing_Category.ButtonText(topCategory.label))
                 {
@@ -54,7 +54,7 @@ namespace ToolBox.Settings
                 listing_Category.GapLine(5f);
                 listing_Category.Gap(5f);
             }
-            foreach (CategoryDef middleCategory in categoryList.Where(c => c.level.Equals(CategoryLevel.Middle))) 
+            foreach (SettingsDef middleCategory in categoryList.Where(c => c.level.Equals(CategoryLevel.Middle))) 
             {
                 if (listing_Category.ButtonText(middleCategory.label))
                 {
@@ -66,7 +66,7 @@ namespace ToolBox.Settings
                 listing_Category.GapLine(5f);
                 listing_Category.Gap(5f);
             }
-            foreach (CategoryDef bottomCategory in categoryList.Where(c => c.level.Equals(CategoryLevel.Bottom)))
+            foreach (SettingsDef bottomCategory in categoryList.Where(c => c.level.Equals(CategoryLevel.Bottom)))
             {
                 if (listing_Category.ButtonText(bottomCategory.label))
                 {
@@ -82,7 +82,7 @@ namespace ToolBox.Settings
             //Content Sect.
             Widgets.BeginScrollView(contentRect, ref contentScroll, contentView, true);
             listing_Content.Begin(contentRect);
-            foreach (CategoryDef category in categoryList) 
+            foreach (SettingsDef category in categoryList) 
             {
                 if (categoryFlag.Equals(category.defName)) 
                 {
@@ -95,7 +95,8 @@ namespace ToolBox.Settings
 
         public override void WriteSettings()
         {
-            foreach (CategoryDef category in categoryList)
+            settings.containers = DefDatabase<SettingsDef>.AllDefs.SelectMany(x => x.drawContent).ToList();
+            foreach (SettingsDef category in categoryList)
             {
                 category.Reload();
             }

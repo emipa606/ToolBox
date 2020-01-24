@@ -1,6 +1,6 @@
 ﻿using Verse;
 
-namespace ToolBox.CategoryDefComp
+namespace ToolBox.SettingsDefComp
 {
     public class BaseCol : IExposable
     {

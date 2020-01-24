@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ToolBox.Tools;
 
-namespace ToolBox.CategoryDefComp
+namespace ToolBox.SettingsDefComp
 {
     public class LabelCol : BaseCol
     {

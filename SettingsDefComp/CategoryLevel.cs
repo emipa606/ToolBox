@@ -1,4 +1,4 @@
-﻿namespace ToolBox.CategoryDefComp
+﻿namespace ToolBox.SettingsDefComp
 {
     public enum CategoryLevel
     {

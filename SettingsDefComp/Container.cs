@@ -3,19 +3,22 @@ using System.Linq;
 using ToolBox.Tools;
 using Verse;
 
-namespace ToolBox.CategoryDefComp
+namespace ToolBox.SettingsDefComp
 {
     public class Container : IExposable
     {
         public float x = 0;
         public float y = 0;
+        public string listID;
         public List<string> thingList = new List<string>();
-        public LabelCol labelCol = new LabelCol();
-        public CostCol costCol = new CostCol();
-        public IList<int> indexer;
+        public LabelCol labelCol;
+        public CostCol costCol;
+        public IList<int> index;
 
         public virtual void ExposeData()
         {
+            Scribe_Values.Look(ref listID, "listID");
+            Scribe_Collections.Look(ref thingList, "thingList", LookMode.Value);
             Scribe_Deep.Look(ref costCol, "costCol");
         }
 
@@ -46,14 +49,14 @@ namespace ToolBox.CategoryDefComp
 
         public virtual void LoadBase() 
         {
-            indexer = ToolHandle.SetCount(thingList.Count());
+            index = ToolHandle.SetCount(thingList.Count());
             labelCol.Base(thingList);
-            costCol.Base(thingList, this.indexer.ToList());
+            costCol.Base(thingList, listID);
         }
 
         public virtual void LoadData()
         {
-            costCol.Data(indexer);
+            costCol.Data(index);
         }
         
         public virtual void LoadWidgets()
@@ -62,10 +65,10 @@ namespace ToolBox.CategoryDefComp
             float costLine = costCol.y;
             labelCol.Header(ref labeLine);
             costCol.Header(ref costLine);
-            foreach (int index in indexer)
+            foreach (int i in index)
             {
-                labelCol.Body(ref labeLine, index);
-                costCol.Body(ref costLine, index);
+                labelCol.Body(ref labeLine, i);
+                costCol.Body(ref costLine, i);
             }
         }
     }
