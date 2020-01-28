@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ToolBox.CategoryDefComp;
 using ToolBox.Settings;
+using ToolBox.SettingsDefComp;
 using Verse;
 
 namespace ToolBox.Core
@@ -11,14 +11,13 @@ namespace ToolBox.Core
     {
         static StartUpLoad()
         {
-            List<Container> containers = LoadedModManager.GetMod<Settings.ToolBox>().GetSettings<ToolBoxSettings>().categoryDefs;
-            List<CategoryDef> categoryDefs = new List<CategoryDef>();
-            categoryDefs.AddRange(DefDatabase<CategoryDef>.AllDefs);
-            foreach (CategoryDef def in categoryDefs)
+            IEnumerable<ThingList> thingList = LoadedModManager
+                .GetMod<Settings.ToolBox>()
+                .GetSettings<ToolBoxSettings>().thingList;
+            foreach (ThingList thing in thingList)
             {
-                def.PreLoad();
+                ThingDef.Named(thing.defName).costStuffCount = thing.cost;
             }
-            Log.Error(containers.Count().ToString());
         }
     }
 }
