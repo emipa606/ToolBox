@@ -1,24 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ToolBox.SettingsComp;
+using ToolBox.SettingsDefComp;
 using Verse;
 
 namespace ToolBox.Settings
 {
     public class ToolBoxSettings : ModSettings
     {
-        public List<Container> containers = new List<Container>(); 
-        //Container outside: Init has output of 2 but will produce an error.
-        //Inside: Init has 0
-        
-
+        //public List<Container> conts;
+        public List<ThingList> thingList = new List<ThingList>();
         public override void ExposeData()
         {
-            containers = DefDatabase<CategoryDef>.AllDefs.SelectMany(x => x.drawContent).ToList();
-            //containers.AddRange(DefDatabase<CategoryDef>.AllDefs.SelectMany(x => x.drawContent).ToList());
-            Scribe_Collections.Look(ref containers, "containers", LookMode.Deep);
+            Scribe_Collections.Look(ref thingList, "thingList", LookMode.Deep);
+            Log.Error($"Saved {thingList.Count().ToString()} thingList(s)!");
             base.ExposeData();
         }
-
     }
 }

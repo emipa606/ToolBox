@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ToolBox.SettingsComp;
+using ToolBox.SettingsDefComp;
 using UnityEngine;
 using Verse;
 
@@ -16,8 +16,8 @@ namespace ToolBox.Settings
         private Color lineColor = new Color(105f, 105f, 105f, 0.5f);
         private Listing_Standard listing_Category = new Listing_Standard();
         private Listing_Standard listing_Content = new Listing_Standard();
-        private IEnumerable<CategoryDef> categoryList = DefDatabase<CategoryDef>.AllDefs.OrderBy(c => c.position);
-        private string categoryFlag = "Home";
+        private IEnumerable<SettingsDef> settingsDef_Enum = DefDatabase<SettingsDef>.AllDefs.OrderBy(c => c.position);
+        private string settingsDef_Flag = "Home";
         
         public override string SettingsCategory() => "ToolBox";
 
@@ -34,19 +34,19 @@ namespace ToolBox.Settings
             Rect categoryView = new Rect(rect.x, rect.y, categoryRect.width - 25f, rect.height);
             Rect contentRect = new Rect(categoryRect.width + 5f, rect.y, (rect.width - categoryRect.width) - 5f, rect.height);
             Rect contentView = new Rect(contentRect.x, rect.y, contentRect.width - 25f, contentViewHeight);
-            bool hasTop = categoryList.Where(c => c.level.Equals(CategoryLevel.Top)).Count() != 0;
-            bool hasMiddle = categoryList.Where(c => c.level.Equals(CategoryLevel.Middle)).Count() != 0;
-            bool hasBottom = categoryList.Where(c => c.level.Equals(CategoryLevel.Bottom)).Count() != 0;
+            bool hasTop = settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Top)).Count() != 0;
+            bool hasMiddle = settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Middle)).Count() != 0;
+            bool hasBottom = settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Bottom)).Count() != 0;
 
             //Category Sect.
             Widgets.BeginScrollView(categoryRect, ref categoryScroll, categoryView, true);
             listing_Category.Begin(categoryRect);
             listing_Category.ColumnWidth = categoryRect.width - 15.5f;
-            foreach (CategoryDef topCategory in categoryList.Where(c => c.level.Equals(CategoryLevel.Top)))
+            foreach (SettingsDef topCategory in settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Top)))
             {
                 if (listing_Category.ButtonText(topCategory.label))
                 {
-                    categoryFlag = topCategory.defName;
+                    settingsDef_Flag = topCategory.defName;
                 }
             }
             if(hasTop && (hasMiddle || hasBottom)) //Divider under Top level
@@ -54,11 +54,11 @@ namespace ToolBox.Settings
                 listing_Category.GapLine(5f);
                 listing_Category.Gap(5f);
             }
-            foreach (CategoryDef middleCategory in categoryList.Where(c => c.level.Equals(CategoryLevel.Middle))) 
+            foreach (SettingsDef middleCategory in settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Middle))) 
             {
                 if (listing_Category.ButtonText(middleCategory.label))
                 {
-                    categoryFlag = middleCategory.defName;
+                    settingsDef_Flag = middleCategory.defName;
                 }
             }
             if (hasMiddle && hasBottom) //Divider under Middle level
@@ -66,11 +66,11 @@ namespace ToolBox.Settings
                 listing_Category.GapLine(5f);
                 listing_Category.Gap(5f);
             }
-            foreach (CategoryDef bottomCategory in categoryList.Where(c => c.level.Equals(CategoryLevel.Bottom)))
+            foreach (SettingsDef bottomCategory in settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Bottom)))
             {
                 if (listing_Category.ButtonText(bottomCategory.label))
                 {
-                    categoryFlag = bottomCategory.defName;
+                    settingsDef_Flag = bottomCategory.defName;
                 }
             }
             listing_Category.End();
@@ -82,27 +82,43 @@ namespace ToolBox.Settings
             //Content Sect.
             Widgets.BeginScrollView(contentRect, ref contentScroll, contentView, true);
             listing_Content.Begin(contentRect);
-            foreach (CategoryDef category in categoryList) 
+
+            foreach (SettingsDef settingsDef in settingsDef_Enum) 
             {
-                category.Constant();
-                if (categoryFlag.Equals(category.defName)) 
+                if (settingsDef.defName.Equals(settingsDef_Flag)) 
                 {
-                    category.Content(contentRect, contentView);
+                    settingsDef.Display();
                 }
             }
+            
             listing_Content.End();
             Widgets.EndScrollView();
         }
 
         public override void WriteSettings()
         {
+            IEnumerable<ThingList> thingList = DefDatabase<SettingsDef>.AllDefs
+                .SelectMany(s => s.drawContent
+                .SelectMany(d => d.thingList));
+
+            foreach (ThingList thing in thingList)
+            {
+                thing.DataCheck();
+            }
+
+            settings.thingList = DefDatabase<SettingsDef>.AllDefs
+                .SelectMany(s => s.drawContent
+                .SelectMany(d => d.thingList
+                .Where(x => x.config)))
+                .ToList();
+
+            settings.thingList = settings.thingList
+                .GroupBy(s => s.defName)
+                .Select(g => g.Last())
+                .ToList();
+
             base.WriteSettings();
-            PostLoadData();
         }
 
-        public void PostLoadData()
-        {
-
-        }
     }
 }
