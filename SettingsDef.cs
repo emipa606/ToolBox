@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using Verse;
-using UnityEngine;
 using ToolBox.SettingsDefComp;
-using System.Linq;
 
 namespace ToolBox
 {
@@ -11,8 +9,9 @@ namespace ToolBox
         //Adjustable height and width
         public float position = 0;
         public CategoryLevel level = 0;
-        public bool horiScrollbar = false;
-        public bool vertiScrollbar = false;
+        public bool scrollbar = true;
+        public float width = 0;
+        public float height = 0;
         public List<DrawContent> drawContent = new List<DrawContent>();
 
         public static SettingsDef Named(string defName)
@@ -27,6 +26,14 @@ namespace ToolBox
                 yield return "CategoryDef is missing a level.";
             }
             yield break;
+        }
+
+        public void DrawSize() 
+        {
+            foreach (DrawContent content in drawContent)
+            {
+                content.AdaptSize();
+            }
         }
 
         public void Display() 

@@ -11,8 +11,9 @@ namespace ToolBox.Settings
         public ToolBoxSettings settings;
         private Vector2 categoryScroll = new Vector2(0f, 0f);
         private Vector2 contentScroll = new Vector2(0f, 0f);
+        private Vector2 contentScrollHori = new Vector2(0f, 0f);
         private Vector2 topHoriLine = new Vector2(168f, 40f);
-        private Vector2 bottomHoriLine = new Vector2(168f, 600f);
+        private Vector2 bottomHoriLine = new Vector2(168f, 623f);
         private Color lineColor = new Color(105f, 105f, 105f, 0.5f);
         private Listing_Standard listing_Category = new Listing_Standard();
         private Listing_Standard listing_Content = new Listing_Standard();
@@ -28,24 +29,22 @@ namespace ToolBox.Settings
 
         public override void DoSettingsWindowContents(Rect rect)
         {
-            float contentViewHeight = rect.height;
-            //if (categoryFlag.Equals("Fences")){ contentViewHeight = 600f; }
             Rect categoryRect = new Rect(rect.x, rect.y, rect.width / 5f, rect.height);//172.8 width
+            Rect categoryRectScroll = new Rect(rect.x, rect.y, rect.width / 5f, rect.height);
             Rect categoryView = new Rect(rect.x, rect.y, categoryRect.width - 25f, rect.height);
             Rect contentRect = new Rect(categoryRect.width + 5f, rect.y, (rect.width - categoryRect.width) - 5f, rect.height);
-            Rect contentView = new Rect(contentRect.x, rect.y, contentRect.width - 25f, contentViewHeight);
+            Rect contentRectScroll = new Rect(categoryRect.width + 5f, rect.y, (rect.width - categoryRect.width) - 5f, rect.height);
+            Rect contentView = new Rect(contentRect.x, rect.y, contentRect.width - 25f, rect.height);
             bool hasTop = settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Top)).Count() != 0;
             bool hasMiddle = settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Middle)).Count() != 0;
             bool hasBottom = settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Bottom)).Count() != 0;
             bool drawSeparator = true;
+            bool drawContentScroll = true;
 
-            /* Note:
-             * -Resizing category rect goes out of bounds. Try removing listing_Content and see if
-             * ScrollView has its own rect. If it doesn't find a way to fix rect resize to fit new
-             * UI objects.
-             * 
+            /* 
              * To Do:
-             * -Make the drawContent adjustable.
+             * -Fix cost's default width and headerPos
+             * -Make an exception for same thingList defName.
              * -Do the other inputs.
              */
 
@@ -54,15 +53,16 @@ namespace ToolBox.Settings
             if (hasTop) { categorRectHeight += 10f; }
             if (hasMiddle) { categorRectHeight += 10f; }
             if (hasBottom) { categorRectHeight += 10f; }
-            if (categorRectHeight + (settingsDef_Enum.Count() * 32f) > categoryRect.height) 
+            if (categorRectHeight + (settingsDef_Enum.Count() * 31.5f) > categoryRect.height) 
             {
                 drawSeparator = false;
-                categoryView.height = categorRectHeight + (settingsDef_Enum.Count() * 32f);
-                categoryRect.height = categorRectHeight + (settingsDef_Enum.Count() * 32f) - 1f;
+                categoryView.height = categorRectHeight + (settingsDef_Enum.Count() * 31.5f);
+                categoryRect.height = categorRectHeight + (settingsDef_Enum.Count() * 31.5f);
             }
 
             //Category Sect.
-            Widgets.BeginScrollView(categoryRect, ref categoryScroll, categoryView, true);
+            //Note: Deciding on adding an option in hope to put a button that disables scrollbar on category.
+            Widgets.BeginScrollView(categoryRectScroll, ref categoryScroll, categoryView, true);
             listing_Category.Begin(categoryRect);
             listing_Category.ColumnWidth = categoryRect.width - 15.5f;
             foreach (SettingsDef topCategory in settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Top)))
@@ -105,8 +105,47 @@ namespace ToolBox.Settings
                 Widgets.DrawLine(topHoriLine, bottomHoriLine, lineColor, 1f);
             }
 
+            //ContentRect Resize
+            foreach (SettingsDef settingsDef in settingsDef_Enum)
+            {
+                if (settingsDef.defName.Equals(settingsDef_Flag))
+                {
+                    settingsDef.DrawSize();
+                    drawContentScroll = settingsDef.scrollbar;
+                    float addHeight = 0;
+                    bool widerContent = settingsDef.drawContent.Select(d => d.width).Max() > contentRect.width;
+                    bool higherContent = settingsDef.drawContent.Select(d => d.height).Max() > contentRect.height;
+                    bool widerSettings = settingsDef.width > contentRect.width;
+                    bool higherSettings = settingsDef.height > contentRect.height;
+                    if (widerSettings)
+                    {
+                        contentView.width = settingsDef.width;
+                        contentRect.width = settingsDef.width;
+                        contentView.height -= 16f;
+                        addHeight += 1f;
+                    }
+                    else if (widerContent) 
+                    {
+                        contentView.width = settingsDef.drawContent.Select(d => d.width).Max();
+                        contentRect.width = settingsDef.drawContent.Select(d => d.width).Max();
+                        contentView.height -= 16f;
+                        addHeight += 1f;
+                    }
+                    if (higherSettings)
+                    {
+                        contentView.height = settingsDef.height;
+                        contentRect.height = settingsDef.height;
+                    }
+                    else if (widerContent)
+                    {
+                        contentView.height = settingsDef.drawContent.Select(d => d.height).Max() + addHeight;
+                        contentRect.height = settingsDef.drawContent.Select(d => d.height).Max() + addHeight;
+                    }
+                }
+            }
+
             //Content Sect.
-            Widgets.BeginScrollView(contentRect, ref contentScroll, contentView, true);
+            Widgets.BeginScrollView(contentRectScroll, ref contentScroll, contentView, drawContentScroll);
             listing_Content.Begin(contentRect);
             foreach (SettingsDef settingsDef in settingsDef_Enum) 
             {

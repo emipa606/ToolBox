@@ -4,6 +4,7 @@ namespace ToolBox.SettingsDefComp
 {
     public class BaseProp
     {
+        public bool draw = false;
         public bool hasHeader = true;
         public string header = "null";
         public float headerPos = 0;
@@ -14,17 +15,20 @@ namespace ToolBox.SettingsDefComp
 
         public virtual void Header() 
         {
-            if (hasHeader)
+            if (draw)
             {
-                Construct.UnderlinedLabel(x, y, width, headerPos, header);
-                if (vertLine != (y + 24))
+                if (hasHeader)
                 {
-                    vertLine = y + 24;
+                    Construct.UnderlinedLabel(x, y, width, headerPos, header);
+                    if (vertLine != (y + 24))
+                    {
+                        vertLine = y + 24;
+                    }
                 }
-            }
-            else
-            {
-                vertLine = y;
+                else
+                {
+                    vertLine = y;
+                }
             }
         }
     }

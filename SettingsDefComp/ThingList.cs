@@ -52,17 +52,17 @@ namespace ToolBox.SettingsDefComp
             }
         }
 
-        public void LabelWidget(float x, float y, float width) 
+        public void LabelWidget(bool draw, float x, float y, float width) 
         {
-            if (label != null && width != 0 && exists)
+            if (label != null && draw && exists)
             {
                 Widgets.Label(new Rect(x, y, width, 22f), label);
             }
         }
 
-        public void CostWidget(float x, float y, float width, float min, float max) 
+        public void CostWidget(bool draw, float x, float y, float width, float min, float max) 
         {
-            if (width != 0 && exists)
+            if (draw && exists)
             {
                 Widgets.TextFieldNumeric(new Rect(x, y, width, 22f), ref cost, ref costBuffer, min, max);
             }

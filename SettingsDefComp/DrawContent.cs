@@ -13,7 +13,43 @@ namespace ToolBox.SettingsDefComp
         public CostCol costCol = new CostCol();
         public ResetButton resetButton = new ResetButton();
         public IList<int> index = new List<int>();
+        public float width = 0;
+        public float height = 0;
         public bool loadData = true;
+        public bool checkSize = true;
+
+        public void AdaptSize() 
+        {
+            //Content Width set
+            if (checkSize)
+            {
+                List<float> width = new List<float>() { 0 };
+                List<float> height = new List<float>() { 0 };
+                if (labelCol.draw)
+                {
+                    float colHeight = 0;
+                    if (labelCol.hasHeader) { colHeight += 22f; }
+                    width.Add(labelCol.x + labelCol.width);
+                    height.Add(labelCol.y + (thingList.Count() * 22f) + colHeight);
+                }
+                if (costCol.draw)
+                {
+                    float colHeight = 0;
+                    if (costCol.hasHeader) { colHeight += 23.8f; }
+                    width.Add(costCol.x + costCol.width);
+                    height.Add(costCol.y + (thingList.Count() * 23.8f) + colHeight);
+                }
+
+                if (resetButton.draw)
+                {
+                    width.Add(resetButton.x + resetButton.width);
+                    height.Add(resetButton.y + resetButton.height);
+                }
+                this.width = width.Max();
+                this.height = height.Max();
+                checkSize = false;
+            }
+        }
 
         public void Compile() 
         {
@@ -28,7 +64,6 @@ namespace ToolBox.SettingsDefComp
                 }
                 if (loadData)
                 {
-                    //Log.Error("Data loaded!");
                     foreach (ThingList thing in thingList)
                     {
                         thing.InitData();
@@ -37,10 +72,10 @@ namespace ToolBox.SettingsDefComp
                 }
                 foreach (int i in index)
                 {
-                    thingList[i].LabelWidget(labelCol.x, ToolHandle.SetLine(ref labelCol.vertLine, i), labelCol.width);
-                    thingList[i].CostWidget(costCol.x, ToolHandle.SetLine(ref costCol.vertLine, i), costCol.width, costCol.min, costCol.max);
+                    thingList[i].LabelWidget(labelCol.draw, labelCol.x, ToolHandle.SetLine(ref labelCol.vertLine, i), labelCol.width);
+                    thingList[i].CostWidget(costCol.draw, costCol.x, ToolHandle.SetLine(ref costCol.vertLine, i), costCol.width, costCol.min, costCol.max);
                 }
-                if (resetButton.width > 0)
+                if (resetButton.draw)
                 {
                     if (Widgets.ButtonText(new Rect(resetButton.x, resetButton.y, resetButton.width, resetButton.height), resetButton.label))
                     {
