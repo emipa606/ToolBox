@@ -1,6 +1,4 @@
-﻿using ToolBox.Tools;
-
-namespace ToolBox.SettingsDefComp
+﻿namespace ToolBox.SettingsDefComp
 {
     public class LabelCol : BaseProp
     {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using ToolBox.SettingsDefComp;
 using UnityEngine;
@@ -11,7 +12,6 @@ namespace ToolBox.Settings
         public ToolBoxSettings settings;
         private Vector2 categoryScroll = new Vector2(0f, 0f);
         private Vector2 contentScroll = new Vector2(0f, 0f);
-        private Vector2 contentScrollHori = new Vector2(0f, 0f);
         private Vector2 topHoriLine = new Vector2(168f, 40f);
         private Vector2 bottomHoriLine = new Vector2(168f, 623f);
         private Color lineColor = new Color(105f, 105f, 105f, 0.5f);
@@ -42,8 +42,7 @@ namespace ToolBox.Settings
             bool drawContentScroll = true;
 
             /* 
-             * To Do:
-             * -Fix cost's default width and headerPos
+             * To do:
              * -Make an exception for same thingList defName.
              * -Do the other inputs.
              */
@@ -136,7 +135,7 @@ namespace ToolBox.Settings
                         contentView.height = settingsDef.height;
                         contentRect.height = settingsDef.height;
                     }
-                    else if (widerContent)
+                    else if (higherContent)
                     {
                         contentView.height = settingsDef.drawContent.Select(d => d.height).Max() + addHeight;
                         contentRect.height = settingsDef.drawContent.Select(d => d.height).Max() + addHeight;
@@ -184,6 +183,7 @@ namespace ToolBox.Settings
             foreach (ThingList savedThing in thingList)
             {
                 ThingDef.Named(savedThing.defName).costStuffCount = savedThing.cost;
+                StatExtension.SetStatBaseValue(ThingDef.Named(savedThing.defName), StatDefOf.MaxHitPoints, savedThing.baseHP);
             }
 
             base.WriteSettings();

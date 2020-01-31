@@ -48,8 +48,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\StartUpLoad.cs" />
+    <Compile Include="Core\StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsDefComp\BaseHPCol.cs" />
     <Compile Include="SettingsDefComp\BaseProp.cs" />
     <Compile Include="SettingsDefComp\CategoryLevel.cs" />
     <Compile Include="SettingsDefComp\CostCol.cs" />

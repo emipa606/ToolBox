@@ -7,11 +7,12 @@ namespace ToolBox.SettingsDefComp
         public bool draw = false;
         public bool hasHeader = true;
         public string header = "null";
-        public float headerPos = 0;
-        public float width = 0;
-        public float x = 0;
-        public float y = 0;
-        public float vertLine = 0;
+        public float headerPos = 0f;
+        public float width = 0f;
+        public float height = 0f;
+        public float x = 0f;
+        public float y = 0f;
+        public float vertLine = 0f;
 
         public virtual void Header() 
         {

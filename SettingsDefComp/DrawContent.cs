@@ -11,6 +11,7 @@ namespace ToolBox.SettingsDefComp
         public List<ThingList> thingList = new List<ThingList>();
         public LabelCol labelCol = new LabelCol();
         public CostCol costCol = new CostCol();
+        public BaseHPCol baseHPCol = new BaseHPCol();
         public ResetButton resetButton = new ResetButton();
         public IList<int> index = new List<int>();
         public float width = 0;
@@ -20,7 +21,6 @@ namespace ToolBox.SettingsDefComp
 
         public void AdaptSize() 
         {
-            //Content Width set
             if (checkSize)
             {
                 List<float> width = new List<float>() { 0 };
@@ -30,16 +30,22 @@ namespace ToolBox.SettingsDefComp
                     float colHeight = 0;
                     if (labelCol.hasHeader) { colHeight += 22f; }
                     width.Add(labelCol.x + labelCol.width);
-                    height.Add(labelCol.y + (thingList.Count() * 22f) + colHeight);
+                    height.Add(labelCol.y + labelCol.height + (thingList.Count() * 22f) + colHeight);
                 }
                 if (costCol.draw)
                 {
                     float colHeight = 0;
                     if (costCol.hasHeader) { colHeight += 23.8f; }
                     width.Add(costCol.x + costCol.width);
-                    height.Add(costCol.y + (thingList.Count() * 23.8f) + colHeight);
+                    height.Add(costCol.y + costCol.height + (thingList.Count() * 23.8f) + colHeight);
                 }
-
+                if (baseHPCol.draw)
+                {
+                    float colHeight = 0;
+                    if (baseHPCol.hasHeader) { colHeight += 23.8f; }
+                    width.Add(baseHPCol.x + baseHPCol.width);
+                    height.Add(baseHPCol.y + baseHPCol.height + (thingList.Count() * 23.8f) + colHeight);
+                }
                 if (resetButton.draw)
                 {
                     width.Add(resetButton.x + resetButton.width);
@@ -57,6 +63,7 @@ namespace ToolBox.SettingsDefComp
             {
                 labelCol.Header();
                 costCol.Header();
+                baseHPCol.Header();
                 if (!index.Count.Equals(thingList.Count()))
                 {
                     index = ToolHandle.SetIndexCount(thingList.Count());
@@ -66,6 +73,8 @@ namespace ToolBox.SettingsDefComp
                 {
                     foreach (ThingList thing in thingList)
                     {
+                        thing.drawCost = costCol.draw;
+                        thing.drawBaseHP = baseHPCol.draw;
                         thing.InitData();
                     }
                     loadData = false;
@@ -74,6 +83,7 @@ namespace ToolBox.SettingsDefComp
                 {
                     thingList[i].LabelWidget(labelCol.draw, labelCol.x, ToolHandle.SetLine(ref labelCol.vertLine, i), labelCol.width);
                     thingList[i].CostWidget(costCol.draw, costCol.x, ToolHandle.SetLine(ref costCol.vertLine, i), costCol.width, costCol.min, costCol.max);
+                    thingList[i].BaseHPWidget(baseHPCol.draw, baseHPCol.x, ToolHandle.SetLine(ref baseHPCol.vertLine, i), baseHPCol.width, baseHPCol.min, baseHPCol.max);
                 }
                 if (resetButton.draw)
                 {
@@ -81,7 +91,14 @@ namespace ToolBox.SettingsDefComp
                     {
                         foreach (ThingList thing in thingList)
                         {
-                            thing.costBuffer = thing.defaultCost.ToString();
+                            if (costCol.draw)
+                            {
+                                thing.costBuffer = thing.defaultCost.ToString();
+                            }
+                            if (baseHPCol.draw)
+                            {
+                                thing.baseHPBuffer = thing.defaultBaseHP.ToString();
+                            }
                         }
                     }
                 }
