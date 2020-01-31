@@ -1,12 +1,12 @@
 ﻿namespace ToolBox.SettingsDefComp
 {
-    public class BaseHPCol : BaseProp
+    public class Col_Beauty : BaseProp
     {
-        public new string header = "HP";
-        public new float headerPos = 8.5f;
-        public new float width = 40f;
-        public float min = 1f;
-        public float max = 9999f;
+        public new string header = "Beauty";
+        public new float headerPos = 2.2f;
+        public new float width = 48.5f;
+        public float min = -9999f;
+        public float max = 99999f;
 
         public override void Header()
         {

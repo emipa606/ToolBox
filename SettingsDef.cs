@@ -36,11 +36,19 @@ namespace ToolBox
             }
         }
 
+        public void LoadBaseValue() 
+        {
+            foreach (DrawContent content in drawContent)
+            {
+                content.CompileBaseValue();
+            }
+        }
+
         public void Display() 
         {
             foreach (DrawContent content in drawContent)
             {
-                content.Compile();
+                content.CompileWidgets();
             }
         }
     }

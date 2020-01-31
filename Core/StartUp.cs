@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ToolBox.Settings;
@@ -16,13 +17,12 @@ namespace ToolBox.Core
                 .SelectMany(s => s.drawContent
                 .SelectMany(d => d.thingList));
 
-            /*Figure out a way to get repeat ThingList defName!
-            IEnumerable<ThingList> sameThingList;
-            foreach (var thing in sameThingList)
+            IEnumerable<string> sameDefName = thingList.GroupBy(t => t.defName).Where(d => d.Count() > 1).Select(d => d.Key);
+            foreach (string defName in sameDefName)
             {
-                Log.Error(thing.defName);
+                Log.Error($"[ToolBox : OOF] ThingList defName \"{defName}\" has duplicate(s).");
             }
-            */
+
             //Below saves default, though affects startup impact. The impact depends on the amount of ThingDefs in the settings.
             //This could be placed in the moment the settings open so that the ones not used wont load.
             //Why is is not there? Something about early checks... I think...
@@ -34,6 +34,7 @@ namespace ToolBox.Core
                 {
                     thing.defaultCost = ThingDef.Named(thing.defName).costStuffCount;
                     thing.defaultBaseHP = ThingDef.Named(thing.defName).BaseMaxHitPoints;
+                    thing.defaultBeauty = Convert.ToInt32(ThingDef.Named(thing.defName).GetStatValueAbstract(StatDefOf.Beauty));
                 }
                 catch (System.Exception)
                 {
@@ -53,7 +54,8 @@ namespace ToolBox.Core
                 try
                 {
                     ThingDef.Named(thing.defName).costStuffCount = thing.cost;
-                    StatExtension.SetStatBaseValue(ThingDef.Named(thing.defName), StatDefOf.MaxHitPoints, thing.baseHP);
+                    ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.MaxHitPoints, thing.baseHP);
+                    ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.Beauty, thing.beauty + 1);
                 }
                 catch (System.Exception)
                 {

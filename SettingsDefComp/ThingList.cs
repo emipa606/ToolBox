@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace ToolBox.SettingsDefComp
@@ -7,34 +9,52 @@ namespace ToolBox.SettingsDefComp
     {
         public string defName;
         public bool exists = true;
-        public string label;
 
+        public Widget_Label labelWidget = new Widget_Label();
+
+        public bool drawLabel;
         public bool drawCost;
         public bool drawBaseHP;
+        public bool drawBeauty;
 
+        public string label;
         public int cost;
         public int baseHP;
+        public int beauty;
 
         public string costBuffer;
         public string baseHPBuffer;
+        public string beautyBuffer;
 
         public int defaultCost;
         public int defaultBaseHP;
+        public int defaultBeauty;
 
         public bool config = false;
         public bool costConfig = false;
         public bool baseHPConfig = false;
+        public bool beautyConfig = false;
 
-        public void InitData()//On settings open.
+        public void BaseValue()//On settings open.
         {
             if (exists)
             {
-                //Variable is still given value even if not drawn. It gives default of 1,
-                //which is not the default of the ThingDef.
+                Log.Error("This should occur mutiple times!");
+                //ToDo:
+                //bool draw[prop] If-statement defaults the value to the Col's default, usually 1.
+                //It requires too much process to do finish all checks, so I'm leaving this
+                //open for future fix.
                 label = ThingDef.Named(defName).label;
                 cost = ThingDef.Named(defName).costStuffCount;
                 baseHP = ThingDef.Named(defName).BaseMaxHitPoints;
-                //Log.Error($"{label} - cost: {cost} - Default: {defaultCost}");
+                if (defaultBeauty == Convert.ToInt32(ThingDef.Named(defName).GetStatValueAbstract(StatDefOf.Beauty)))
+                {
+                    beauty = Convert.ToInt32(ThingDef.Named(defName).GetStatValueAbstract(StatDefOf.Beauty));
+                }
+                else
+                {
+                    beauty = Convert.ToInt32(ThingDef.Named(defName).GetStatValueAbstract(StatDefOf.Beauty) - 1);
+                }
             }
             else 
             {
@@ -44,21 +64,20 @@ namespace ToolBox.SettingsDefComp
 
         public void ExposeData()
         {
-            //Possibly save default cost to compare if it requires config to be true.
             Scribe_Values.Look(ref defName, "defName");
             Scribe_Values.Look(ref cost, "cost");
             Scribe_Values.Look(ref baseHP, "baseHP");
+            Scribe_Values.Look(ref beauty, "beauty");
         }
 
         public void DataCheck()//On settings close. 
         {
             if (exists)
             {
-                //Config becomes true because the non-drawn inputs default into value of 1,
-                //which is not equal to the default value of it.
-                costConfig = cost != defaultCost;
-                baseHPConfig = baseHP != defaultBaseHP;
-                if (costConfig || baseHPConfig)
+                costConfig = (cost != defaultCost) && drawCost;
+                baseHPConfig = (baseHP != defaultBaseHP) && drawBaseHP;
+                beautyConfig = (beauty != defaultBeauty) && drawBeauty;
+                if (costConfig || baseHPConfig || beautyConfig)
                 {
                     config = true;
                 }
@@ -70,27 +89,35 @@ namespace ToolBox.SettingsDefComp
             }
         }
 
-        public void LabelWidget(bool draw, float x, float y, float width) 
+        public void LabelWidget(float x, float y, float width)
         {
-            if (label != null && draw && exists)
+            if (label != null && drawLabel && exists)
             {
                 Widgets.Label(new Rect(x, y, width, 22f), label);
             }
         }
 
-        public void CostWidget(bool draw, float x, float y, float width, float min, float max) 
+        public void CostWidget(float x, float y, float width, float min, float max) 
         {
-            if (draw && exists)
+            if (drawCost && exists)
             {
                 Widgets.TextFieldNumeric(new Rect(x, y, width, 22f), ref cost, ref costBuffer, min, max);
             }
         }
 
-        public void BaseHPWidget(bool draw, float x, float y, float width, float min, float max) 
+        public void BaseHPWidget(float x, float y, float width, float min, float max) 
         {
-            if (draw && exists)
+            if (drawBaseHP && exists)
             {
                 Widgets.TextFieldNumeric(new Rect(x, y, width, 22f), ref baseHP, ref baseHPBuffer, min, max);
+            }
+        }
+
+        public void BeautyWidget(float x, float y, float width, float min, float max) 
+        {
+            if (drawBeauty && exists)
+            {
+                Widgets.TextFieldNumeric(new Rect(x, y, width, 22f), ref beauty, ref beautyBuffer, min, max);
             }
         }
     }

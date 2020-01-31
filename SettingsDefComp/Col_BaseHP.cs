@@ -1,12 +1,12 @@
 ﻿namespace ToolBox.SettingsDefComp
 {
-    public class CostCol : BaseProp
+    public class Col_BaseHP : BaseProp
     {
-        public new string header = "Cost";
-        public new float headerPos = 5f;
-        public new float width = 40f;
+        public new string header = "BaseHP";
+        public new float headerPos = 2.2f;
+        public new float width = 56f;
         public float min = 1f;
-        public float max = 9999f;
+        public float max = 999999f;
 
         public override void Header()
         {

@@ -43,7 +43,6 @@ namespace ToolBox.Settings
 
             /* 
              * To do:
-             * -Make an exception for same thingList defName.
              * -Do the other inputs.
              */
 
@@ -148,6 +147,7 @@ namespace ToolBox.Settings
             listing_Content.Begin(contentRect);
             foreach (SettingsDef settingsDef in settingsDef_Enum) 
             {
+                settingsDef.LoadBaseValue();
                 if (settingsDef.defName.Equals(settingsDef_Flag)) 
                 {
                     settingsDef.Display();
@@ -159,14 +159,20 @@ namespace ToolBox.Settings
 
         public override void WriteSettings()
         {
-            IEnumerable<ThingList> thingList = DefDatabase<SettingsDef>.AllDefs
-                .SelectMany(s => s.drawContent
-                .SelectMany(d => d.thingList));
+            IEnumerable<DrawContent> drawContent = DefDatabase<SettingsDef>.AllDefs
+                .SelectMany(s => s.drawContent);
 
-            foreach (ThingList thing in thingList)
+            foreach (DrawContent content in drawContent)
+            {
+                content.loadData = true;
+            }
+
+            foreach (ThingList thing in drawContent.SelectMany(d => d.thingList))
             {
                 thing.DataCheck();
-                //thing.costBuffer = ThingDef.Named(thing.defName).costStuffCount.ToString();
+                ThingDef.Named(thing.defName).costStuffCount = thing.cost;
+                ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.MaxHitPoints, thing.baseHP);
+                ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.Beauty, thing.beauty + 1);
             }
 
             settings.thingList = DefDatabase<SettingsDef>.AllDefs //Gets configured things
@@ -179,12 +185,6 @@ namespace ToolBox.Settings
                 .GroupBy(s => s.defName)
                 .Select(g => g.First())
                 .ToList();
-
-            foreach (ThingList savedThing in thingList)
-            {
-                ThingDef.Named(savedThing.defName).costStuffCount = savedThing.cost;
-                StatExtension.SetStatBaseValue(ThingDef.Named(savedThing.defName), StatDefOf.MaxHitPoints, savedThing.baseHP);
-            }
 
             base.WriteSettings();
         }
