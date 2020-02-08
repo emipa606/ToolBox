@@ -14,15 +14,15 @@ namespace ToolBox.SettingsDefComp
         public Col_BaseHP baseHPCol = new Col_BaseHP();
         public Col_Beauty beautyCol = new Col_Beauty();
         public ResetButton resetButton = new ResetButton();
-        public IList<int> index = new List<int>();
+        public bool runSetDraw = true;
         public float width = 0;
         public float height = 0;
-        public bool loadData = true;
-        public bool checkSize = true;
 
-        public void AdaptSize() 
+        public IList<int> index = new List<int>();
+
+        public void CalcSize() 
         {
-            if (checkSize)
+            if (!thingList.NullOrEmpty())
             {
                 List<float> width = new List<float>() { 0 };
                 List<float> height = new List<float>() { 0 };
@@ -61,28 +61,21 @@ namespace ToolBox.SettingsDefComp
                 }
                 this.width = width.Max();
                 this.height = height.Max();
-                checkSize = false;
             }
         }
 
-        public void CompileBaseValue() 
+        //Runs on open
+        public void SetDraw() 
         {
-            if (!index.Count.Equals(thingList.Count()))
+            if (!thingList.NullOrEmpty() && runSetDraw)
             {
-                index = ToolHandle.SetIndexCount(thingList.Count());
-                //Log.Error(index.Count().ToString());
-            }
-            if (loadData)
-            {
+                Log.Warning("SetDraw loaded!");
                 foreach (ThingList thing in thingList)
                 {
-                    thing.BaseValue();
-                    thing.drawLabel = labelCol.draw;
-                    thing.drawCost = costCol.draw;
-                    thing.drawBaseHP = baseHPCol.draw;
-                    thing.drawBeauty = beautyCol.draw;
+                    thing.labelProp.draw = labelCol.draw;
+                    thing.costProp.draw = costCol.draw;
                 }
-                loadData = false;
+                runSetDraw = false;
             }
         }
 
@@ -94,22 +87,32 @@ namespace ToolBox.SettingsDefComp
                 costCol.Header();
                 baseHPCol.Header();
                 beautyCol.Header();
+                index = ToolHandle.SetIndexCount(thingList.Count);
                 foreach (int i in index)
                 {
-                    thingList[i].LabelWidget(labelCol.x, ToolHandle.SetLine(ref labelCol.vertLine, i), labelCol.width);
-                    thingList[i].CostWidget(costCol.x, ToolHandle.SetLine(ref costCol.vertLine, i), costCol.width, costCol.min, costCol.max);
-                    thingList[i].BaseHPWidget(baseHPCol.x, ToolHandle.SetLine(ref baseHPCol.vertLine, i), baseHPCol.width, baseHPCol.min, baseHPCol.max);
-                    thingList[i].BeautyWidget(beautyCol.x, ToolHandle.SetLine(ref beautyCol.vertLine, i), beautyCol.width, beautyCol.min, beautyCol.max);
+                    if (thingList[i].live)
+                    {
+                        thingList[i].labelProp.Widget(thingList[i].defName, labelCol.x, ToolHandle.SetLine(ref labelCol.vertLine, i), labelCol.width);
+                        thingList[i].costProp.Widget(thingList[i].defName, costCol.x, ToolHandle.SetLine(ref costCol.vertLine, i), costCol.width, costCol.min, costCol.max);
+                        //thingList[i].BaseHPWidget(baseHPCol.x, ToolHandle.SetLine(ref baseHPCol.vertLine, i), baseHPCol.width, baseHPCol.min, baseHPCol.max);
+                        //thingList[i].BeautyWidget(beautyCol.x, ToolHandle.SetLine(ref beautyCol.vertLine, i), beautyCol.width, beautyCol.min, beautyCol.max);
+                        thingList[i].CheckConfig();
+                    }
+                    else
+                    {
+                        //THis will only show when the category is opened!!!
+                        Log.Error("This thing is not live: " + thingList[i].defName);
+                    }
                 }
                 if (resetButton.draw)
                 {
                     if (Widgets.ButtonText(new Rect(resetButton.x, resetButton.y, resetButton.width, resetButton.height), resetButton.label))
                     {
-                        foreach (ThingList thing in thingList)
+                        foreach (ThingList thing in thingList.Where(t => t.live))
                         {
-                            if (costCol.draw) { thing.costBuffer = thing.defaultCost.ToString(); }
-                            if (baseHPCol.draw) { thing.baseHPBuffer = thing.defaultBaseHP.ToString(); }
-                            if (beautyCol.draw) { thing.beautyBuffer = thing.defaultBeauty.ToString(); }
+                            if (costCol.draw) { thing.costProp.numBuffer = thing.costProp.numIntDefault[0].ToString(); }
+                            //if (baseHPCol.draw) { thing.baseHPBuffer = thing.defaultBaseHP.ToString(); }
+                            //if (beautyCol.draw) { thing.beautyBuffer = thing.defaultBeauty.ToString(); }
                         }
                     }
                 }

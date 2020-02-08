@@ -1,6 +1,6 @@
 ﻿namespace ToolBox.SettingsDefComp
 {
-    public class Col_BaseHP : BaseProp
+    public class Col_BaseHP : ColBase
     {
         public new string header = "BaseHP";
         public new float headerPos = 2.2f;

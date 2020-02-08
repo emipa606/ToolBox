@@ -2,7 +2,7 @@
 
 namespace ToolBox.SettingsDefComp
 {
-    public class BaseProp
+    public class ColBase
     {
         public bool draw = false;
         public bool hasHeader = true;
@@ -21,9 +21,9 @@ namespace ToolBox.SettingsDefComp
                 if (hasHeader)
                 {
                     Construct.UnderlinedLabel(x, y, width, headerPos, header);
-                    if (vertLine != (y + 24))
+                    if (vertLine != (y + 24f))
                     {
-                        vertLine = y + 24;
+                        vertLine = y + 24f;
                     }
                 }
                 else
