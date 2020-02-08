@@ -38,8 +38,10 @@ namespace ToolBox.Settings
             bool hasTop = settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Top)).Count() != 0;
             bool hasMiddle = settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Middle)).Count() != 0;
             bool hasBottom = settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Bottom)).Count() != 0;
-            bool drawSeparator = true;
+            
+            //This flags would matter once I make a ToolBox Home category.
             bool drawContentScroll = true;
+            bool drawSeparator = true;
 
             /* 
              * To do:
@@ -108,37 +110,7 @@ namespace ToolBox.Settings
             {
                 if (settingsDef.defName.Equals(settingsDef_Flag))
                 {
-                    settingsDef.DrawSize();
-                    drawContentScroll = settingsDef.scrollbar;
-                    float addHeight = 0;
-                    bool widerContent = settingsDef.drawContent.Select(d => d.width).Max() > contentRect.width;
-                    bool higherContent = settingsDef.drawContent.Select(d => d.height).Max() > contentRect.height;
-                    bool widerSettings = settingsDef.width > contentRect.width;
-                    bool higherSettings = settingsDef.height > contentRect.height;
-                    if (widerSettings)
-                    {
-                        contentView.width = settingsDef.width;
-                        contentRect.width = settingsDef.width;
-                        contentView.height -= 16f;
-                        addHeight += 1f;
-                    }
-                    else if (widerContent) 
-                    {
-                        contentView.width = settingsDef.drawContent.Select(d => d.width).Max();
-                        contentRect.width = settingsDef.drawContent.Select(d => d.width).Max();
-                        contentView.height -= 16f;
-                        addHeight += 1f;
-                    }
-                    if (higherSettings)
-                    {
-                        contentView.height = settingsDef.height;
-                        contentRect.height = settingsDef.height;
-                    }
-                    else if (higherContent)
-                    {
-                        contentView.height = settingsDef.drawContent.Select(d => d.height).Max() + addHeight;
-                        contentRect.height = settingsDef.drawContent.Select(d => d.height).Max() + addHeight;
-                    }
+                    settingsDef.AdaptSize(ref contentRect, ref contentView, ref drawContentScroll);
                 }
             }
 
@@ -148,6 +120,7 @@ namespace ToolBox.Settings
             foreach (SettingsDef settingsDef in settingsDef_Enum) 
             {
                 settingsDef.LoadBaseValue();
+                //settingsDef.LoadBaseValue();
                 if (settingsDef.defName.Equals(settingsDef_Flag)) 
                 {
                     settingsDef.Display();
@@ -159,29 +132,36 @@ namespace ToolBox.Settings
 
         public override void WriteSettings()
         {
-            IEnumerable<DrawContent> drawContent = DefDatabase<SettingsDef>.AllDefs
-                .SelectMany(s => s.drawContent);
-
-            foreach (DrawContent content in drawContent)
+            //Loads the changed thing properties.
+            List<ThingList> thingList = DefDatabase<SettingsDef>.AllDefs
+                    .SelectMany(s => s.drawContent
+                    .SelectMany(d => d.thingList))
+                    .Where(t => t.live)
+                    .ToList();
+            
+            thingList.ForEach(t => t.CheckSaved());
+            foreach (ThingList thing in thingList)
             {
-                content.loadData = true;
+                try
+                {
+                    thing.PostLoadCompile();
+                }
+                catch (System.Exception)
+                {
+                    Log.Error("ERRRRROOOORRRR!!!");
+                    continue;
+                }
             }
 
-            foreach (ThingList thing in drawContent.SelectMany(d => d.thingList))
-            {
-                thing.DataCheck();
-                ThingDef.Named(thing.defName).costStuffCount = thing.cost;
-                ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.MaxHitPoints, thing.baseHP);
-                ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.Beauty, thing.beauty + 1);
-            }
-
-            settings.thingList = DefDatabase<SettingsDef>.AllDefs //Gets configured things
+            //Gets configured things.
+            settings.thingList = DefDatabase<SettingsDef>.AllDefs
                 .SelectMany(s => s.drawContent
                 .SelectMany(d => d.thingList
-                .Where(x => x.config)))
+                .Where(x => x.config && x.live)))
                 .ToList();
 
-            settings.thingList = settings.thingList //Groups the thingList by defName to remove copies.
+            //Groups the thingList by defName to remove copies.
+            settings.thingList = settings.thingList
                 .GroupBy(s => s.defName)
                 .Select(g => g.First())
                 .ToList();

@@ -1,6 +1,6 @@
 ﻿namespace ToolBox.SettingsDefComp
 {
-    public class Col_Cost : BaseProp
+    public class Col_Cost : ColBase
     {
         public new string header = "Cost";
         public new float headerPos = 5f;

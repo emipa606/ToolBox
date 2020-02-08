@@ -1,6 +1,6 @@
 ﻿namespace ToolBox.SettingsDefComp
 {
-    public class Col_Beauty : BaseProp
+    public class Col_Beauty : ColBase
     {
         public new string header = "Beauty";
         public new float headerPos = 2.2f;
