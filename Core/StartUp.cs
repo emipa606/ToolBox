@@ -46,33 +46,32 @@ namespace ToolBox.Core
             int captureCount = 0;
             foreach (ThingList thing in savedThingList)
             {
-                IEnumerable<ThingList> thingDefault = thingList.Where(t => t.defName.Equals(thing.defName));
-                bool captured = false;
                 try
                 {
-                    if (thing.costProp != null)
+                    char[] configFlag = thing.configID.ToCharArray();
+                    foreach (ThingList thingy in thingList.Where(t => t.defName.Equals(thing.defName)))
                     {
-                        foreach (var item in thingDefault)
-                        {
-                            Log.Warning("Default setting has occured!");
-                            item.costProp.numIntDefault.Add(ThingDef.Named(thing.defName).costStuffCount);
-                        }
-                        ThingDef.Named(thing.defName).costStuffCount = thing.costProp.numInt;
-                        
+                        if (configFlag[0].Equals('1')) 
+                        { thingy.costProp.numIntDefault.Add(ThingDef.Named(thing.defName).costStuffCount); }
+                        if (configFlag[1].Equals('1')) 
+                        { thingy.baseHPProp.numIntDefault.Add(ThingDef.Named(thing.defName).BaseMaxHitPoints); }
                     }
-                    //ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.MaxHitPoints, thing.baseHP);
+                    if (configFlag[0].Equals('1'))
+                    { ThingDef.Named(thing.defName).costStuffCount = thing.costProp.numSavedInt; }
+                    if (configFlag[1].Equals('1'))
+                    { ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.MaxHitPoints, thing.baseHPProp.numSavedInt); }
                     //ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.Beauty, thing.beauty + 1);
                 }
                 catch (Exception)
                 {
-                    captured = true;
+                    captureCount += 1; 
+                    continue;
                 }
-                if (captured) { captured = false; captureCount += 1; continue; }
             }
             if (captureCount > 0)
             {
                 Log.Error("[ToolBox : OOF] The save data of the missing def(s) has been skipped over!" +
-                    $"\r\n[ToolBox : NOTE] Opening and closing the ToolBox settings will remove the missing Def(s) from save.");
+                    $"\r\nNOTE: Opening and closing the ToolBox settings will remove the missing Def(s) from save.");
             }
         }
     }

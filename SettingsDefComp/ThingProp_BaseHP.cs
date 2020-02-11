@@ -1,26 +1,29 @@
-﻿using UnityEngine;
+﻿using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace ToolBox.SettingsDefComp
 {
-    public class ThingProp_Cost : ThingPropBase
+    public class ThingProp_BaseHP : ThingPropBase
     {
         public override void ExposeData()
         {
-            Scribe_Values.Look(ref numSavedInt, "cost");
+            Scribe_Values.Look(ref numSavedInt, "baseHP");
         }
 
         public void Preset(string defName) 
         {
+            //The numIntdefault and numInt that gets the thingDef value, retrives a rounded off value.
+            //See if you can find the needed calculations to fix it.
             if (numIntDefault.Count < 2)
             {
-                numIntDefault[0] = ThingDef.Named(defName).costStuffCount;
+                numIntDefault[0] = ThingDef.Named(defName).BaseMaxHitPoints;
             }
             else
             {
                 numIntDefault[0] = numIntDefault[1];
             }
-            numInt = ThingDef.Named(defName).costStuffCount;
+            numInt = ThingDef.Named(defName).BaseMaxHitPoints;
             numBuffer = numInt.ToString();
             if (numInt != numIntDefault[0])
             {
@@ -55,7 +58,8 @@ namespace ToolBox.SettingsDefComp
                     config = '0';
                     numSavedInt = 0;
                 }
-                ThingDef.Named(defName).costStuffCount = numInt;
+                
+                ThingDef.Named(defName).SetStatBaseValue(StatDefOf.MaxHitPoints, numInt);
             }
         }
     }

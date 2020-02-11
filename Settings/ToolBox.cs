@@ -18,7 +18,7 @@ namespace ToolBox.Settings
         private Listing_Standard listing_Category = new Listing_Standard();
         private Listing_Standard listing_Content = new Listing_Standard();
         private IEnumerable<SettingsDef> settingsDef_Enum = DefDatabase<SettingsDef>.AllDefs.OrderBy(c => c.position);
-        private string settingsDef_Flag = "Home";
+        private string settingsDef_Flag = "Default";
         
         public override string SettingsCategory() => "ToolBox";
 
@@ -133,24 +133,13 @@ namespace ToolBox.Settings
         public override void WriteSettings()
         {
             //Loads the changed thing properties.
-            List<ThingList> thingList = DefDatabase<SettingsDef>.AllDefs
+            IEnumerable<ThingList> thingList = DefDatabase<SettingsDef>.AllDefs
                     .SelectMany(s => s.drawContent
-                    .SelectMany(d => d.thingList))
-                    .Where(t => t.live)
-                    .ToList();
-            
-            thingList.ForEach(t => t.CheckSaved());
+                    .SelectMany(d => d.thingList)
+                    .Where(t => t.live));
             foreach (ThingList thing in thingList)
             {
-                try
-                {
-                    thing.PostLoadCompile();
-                }
-                catch (System.Exception)
-                {
-                    Log.Error("ERRRRROOOORRRR!!!");
-                    continue;
-                }
+                thing.CheckSaved();
             }
 
             //Gets configured things.
