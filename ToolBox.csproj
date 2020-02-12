@@ -58,7 +58,6 @@
     <Compile Include="SettingsDefComp\DrawContent.cs" />
     <Compile Include="SettingsDefComp\Col_Label.cs" />
     <Compile Include="SettingsDefComp\ResetButton.cs" />
-    <Compile Include="SettingsDefComp\TestProp.cs" />
     <Compile Include="SettingsDefComp\ThingList.cs" />
     <Compile Include="SettingsDefComp\ThingPropBase.cs" />
     <Compile Include="SettingsDefComp\ThingProp_BaseHP.cs" />

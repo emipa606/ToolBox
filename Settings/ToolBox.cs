@@ -120,7 +120,6 @@ namespace ToolBox.Settings
             foreach (SettingsDef settingsDef in settingsDef_Enum) 
             {
                 settingsDef.LoadBaseValue();
-                //settingsDef.LoadBaseValue();
                 if (settingsDef.defName.Equals(settingsDef_Flag)) 
                 {
                     settingsDef.Display();

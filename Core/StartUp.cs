@@ -54,12 +54,16 @@ namespace ToolBox.Core
                         if (configFlag[0].Equals('1')) 
                         { thingy.costProp.numIntDefault.Add(ThingDef.Named(thing.defName).costStuffCount); }
                         if (configFlag[1].Equals('1')) 
-                        { thingy.baseHPProp.numIntDefault.Add(ThingDef.Named(thing.defName).BaseMaxHitPoints); }
+                        { 
+                            thingy.baseHPProp.numIntDefault.Add(ThingDef.Named(thing.defName).BaseMaxHitPoints);
+                            thingy.baseHPProp.numIntDefault.Add(thing.baseHPProp.numSavedInt);
+                        }
                     }
                     if (configFlag[0].Equals('1'))
                     { ThingDef.Named(thing.defName).costStuffCount = thing.costProp.numSavedInt; }
                     if (configFlag[1].Equals('1'))
                     { ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.MaxHitPoints, thing.baseHPProp.numSavedInt); }
+                    //Log.Error(thing.baseHPProp.numSavedInt.ToString());
                     //ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.Beauty, thing.beauty + 1);
                 }
                 catch (Exception)

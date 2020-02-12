@@ -14,7 +14,6 @@ namespace ToolBox.SettingsDefComp
         public bool config = false;
         public bool live = true;
         
-
         public ThingProp_Label labelProp = new ThingProp_Label();
         public ThingProp_Cost costProp = new ThingProp_Cost();
         public ThingProp_BaseHP baseHPProp = new ThingProp_BaseHP();

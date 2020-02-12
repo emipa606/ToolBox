@@ -24,6 +24,10 @@ namespace ToolBox.SettingsDefComp
                 numIntDefault[0] = numIntDefault[1];
             }
             numInt = ThingDef.Named(defName).BaseMaxHitPoints;
+            if (numIntDefault.Count == 3)
+            {
+                numInt = numIntDefault[2];
+            }
             numBuffer = numInt.ToString();
             if (numInt != numIntDefault[0])
             {
