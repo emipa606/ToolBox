@@ -60,7 +60,9 @@
     <Compile Include="SettingsDefComp\ResetButton.cs" />
     <Compile Include="SettingsDefComp\ThingList.cs" />
     <Compile Include="SettingsDefComp\ThingPropBase.cs" />
+    <Compile Include="SettingsDefComp\ThingPropInput.cs" />
     <Compile Include="SettingsDefComp\ThingProp_BaseHP.cs" />
+    <Compile Include="SettingsDefComp\ThingProp_Beauty.cs" />
     <Compile Include="SettingsDefComp\ThingProp_Cost.cs" />
     <Compile Include="SettingsDefComp\ThingProp_Label.cs" />
     <Compile Include="Settings\ToolBox.cs" />

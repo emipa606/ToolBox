@@ -11,25 +11,33 @@ namespace ToolBox.Core
     [StaticConstructorOnStartup]
     class StartUp
     {
+        /// <summary>
+        /// Beauty initialize has value problem. It shows less of original value even when incrimented.
+        /// </summary>
         static StartUp()
         {
             //Checks if the thingDef exsists or not.
             IEnumerable<ThingList> thingList = DefDatabase<SettingsDef>.AllDefs
                 .SelectMany(s => s.drawContent
                 .SelectMany(d => d.thingList));
+            int refCaptureCount = 0;
             foreach (ThingList thing in thingList)
             {
                 try
                 {
                     string test = ThingDef.Named(thing.defName).label;
                 }
-                catch (Exception)
+                catch (NullReferenceException)
                 {
                     thing.live = false;
-                    Log.Error($"[ToolBox : OOF] Missing ThingDef \"{thing.defName}\" has been skipped over!");
+                    refCaptureCount++;
                     continue;
                 }
-                
+            }
+            if (refCaptureCount > 0)
+            {
+                Log.Error($"[ToolBox : OOF] The save data of the missing ThingDefs will be skipped over." 
+                    + "\nNote: opening the ToolBox settings will erase the data of the missing ThingDefs.");
             }
 
             //Groups similar DefNames in ThingList and reports it.
@@ -43,7 +51,7 @@ namespace ToolBox.Core
             IEnumerable<ThingList> savedThingList = LoadedModManager
                 .GetMod<Settings.ToolBox>()
                 .GetSettings<ToolBoxSettings>().thingList;
-            int captureCount = 0;
+            int dataCaptureCount = 0;
             foreach (ThingList thing in savedThingList)
             {
                 try
@@ -51,31 +59,39 @@ namespace ToolBox.Core
                     char[] configFlag = thing.configID.ToCharArray();
                     foreach (ThingList thingy in thingList.Where(t => t.defName.Equals(thing.defName)))
                     {
-                        if (configFlag[0].Equals('1')) 
+                        if (configFlag[0].Equals('1'))
                         { thingy.costProp.numIntDefault.Add(ThingDef.Named(thing.defName).costStuffCount); }
-                        if (configFlag[1].Equals('1')) 
-                        { 
+                        if (configFlag[1].Equals('1'))
+                        {
                             thingy.baseHPProp.numIntDefault.Add(ThingDef.Named(thing.defName).BaseMaxHitPoints);
                             thingy.baseHPProp.numIntDefault.Add(thing.baseHPProp.numSavedInt);
+                        }
+                        if (configFlag[2].Equals('1'))
+                        {
+                            thingy.beautyProp.numIntDefault.Add(Convert.ToInt32(ThingDef.Named(thing.defName).GetStatValueAbstract(StatDefOf.Beauty)));
                         }
                     }
                     if (configFlag[0].Equals('1'))
                     { ThingDef.Named(thing.defName).costStuffCount = thing.costProp.numSavedInt; }
                     if (configFlag[1].Equals('1'))
                     { ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.MaxHitPoints, thing.baseHPProp.numSavedInt); }
-                    //Log.Error(thing.baseHPProp.numSavedInt.ToString());
-                    //ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.Beauty, thing.beauty + 1);
+                    if (configFlag[2].Equals('1'))
+                    { ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.Beauty, thing.beautyProp.numSavedInt + 1); }
                 }
-                catch (Exception)
+                catch (IndexOutOfRangeException) 
                 {
-                    captureCount += 1; 
+                    dataCaptureCount++;
+                    continue;
+                }
+                catch (NullReferenceException)
+                {
                     continue;
                 }
             }
-            if (captureCount > 0)
+            if (dataCaptureCount > 0)
             {
-                Log.Error("[ToolBox : OOF] The save data of the missing def(s) has been skipped over!" +
-                    $"\r\nNOTE: Opening and closing the ToolBox settings will remove the missing Def(s) from save.");
+                Log.Error("[ToolBox : OOF] Outdated ConfigID spotted." 
+                    +"\nNote: opening the settings will reset the previous save data."); 
             }
         }
     }

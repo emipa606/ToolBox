@@ -9,7 +9,7 @@ namespace ToolBox.SettingsDefComp
     public class ThingList : IExposable
     {
         public string defName;
-        public StringBuilder configBuilder = new StringBuilder("00");
+        public StringBuilder configBuilder = new StringBuilder("000");
         public string configID;
         public bool config = false;
         public bool live = true;
@@ -17,11 +17,13 @@ namespace ToolBox.SettingsDefComp
         public ThingProp_Label labelProp = new ThingProp_Label();
         public ThingProp_Cost costProp = new ThingProp_Cost();
         public ThingProp_BaseHP baseHPProp = new ThingProp_BaseHP();
+        public ThingProp_Beauty beautyProp = new ThingProp_Beauty();
 
         public void CheckConfig() 
         {
             configBuilder[0] = costProp.config;
             configBuilder[1] = baseHPProp.config;
+            configBuilder[2] = beautyProp.config;
             configID = configBuilder.ToString();
             if (configID.Contains("1"))
             {
@@ -43,6 +45,10 @@ namespace ToolBox.SettingsDefComp
             {
                 baseHPProp.Preset(defName);
             }
+            if (beautyProp.draw && beautyProp.load)
+            {
+                beautyProp.Preset(defName);
+            }
             CheckConfig();
         }
 
@@ -52,6 +58,7 @@ namespace ToolBox.SettingsDefComp
             Scribe_Values.Look(ref configID, "configID");
             costProp.ExposeData();
             baseHPProp.ExposeData();
+            beautyProp.ExposeData();
         }
     }
 }

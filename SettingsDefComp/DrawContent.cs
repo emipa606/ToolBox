@@ -74,6 +74,7 @@ namespace ToolBox.SettingsDefComp
                     thing.labelProp.draw = labelCol.draw;
                     thing.costProp.draw = costCol.draw;
                     thing.baseHPProp.draw = baseHPCol.draw;
+                    thing.beautyProp.draw = beautyCol.draw;
                 }
                 runSetDraw = false;
             }
@@ -95,7 +96,7 @@ namespace ToolBox.SettingsDefComp
                         thingList[i].labelProp.Widget(thingList[i].defName, labelCol.x, ToolHandle.SetLine(ref labelCol.vertLine, i), labelCol.width);
                         thingList[i].costProp.Widget(thingList[i].defName, costCol.x, ToolHandle.SetLine(ref costCol.vertLine, i), costCol.width, costCol.min, costCol.max);
                         thingList[i].baseHPProp.Widget(thingList[i].defName, baseHPCol.x, ToolHandle.SetLine(ref baseHPCol.vertLine, i), baseHPCol.width, baseHPCol.min, baseHPCol.max);
-                        //thingList[i].BeautyWidget(beautyCol.x, ToolHandle.SetLine(ref beautyCol.vertLine, i), beautyCol.width, beautyCol.min, beautyCol.max);
+                        thingList[i].beautyProp.Widget(thingList[i].defName, beautyCol.x, ToolHandle.SetLine(ref beautyCol.vertLine, i), beautyCol.width, beautyCol.min, beautyCol.max);
                         thingList[i].CheckConfig();
                     }
                 }
@@ -107,7 +108,7 @@ namespace ToolBox.SettingsDefComp
                         {
                             if (costCol.draw) { thing.costProp.numBuffer = thing.costProp.numIntDefault[0].ToString(); }
                             if (baseHPCol.draw) { thing.baseHPProp.numBuffer = thing.baseHPProp.numIntDefault[0].ToString(); }
-                            //if (beautyCol.draw) { thing.beautyBuffer = thing.defaultBeauty.ToString(); }
+                            if (beautyCol.draw) { thing.beautyProp.numBuffer = thing.beautyProp.numIntDefault[0].ToString(); }
                         }
                     }
                 }
