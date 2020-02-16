@@ -13,6 +13,7 @@ namespace ToolBox.SettingsDefComp
         public Col_Cost costCol = new Col_Cost();
         public Col_BaseHP baseHPCol = new Col_BaseHP();
         public Col_Beauty beautyCol = new Col_Beauty();
+        public Col_Fill fillCol = new Col_Fill();
         public ResetButton resetButton = new ResetButton();
         public bool runSetDraw = true;
         public float width = 0;
@@ -54,6 +55,13 @@ namespace ToolBox.SettingsDefComp
                     width.Add(beautyCol.x + beautyCol.width);
                     height.Add(beautyCol.y + beautyCol.height + (thingList.Count() * 23.8f) + colHeight);
                 }
+                if (fillCol.draw)
+                {
+                    float colHeight = 0;
+                    if (fillCol.hasHeader) { colHeight += 23.8f; }
+                    width.Add(fillCol.x + fillCol.width);
+                    height.Add(fillCol.y + fillCol.height + (thingList.Count() * 23.8f) + colHeight);
+                }
                 if (resetButton.draw)
                 {
                     width.Add(resetButton.x + resetButton.width);
@@ -75,6 +83,7 @@ namespace ToolBox.SettingsDefComp
                     thing.costProp.draw = costCol.draw;
                     thing.baseHPProp.draw = baseHPCol.draw;
                     thing.beautyProp.draw = beautyCol.draw;
+                    thing.fillProp.draw = fillCol.draw;
                 }
                 runSetDraw = false;
             }
@@ -88,6 +97,7 @@ namespace ToolBox.SettingsDefComp
                 costCol.Header();
                 baseHPCol.Header();
                 beautyCol.Header();
+                fillCol.Header();
                 index = ToolHandle.SetIndexCount(thingList.Count);
                 foreach (int i in index)
                 {
@@ -97,6 +107,7 @@ namespace ToolBox.SettingsDefComp
                         thingList[i].costProp.Widget(thingList[i].defName, costCol.x, ToolHandle.SetLine(ref costCol.vertLine, i), costCol.width, costCol.min, costCol.max);
                         thingList[i].baseHPProp.Widget(thingList[i].defName, baseHPCol.x, ToolHandle.SetLine(ref baseHPCol.vertLine, i), baseHPCol.width, baseHPCol.min, baseHPCol.max);
                         thingList[i].beautyProp.Widget(thingList[i].defName, beautyCol.x, ToolHandle.SetLine(ref beautyCol.vertLine, i), beautyCol.width, beautyCol.min, beautyCol.max);
+                        thingList[i].fillProp.Widget(thingList[i].defName, fillCol.x, ToolHandle.SetLine(ref fillCol.vertLine, i), fillCol.width, fillCol.min, fillCol.max);
                         thingList[i].CheckConfig();
                     }
                 }
@@ -109,6 +120,7 @@ namespace ToolBox.SettingsDefComp
                             if (costCol.draw) { thing.costProp.numBuffer = thing.costProp.numIntDefault[0].ToString(); }
                             if (baseHPCol.draw) { thing.baseHPProp.numBuffer = thing.baseHPProp.numIntDefault[0].ToString(); }
                             if (beautyCol.draw) { thing.beautyProp.numBuffer = thing.beautyProp.numIntDefault[0].ToString(); }
+                            if (fillCol.draw) { thing.fillProp.numBuffer = thing.fillProp.numIntDefault[0].ToString(); }
                         }
                     }
                 }

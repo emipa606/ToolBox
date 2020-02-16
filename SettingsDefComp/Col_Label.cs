@@ -1,6 +1,6 @@
 ﻿namespace ToolBox.SettingsDefComp
 {
-    public class Col_Label : ColBase
+    public class Col_Label : ColPropBase
     {
         public override void Header() 
         {

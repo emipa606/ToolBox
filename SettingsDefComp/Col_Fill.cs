@@ -1,12 +1,12 @@
 ﻿namespace ToolBox.SettingsDefComp
 {
-    public class Col_Cost : ColPropBase
+    public class Col_Fill : ColPropBase
     {
-        public new string header = "Cost";
-        public new float headerPos = 5f;
-        public new float width = 40f;
-        public float min = 1f;
-        public float max = 9999f;
+        public new string header = "Fill";
+        public new float headerPos = 5.5f;
+        public new float width = 31f;
+        public float min = 0;
+        public float max = 100;
 
         public override void Header()
         {

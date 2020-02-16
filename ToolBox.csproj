@@ -50,11 +50,13 @@
   <ItemGroup>
     <Compile Include="Core\StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SettingsDefComp\Col_BaseHP.cs" />
     <Compile Include="SettingsDefComp\ColBase.cs" />
+    <Compile Include="SettingsDefComp\Col_BaseHP.cs" />
+    <Compile Include="SettingsDefComp\ColPropBase.cs" />
     <Compile Include="SettingsDefComp\Col_Beauty.cs" />
     <Compile Include="SettingsDefComp\CategoryLevel.cs" />
     <Compile Include="SettingsDefComp\Col_Cost.cs" />
+    <Compile Include="SettingsDefComp\Col_Fill.cs" />
     <Compile Include="SettingsDefComp\DrawContent.cs" />
     <Compile Include="SettingsDefComp\Col_Label.cs" />
     <Compile Include="SettingsDefComp\ResetButton.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="SettingsDefComp\ThingProp_BaseHP.cs" />
     <Compile Include="SettingsDefComp\ThingProp_Beauty.cs" />
     <Compile Include="SettingsDefComp\ThingProp_Cost.cs" />
+    <Compile Include="SettingsDefComp\ThingProp_Fill.cs" />
     <Compile Include="SettingsDefComp\ThingProp_Label.cs" />
     <Compile Include="Settings\ToolBox.cs" />
     <Compile Include="Settings\ToolBoxSettings.cs" />

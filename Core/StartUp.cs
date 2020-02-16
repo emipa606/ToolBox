@@ -11,9 +11,6 @@ namespace ToolBox.Core
     [StaticConstructorOnStartup]
     class StartUp
     {
-        /// <summary>
-        /// Beauty initialize has value problem. It shows less of original value even when incrimented.
-        /// </summary>
         static StartUp()
         {
             //Checks if the thingDef exsists or not.
@@ -36,7 +33,7 @@ namespace ToolBox.Core
             }
             if (refCaptureCount > 0)
             {
-                Log.Error($"[ToolBox : OOF] The save data of the missing ThingDefs will be skipped over." 
+                Log.Error($"[ToolBox : OOF] The missing ThingDefs will be skipped over." 
                     + "\nNote: opening the ToolBox settings will erase the data of the missing ThingDefs.");
             }
 
@@ -56,27 +53,31 @@ namespace ToolBox.Core
             {
                 try
                 {
-                    char[] configFlag = thing.configID.ToCharArray();
                     foreach (ThingList thingy in thingList.Where(t => t.defName.Equals(thing.defName)))
                     {
-                        if (configFlag[0].Equals('1'))
+                        if (thing.configID[0].Equals('1'))
                         { thingy.costProp.numIntDefault.Add(ThingDef.Named(thing.defName).costStuffCount); }
-                        if (configFlag[1].Equals('1'))
+                        if (thing.configID[1].Equals('1'))
                         {
                             thingy.baseHPProp.numIntDefault.Add(ThingDef.Named(thing.defName).BaseMaxHitPoints);
                             thingy.baseHPProp.numIntDefault.Add(thing.baseHPProp.numSavedInt);
                         }
-                        if (configFlag[2].Equals('1'))
+                        if (thing.configID[2].Equals('1'))
                         {
                             thingy.beautyProp.numIntDefault.Add(Convert.ToInt32(ThingDef.Named(thing.defName).GetStatValueAbstract(StatDefOf.Beauty)));
+                            thingy.beautyProp.numIntDefault.Add(thing.beautyProp.numSavedInt);
                         }
+                        if (thing.configID[3].Equals('1'))
+                        { thingy.fillProp.numIntDefault.Add(Convert.ToInt32(ThingDef.Named(thing.defName).fillPercent)); }
                     }
-                    if (configFlag[0].Equals('1'))
+                    if (thing.configID[0].Equals('1'))
                     { ThingDef.Named(thing.defName).costStuffCount = thing.costProp.numSavedInt; }
-                    if (configFlag[1].Equals('1'))
+                    if (thing.configID[1].Equals('1'))
                     { ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.MaxHitPoints, thing.baseHPProp.numSavedInt); }
-                    if (configFlag[2].Equals('1'))
+                    if (thing.configID[2].Equals('1'))
                     { ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.Beauty, thing.beautyProp.numSavedInt + 1); }
+                    if (thing.configID[3].Equals('1'))
+                    { ThingDef.Named(thing.defName).fillPercent = thing.fillProp.numSavedInt / 100f; }
                 }
                 catch (IndexOutOfRangeException) 
                 {

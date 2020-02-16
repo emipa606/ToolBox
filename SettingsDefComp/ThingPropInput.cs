@@ -19,10 +19,6 @@ namespace ToolBox.SettingsDefComp
 
         public virtual void Preset(string defName) 
         {
-            if (numIntDefault.Count == 3)
-            {
-                numInt = numIntDefault[2];
-            }
             numBuffer = numInt.ToString();
             if (numInt != numIntDefault[0])
             {

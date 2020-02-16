@@ -1,23 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Verse;
-using RimWorld;
 using UnityEngine;
+using Verse;
 
 namespace ToolBox.SettingsDefComp
 {
-    public class ThingProp_Beauty : ThingPropInput
+    public class ThingProp_Fill : ThingPropInput
     {
-        /// <summary>
-        /// Default beauty is incremented to 1 to fit with the input numbers.
-        /// Original values from startup and live changes will follow the value rule of ToolBox
-        /// instead of the Rimworld default (XMLval - 1 = beauty).
-        /// </summary>
         public override void ExposeData()
         {
-            Scribe_Values.Look(ref numSavedInt, "beauty");
+            Scribe_Values.Look(ref numSavedInt, "fill");
         }
 
         public override void Preset(string defName)
@@ -25,15 +16,11 @@ namespace ToolBox.SettingsDefComp
             if (numIntDefault.Count > 1)
             {
                 numIntDefault[0] = numIntDefault[1];
-                numInt = Convert.ToInt32(ThingDef.Named(defName).GetStatValueAbstract(StatDefOf.Beauty));
-                if (numIntDefault.Count == 3)
-                {
-                    numInt = numIntDefault[2];
-                }
+                numInt = Convert.ToInt32(ThingDef.Named(defName).fillPercent * 100f);
             }
             else
             {
-                numInt = numIntDefault[0] = Convert.ToInt32(ThingDef.Named(defName).GetStatValueAbstract(StatDefOf.Beauty));
+                numInt = numIntDefault[0] = Convert.ToInt32(ThingDef.Named(defName).fillPercent * 100f);
             }
             base.Preset(defName);
         }
@@ -47,7 +34,7 @@ namespace ToolBox.SettingsDefComp
             if (!load && draw)
             {
                 Widgets.TextFieldNumeric(new Rect(x, y, width, 22f), ref numInt, ref numBuffer, min, max);
-                if (numInt == numIntDefault[0])
+                if ((numInt / 100f ) == numIntDefault[0])
                 {
                     config = '0';
                     numSavedInt = 0;
@@ -57,7 +44,7 @@ namespace ToolBox.SettingsDefComp
                     config = '1';
                     numSavedInt = numInt;
                 }
-                ThingDef.Named(defName).SetStatBaseValue(StatDefOf.Beauty, numInt + 1);
+                ThingDef.Named(defName).fillPercent = numInt / 100f;
             }
         }
     }
