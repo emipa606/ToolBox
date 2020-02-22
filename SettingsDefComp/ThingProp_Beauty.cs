@@ -37,28 +37,5 @@ namespace ToolBox.SettingsDefComp
             }
             base.Preset(defName);
         }
-
-        public void Widget(string defName, float x, float y, float width, float min, float max)
-        {
-            if (load && draw)
-            {
-                Preset(defName);
-            }
-            if (!load && draw)
-            {
-                Widgets.TextFieldNumeric(new Rect(x, y, width, 22f), ref numInt, ref numBuffer, min, max);
-                if (numInt == numIntDefault[0])
-                {
-                    config = '0';
-                    numSavedInt = 0;
-                }
-                else
-                {
-                    config = '1';
-                    numSavedInt = numInt;
-                }
-                ThingDef.Named(defName).SetStatBaseValue(StatDefOf.Beauty, numInt + 1);
-            }
-        }
     }
 }

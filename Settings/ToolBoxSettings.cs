@@ -7,7 +7,7 @@ namespace ToolBox.Settings
 {
     public class ToolBoxSettings : ModSettings
     {
-        public List<ThingList> thingList = new List<ThingList>();
+        public List<SettingsDefComp.ThingProp> thingList = new List<SettingsDefComp.ThingProp>();
         public override void ExposeData()
         {
             Scribe_Collections.Look(ref thingList, "thingList", LookMode.Deep);

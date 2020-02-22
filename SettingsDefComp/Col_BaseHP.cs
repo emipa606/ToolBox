@@ -1,19 +1,41 @@
-﻿namespace ToolBox.SettingsDefComp
+﻿using RimWorld;
+using UnityEngine;
+using Verse;
+
+namespace ToolBox.SettingsDefComp
 {
     public class Col_BaseHP : ColPropBase
     {
-        public new string header = "BaseHP";
-        public new float headerPos = 2.2f;
-        public new float width = 56f;
-        public float min = 1f;
-        public float max = 999999f;
-
         public override void Header()
         {
-            base.header = header;
-            base.headerPos = headerPos;
-            base.width = width;
+            if (drawDefault)
+            {
+                header = "BaseHP";
+                headerPos = 2.2f;
+                width = 56f;
+                min = 1f;
+                max = 999999f;
+            }
             base.Header();
         }
+
+        public void Widget(ThingProp thing, int line)
+        {
+            if (thing.baseHPProp.load && draw)
+            {
+                thing.baseHPProp.Preset(thing.defName);
+            }
+            if (!thing.baseHPProp.load && draw)
+            {
+                Widgets.TextFieldNumeric(
+                    new Rect(x, (24f * line) + vertLine, width, 22f), 
+                    ref thing.baseHPProp.numInt, 
+                    ref thing.baseHPProp.numBuffer, 
+                    min, max);
+                thing.baseHPProp.CheckConfig();
+                ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.MaxHitPoints, thing.baseHPProp.numInt);
+            }
+        }
+
     }
 }

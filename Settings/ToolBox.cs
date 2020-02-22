@@ -118,7 +118,6 @@ namespace ToolBox.Settings
             listing_Content.Begin(contentRect);
             foreach (SettingsDef settingsDef in settingsDef_Enum) 
             {
-                settingsDef.LoadBaseValue();
                 if (settingsDef.defName.Equals(settingsDef_Flag)) 
                 {
                     settingsDef.Display();
@@ -131,11 +130,11 @@ namespace ToolBox.Settings
         public override void WriteSettings()
         {
             //Loads the changed thing properties.
-            IEnumerable<ThingList> thingList = DefDatabase<SettingsDef>.AllDefs
+            IEnumerable<SettingsDefComp.ThingProp> thingList = DefDatabase<SettingsDef>.AllDefs
                     .SelectMany(s => s.drawContent
                     .SelectMany(d => d.thingList)
                     .Where(t => t.live));
-            foreach (ThingList thing in thingList)
+            foreach (SettingsDefComp.ThingProp thing in thingList)
             {
                 thing.CheckSaved();
             }

@@ -1,19 +1,46 @@
-﻿namespace ToolBox.SettingsDefComp
+﻿using RimWorld;
+using UnityEngine;
+using Verse;
+
+namespace ToolBox.SettingsDefComp
 {
     public class Col_Beauty : ColPropBase
     {
-        public new string header = "Beauty";
-        public new float headerPos = 2.2f;
-        public new float width = 48.5f;
-        public float min = -9999f;
-        public float max = 99999f;
 
         public override void Header()
         {
-            base.header = header;
-            base.headerPos = headerPos;
-            base.width = width;
+            if (drawDefault)
+            {
+                header = "Beauty";
+                headerPos = 2.2f;
+                width = 48.5f;
+                min = -9999f;
+                max = 99999f;
+            }
             base.Header();
+        }
+
+        /// <summary>
+        /// Default beauty is incremented to 1 to fit with the input numbers.
+        /// Original values from startup and live changes will follow the value rule of ToolBox
+        /// instead of the Rimworld default (XMLval - 1 = beauty).
+        /// </summary>
+        public void Widget(ThingProp thing, int line)
+        {
+            if (thing.beautyProp.load && draw)
+            {
+                thing.beautyProp.Preset(thing.defName);
+            }
+            if (!thing.beautyProp.load && draw)
+            {
+                Widgets.TextFieldNumeric(
+                    new Rect(x, (24f * line) + vertLine, width, 22f), 
+                    ref thing.beautyProp.numInt, 
+                    ref thing.beautyProp.numBuffer, 
+                    min, max);
+                thing.beautyProp.CheckConfig();
+                ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.Beauty, thing.beautyProp.numInt + 1);
+            }
         }
     }
 }

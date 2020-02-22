@@ -38,10 +38,9 @@ namespace ToolBox.Tools
             }
             if (num > 0 && index >= 1)
             {
-                return num += 24;
+                return num += 24f;
             }
             return num;
-
         }
     }
 }

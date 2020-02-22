@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Text;
-using RimWorld;
-using UnityEngine;
 using Verse;
 
 namespace ToolBox.SettingsDefComp
 {
-    public class ThingList : IExposable
+    public class ThingProp : IExposable
     {
         public string defName;
+        public int pos = 0;
         public StringBuilder configBuilder = new StringBuilder("0000");
         public string configID;
         public bool config = false;
@@ -19,6 +18,21 @@ namespace ToolBox.SettingsDefComp
         public ThingProp_BaseHP baseHPProp = new ThingProp_BaseHP();
         public ThingProp_Beauty beautyProp = new ThingProp_Beauty();
         public ThingProp_Fill fillProp = new ThingProp_Fill();
+
+        public void LiveCheck() 
+        {
+            try
+            {
+                if (live)
+                {
+                    string test = ThingDef.Named(defName).defName;
+                }
+            }
+            catch (NullReferenceException)
+            {
+                live = false;
+            }
+        }
 
         public void CheckConfig() 
         {
@@ -39,19 +53,19 @@ namespace ToolBox.SettingsDefComp
 
         public void CheckSaved() 
         {
-            if (costProp.draw && costProp.load)
+            if ((costProp.numIntDefault.Count > 1) && costProp.load)
             {
                 costProp.Preset(defName);
             }
-            if (baseHPProp.draw && baseHPProp.load)
+            if ((baseHPProp.numIntDefault.Count > 1) && baseHPProp.load)
             {
                 baseHPProp.Preset(defName);
             }
-            if (beautyProp.draw && beautyProp.load)
+            if ((beautyProp.numIntDefault.Count > 1) && beautyProp.load)
             {
                 beautyProp.Preset(defName);
             }
-            if (fillProp.draw && fillProp.load)
+            if ((fillProp.numIntDefault.Count > 1) && fillProp.load)
             {
                 fillProp.Preset(defName);
             }
