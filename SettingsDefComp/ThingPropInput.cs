@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Verse;
 
 namespace ToolBox.SettingsDefComp
@@ -12,6 +9,7 @@ namespace ToolBox.SettingsDefComp
         public int numSavedInt;
         public int numInt;
         public string numBuffer;
+        public char config = '0';
 
         public virtual void ExposeData()
         {
@@ -31,6 +29,20 @@ namespace ToolBox.SettingsDefComp
                 numSavedInt = 0;
             }
             load = false;
+        }
+
+        public virtual void CheckConfig()
+        {
+            if (numInt == numIntDefault[0])
+            {
+                config = '0';
+                numSavedInt = 0;
+            }
+            else
+            {
+                config = '1';
+                numSavedInt = numInt;
+            }
         }
     }
 }

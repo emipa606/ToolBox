@@ -70,11 +70,6 @@ namespace ToolBox
             }
         }
 
-        public void LoadBaseValue() 
-        {
-            drawContent.ForEach(c => c.SetDraw());
-        }
-
         public void Display() 
         {
             drawContent.ForEach(c => c.CompileWidgets());

@@ -1,19 +1,40 @@
-﻿namespace ToolBox.SettingsDefComp
+﻿using UnityEngine;
+using Verse;
+
+namespace ToolBox.SettingsDefComp
 {
     public class Col_Fill : ColPropBase
     {
-        public new string header = "Fill";
-        public new float headerPos = 5.5f;
-        public new float width = 31f;
-        public float min = 0;
-        public float max = 100;
+        public new float min = 0;
+        public new float max = 100;
 
         public override void Header()
         {
-            base.header = header;
-            base.headerPos = headerPos;
-            base.width = width;
+            if (drawDefault)
+            {
+                header = "Fill";
+                headerPos = 5.5f;
+                width = 31f;
+            }
             base.Header();
+        }
+
+        public void Widget(ThingProp thing, int line)
+        {
+            if (thing.fillProp.load && draw)
+            {
+                thing.fillProp.Preset(thing.defName);
+            }
+            if (!thing.fillProp.load && draw)
+            {
+                Widgets.TextFieldNumeric(
+                    new Rect(x, (24f * line) + vertLine, width, 22f), 
+                    ref thing.fillProp.numInt, 
+                    ref thing.fillProp.numBuffer, 
+                    min, max);
+                thing.fillProp.CheckConfig();
+                ThingDef.Named(thing.defName).fillPercent = thing.fillProp.numInt / 100f;
+            }
         }
     }
 }

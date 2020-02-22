@@ -13,47 +13,29 @@ namespace ToolBox.Core
     {
         static StartUp()
         {
-            //Checks if the thingDef exsists or not.
-            IEnumerable<ThingList> thingList = DefDatabase<SettingsDef>.AllDefs
+            //Groups similar DefNames in ThingList and reports it.
+            IEnumerable<ThingProp> thingList = DefDatabase<SettingsDef>.AllDefs
                 .SelectMany(s => s.drawContent
                 .SelectMany(d => d.thingList));
-            int refCaptureCount = 0;
-            foreach (ThingList thing in thingList)
-            {
-                try
-                {
-                    string test = ThingDef.Named(thing.defName).label;
-                }
-                catch (NullReferenceException)
-                {
-                    thing.live = false;
-                    refCaptureCount++;
-                    continue;
-                }
-            }
-            if (refCaptureCount > 0)
-            {
-                Log.Error($"[ToolBox : OOF] The missing ThingDefs will be skipped over." 
-                    + "\nNote: opening the ToolBox settings will erase the data of the missing ThingDefs.");
-            }
-
-            //Groups similar DefNames in ThingList and reports it.
-            IEnumerable<string> sameDefName = thingList.GroupBy(t => t.defName).Where(d => d.Count() > 1).Select(d => d.Key);
+            IEnumerable<string> sameDefName = thingList
+                .GroupBy(t => t.defName)
+                .Where(d => d.Count() > 1)
+                .Select(d => d.Key);
             foreach (string defName in sameDefName)
             {
                 Log.Error($"[ToolBox : OOF] ThingList defName \"{defName}\" has duplicate(s).");
             }
 
             //Checks if ThingDef still exists and loads the save if it does.
-            IEnumerable<ThingList> savedThingList = LoadedModManager
+            IEnumerable<ThingProp> savedThingList = LoadedModManager
                 .GetMod<Settings.ToolBox>()
                 .GetSettings<ToolBoxSettings>().thingList;
             int dataCaptureCount = 0;
-            foreach (ThingList thing in savedThingList)
+            foreach (ThingProp thing in savedThingList)
             {
                 try
                 {
-                    foreach (ThingList thingy in thingList.Where(t => t.defName.Equals(thing.defName)))
+                    foreach (ThingProp thingy in thingList.Where(t => t.defName.Equals(thing.defName)))
                     {
                         if (thing.configID[0].Equals('1'))
                         { thingy.costProp.numIntDefault.Add(ThingDef.Named(thing.defName).costStuffCount); }
