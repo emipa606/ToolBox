@@ -5,15 +5,15 @@ namespace ToolBox.SettingsDefComp
 {
     public class Col_Fill : ColPropBase
     {
-        public new float min = 0;
-        public new float max = 100;
+        public new float min = 0f;
+        public new float max = 100f;
 
         public override void Header()
         {
             if (drawDefault)
             {
                 header = "Fill";
-                headerPos = 5.5f;
+                headerPos = 6.6f;
                 width = 31f;
             }
             base.Header();

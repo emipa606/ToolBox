@@ -1,13 +1,14 @@
 ﻿using System;
 using Verse;
+using RimWorld;
 
 namespace ToolBox.SettingsDefComp
 {
-    public class ThingProp_Fill : ThingPropInput
+    public class ThingProp_WorkToBuild : ThingPropInput
     {
         public override void ExposeData()
         {
-            Scribe_Values.Look(ref numSavedInt, "fill");
+            Scribe_Values.Look(ref numSavedInt, "WorkToBuild");
         }
 
         public override void Preset(string defName)
@@ -15,11 +16,11 @@ namespace ToolBox.SettingsDefComp
             if (numIntDefault.Count > 1)
             {
                 numIntDefault[0] = numIntDefault[1];
-                numInt = Convert.ToInt32(ThingDef.Named(defName).fillPercent * 100f);
+                numInt = Convert.ToInt32(ThingDef.Named(defName).GetStatValueAbstract(StatDefOf.WorkToBuild));
             }
             else
             {
-                numInt = numIntDefault[0] = Convert.ToInt32(ThingDef.Named(defName).fillPercent * 100f);
+                numInt = numIntDefault[0] = Convert.ToInt32(ThingDef.Named(defName).GetStatValueAbstract(StatDefOf.WorkToBuild));
             }
             base.Preset(defName);
         }

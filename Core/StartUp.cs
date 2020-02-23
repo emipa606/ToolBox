@@ -13,11 +13,13 @@ namespace ToolBox.Core
     {
         static StartUp()
         {
-            //Groups similar DefNames in ThingList and reports it.
-            IEnumerable<ThingProp> thingList = DefDatabase<SettingsDef>.AllDefs
+            //ThingProp list
+            IEnumerable<ThingProp> thingProps = DefDatabase<SettingsDef>.AllDefs
                 .SelectMany(s => s.drawContent
                 .SelectMany(d => d.thingList));
-            IEnumerable<string> sameDefName = thingList
+
+            //Groups similar DefNames in ThingList and reports it.
+            IEnumerable<string> sameDefName = thingProps
                 .GroupBy(t => t.defName)
                 .Where(d => d.Count() > 1)
                 .Select(d => d.Key);
@@ -26,55 +28,80 @@ namespace ToolBox.Core
                 Log.Error($"[ToolBox : OOF] ThingList defName \"{defName}\" has duplicate(s).");
             }
 
-            //Checks if ThingDef still exists and loads the save if it does.
-            IEnumerable<ThingProp> savedThingList = LoadedModManager
+            //Checks if ThingDef from savedThingProps_Raw still exists and places it in savedThingProps if it does.
+            IEnumerable<ThingProp> savedThingProps_Raw = LoadedModManager
                 .GetMod<Settings.ToolBox>()
                 .GetSettings<ToolBoxSettings>().thingList;
-            int dataCaptureCount = 0;
-            foreach (ThingProp thing in savedThingList)
+            IList<ThingProp> savedThingProps = new List<ThingProp>();
+            int IDLength = 8; //Change this for every new Prop addition.
+            foreach (ThingProp thingProp_Raw in savedThingProps_Raw)
             {
                 try
                 {
-                    foreach (ThingProp thingy in thingList.Where(t => t.defName.Equals(thing.defName)))
+                    string test = ThingDef.Named(thingProp_Raw.defName).defName;
+
+                    //Updates any outdated configID from previous saves.
+                    if (thingProp_Raw.configID.Length < IDLength)
                     {
-                        if (thing.configID[0].Equals('1'))
-                        { thingy.costProp.numIntDefault.Add(ThingDef.Named(thing.defName).costStuffCount); }
-                        if (thing.configID[1].Equals('1'))
+                        for (int i = thingProp_Raw.configID.Length; i < IDLength; i++)
                         {
-                            thingy.baseHPProp.numIntDefault.Add(ThingDef.Named(thing.defName).BaseMaxHitPoints);
-                            thingy.baseHPProp.numIntDefault.Add(thing.baseHPProp.numSavedInt);
+                            thingProp_Raw.configID += "0";
                         }
-                        if (thing.configID[2].Equals('1'))
-                        {
-                            thingy.beautyProp.numIntDefault.Add(Convert.ToInt32(ThingDef.Named(thing.defName).GetStatValueAbstract(StatDefOf.Beauty)));
-                            thingy.beautyProp.numIntDefault.Add(thing.beautyProp.numSavedInt);
-                        }
-                        if (thing.configID[3].Equals('1'))
-                        { thingy.fillProp.numIntDefault.Add(Convert.ToInt32(ThingDef.Named(thing.defName).fillPercent)); }
                     }
-                    if (thing.configID[0].Equals('1'))
-                    { ThingDef.Named(thing.defName).costStuffCount = thing.costProp.numSavedInt; }
-                    if (thing.configID[1].Equals('1'))
-                    { ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.MaxHitPoints, thing.baseHPProp.numSavedInt); }
-                    if (thing.configID[2].Equals('1'))
-                    { ThingDef.Named(thing.defName).SetStatBaseValue(StatDefOf.Beauty, thing.beautyProp.numSavedInt + 1); }
-                    if (thing.configID[3].Equals('1'))
-                    { ThingDef.Named(thing.defName).fillPercent = thing.fillProp.numSavedInt / 100f; }
-                }
-                catch (IndexOutOfRangeException) 
-                {
-                    dataCaptureCount++;
-                    continue;
+                    savedThingProps.Add(thingProp_Raw);
                 }
                 catch (NullReferenceException)
                 {
                     continue;
                 }
             }
-            if (dataCaptureCount > 0)
+
+            //Loads the saved data and sets the ThingDefs new value.
+            foreach (ThingProp savedThingProp in savedThingProps)
             {
-                Log.Error("[ToolBox : OOF] Outdated ConfigID spotted." 
-                    +"\nNote: opening the settings will reset the previous save data."); 
+                ThingProp thingProp = thingProps.Single(t => t.defName.Equals(savedThingProp.defName));
+                if (savedThingProp.configID[0].Equals('1'))
+                {
+                    thingProp.costProp.numIntDefault.Add(ThingDef.Named(thingProp.defName).costStuffCount);
+                    ThingDef.Named(thingProp.defName).costStuffCount = savedThingProp.costProp.numSavedInt;
+                }
+                if (savedThingProp.configID[1].Equals('1'))
+                {
+                    thingProp.baseHPProp.numIntDefault.Add(ThingDef.Named(thingProp.defName).BaseMaxHitPoints);
+                    thingProp.baseHPProp.numIntDefault.Add(savedThingProp.baseHPProp.numSavedInt);
+                    ThingDef.Named(thingProp.defName).SetStatBaseValue(StatDefOf.MaxHitPoints, savedThingProp.baseHPProp.numSavedInt);
+                }
+                if (savedThingProp.configID[2].Equals('1'))
+                {
+                    thingProp.beautyProp.numIntDefault.Add(Convert.ToInt32(ThingDef.Named(thingProp.defName).GetStatValueAbstract(StatDefOf.Beauty)));
+                    thingProp.beautyProp.numIntDefault.Add(savedThingProp.beautyProp.numSavedInt);
+                    ThingDef.Named(thingProp.defName).SetStatBaseValue(StatDefOf.Beauty, savedThingProp.beautyProp.numSavedInt + 1);
+                }
+                if (savedThingProp.configID[3].Equals('1'))
+                {
+                    thingProp.fillProp.numIntDefault.Add(Convert.ToInt32(ThingDef.Named(thingProp.defName).fillPercent * 100f));
+                    ThingDef.Named(thingProp.defName).fillPercent = savedThingProp.fillProp.numSavedInt / 100f;
+                }
+                if (savedThingProp.configID[4].Equals('1'))
+                {
+                    thingProp.workProp.numIntDefault.Add(Convert.ToInt32(ThingDef.Named(thingProp.defName).GetStatValueAbstract(StatDefOf.WorkToBuild)));
+                    ThingDef.Named(thingProp.defName).SetStatBaseValue(StatDefOf.WorkToBuild, savedThingProp.workProp.numSavedInt);
+                }
+                if (savedThingProp.configID[5].Equals('1'))
+                {
+                    thingProp.pathProp.numIntDefault.Add(ThingDef.Named(thingProp.defName).pathCost);
+                    ThingDef.Named(thingProp.defName).pathCost = savedThingProp.pathProp.numSavedInt;
+                }
+                if (savedThingProp.configID[6].Equals('1'))
+                {
+                    thingProp.flammabilityProp.numIntDefault.Add(Convert.ToInt32(ThingDef.Named(thingProp.defName).BaseFlammability * 100f));
+                    ThingDef.Named(thingProp.defName).SetStatBaseValue(StatDefOf.Flammability, savedThingProp.flammabilityProp.numSavedInt / 100f);
+                }
+                if (savedThingProp.configID[7].Equals('1'))
+                {
+                    thingProp.passabilityProp.optionDefault.Add(ThingDef.Named(thingProp.defName).passability);
+                    ThingDef.Named(thingProp.defName).passability = savedThingProp.passabilityProp.savedOption;
+                }
             }
         }
     }

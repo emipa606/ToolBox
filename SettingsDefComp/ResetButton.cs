@@ -39,6 +39,18 @@ namespace ToolBox.SettingsDefComp
 
                         if (thing.fillProp.config.Equals('1')) 
                         { thing.fillProp.numBuffer = thing.fillProp.numIntDefault[0].ToString(); }
+
+                        if (thing.pathProp.config.Equals('1'))
+                        { thing.pathProp.numBuffer = thing.pathProp.numIntDefault[0].ToString(); }
+
+                        if (thing.workProp.config.Equals('1'))
+                        { thing.workProp.numBuffer = thing.workProp.numIntDefault[0].ToString(); }
+
+                        if (thing.flammabilityProp.config.Equals('1'))
+                        { thing.flammabilityProp.numBuffer = thing.flammabilityProp.numIntDefault[0].ToString(); }
+
+                        if (thing.passabilityProp.config.Equals('1'))
+                        { thing.passabilityProp.option = thing.passabilityProp.optionDefault[0]; }
                     }
                 }
             }

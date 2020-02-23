@@ -18,16 +18,7 @@ namespace ToolBox.SettingsDefComp
         public virtual void Preset(string defName) 
         {
             numBuffer = numInt.ToString();
-            if (numInt != numIntDefault[0])
-            {
-                config = '1';
-                numSavedInt = numInt;
-            }
-            else
-            {
-                config = '0';
-                numSavedInt = 0;
-            }
+            CheckConfig();
             load = false;
         }
 
