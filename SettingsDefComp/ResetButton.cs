@@ -51,6 +51,12 @@ namespace ToolBox.SettingsDefComp
 
                         if (thing.passabilityProp.config.Equals('1'))
                         { thing.passabilityProp.option = thing.passabilityProp.optionDefault[0]; }
+
+                        if (thing.linkProp.config.Equals('1'))
+                        { thing.linkProp.option = thing.linkProp.optionDefault[0]; }
+
+                        if (thing.roofProp.config.Equals('1'))
+                        { thing.roofProp.option = thing.roofProp.optionDefault[0]; }
                     }
                 }
             }

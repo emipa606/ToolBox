@@ -33,7 +33,7 @@ namespace ToolBox.Core
                 .GetMod<Settings.ToolBox>()
                 .GetSettings<ToolBoxSettings>().thingList;
             IList<ThingProp> savedThingProps = new List<ThingProp>();
-            int IDLength = 8; //Change this for every new Prop addition.
+            int IDLength = 10; //Change this for every new Prop addition.
             foreach (ThingProp thingProp_Raw in savedThingProps_Raw)
             {
                 try
@@ -101,6 +101,30 @@ namespace ToolBox.Core
                 {
                     thingProp.passabilityProp.optionDefault.Add(ThingDef.Named(thingProp.defName).passability);
                     ThingDef.Named(thingProp.defName).passability = savedThingProp.passabilityProp.savedOption;
+                }
+                if (savedThingProp.configID[8].Equals('1'))
+                {
+                    thingProp.linkProp.optionDefault.Add(ThingDef.Named(thingProp.defName).graphicData.linkFlags);
+                    ThingDef.Named(thingProp.defName).graphicData.linkFlags = savedThingProp.linkProp.savedOption;
+                }
+                if (savedThingProp.configID[9].Equals('1'))
+                {
+                    thingProp.roofProp.optionDefault.Add(new Roofing(ThingDef.Named(thingProp.defName)).Mode);
+                    switch (savedThingProp.roofProp.savedOption)
+                    {
+                        case RoofMode.Auto:
+                            ThingDef.Named(thingProp.defName).holdsRoof = true;
+                            ThingDef.Named(thingProp.defName).building.allowAutoroof = true;
+                            break;
+                        case RoofMode.Manual:
+                            ThingDef.Named(thingProp.defName).holdsRoof = true;
+                            ThingDef.Named(thingProp.defName).building.allowAutoroof = false;
+                            break;
+                        case RoofMode.None:
+                            ThingDef.Named(thingProp.defName).holdsRoof = false;
+                            ThingDef.Named(thingProp.defName).building.allowAutoroof = false;
+                            break;
+                    }
                 }
             }
         }

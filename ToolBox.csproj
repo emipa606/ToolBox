@@ -65,12 +65,16 @@
     <Compile Include="SettingsDefComp\Col_Cost.cs" />
     <Compile Include="SettingsDefComp\Col_Fill.cs" />
     <Compile Include="SettingsDefComp\Col_Flammability.cs" />
+    <Compile Include="SettingsDefComp\Col_Link.cs" />
     <Compile Include="SettingsDefComp\Col_Passability.cs" />
     <Compile Include="SettingsDefComp\Col_Path.cs" />
+    <Compile Include="SettingsDefComp\Col_Roof.cs" />
     <Compile Include="SettingsDefComp\Col_WorkToBuild.cs" />
     <Compile Include="SettingsDefComp\DrawContent.cs" />
     <Compile Include="SettingsDefComp\Col_Label.cs" />
     <Compile Include="SettingsDefComp\ResetButton.cs" />
+    <Compile Include="SettingsDefComp\RoofMode.cs" />
+    <Compile Include="SettingsDefComp\Roofing.cs" />
     <Compile Include="SettingsDefComp\ThingProp.cs" />
     <Compile Include="SettingsDefComp\ThingPropBase.cs" />
     <Compile Include="SettingsDefComp\ThingPropInput.cs" />
@@ -81,8 +85,10 @@
     <Compile Include="SettingsDefComp\ThingProp_Fill.cs" />
     <Compile Include="SettingsDefComp\ThingProp_Flammability.cs" />
     <Compile Include="SettingsDefComp\ThingProp_Label.cs" />
+    <Compile Include="SettingsDefComp\ThingProp_Link.cs" />
     <Compile Include="SettingsDefComp\ThingProp_Passability.cs" />
     <Compile Include="SettingsDefComp\ThingProp_Path.cs" />
+    <Compile Include="SettingsDefComp\ThingProp_Roof.cs" />
     <Compile Include="SettingsDefComp\ThingProp_WorkToBuild.cs" />
     <Compile Include="Settings\ToolBox.cs" />
     <Compile Include="Settings\ToolBoxSettings.cs" />

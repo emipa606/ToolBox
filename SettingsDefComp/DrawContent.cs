@@ -18,6 +18,8 @@ namespace ToolBox.SettingsDefComp
         public Col_WorkToBuild workCol = new Col_WorkToBuild();
         public Col_Flammability flammabilityCol = new Col_Flammability();
         public Col_Passability passabilityCol = new Col_Passability();
+        public Col_Link linkCol = new Col_Link();
+        public Col_Roof roofCol = new Col_Roof();
         public ResetButton resetButton = new ResetButton();
         public float width = 0;
         public float height = 0;
@@ -39,6 +41,8 @@ namespace ToolBox.SettingsDefComp
                 workCol.SetSize(thingList.Count(), width, height, 23.8f);
                 flammabilityCol.SetSize(thingList.Count(), width, height, 23.8f);
                 passabilityCol.SetSize(thingList.Count(), width, height, 23.8f);
+                linkCol.SetSize(thingList.Count(), width, height, 23.8f);
+                roofCol.SetSize(thingList.Count(), width, height, 23.8f);
                 if ((resetButton.width > 0f) && (resetButton.height > 0f))
                 {
                     width.Add(resetButton.x + resetButton.width);
@@ -62,6 +66,8 @@ namespace ToolBox.SettingsDefComp
                 workCol.Header();
                 flammabilityCol.Header();
                 passabilityCol.Header();
+                linkCol.Header();
+                roofCol.Header();
                 thingList.ForEach(x => x.LiveCheck());
                 index = ToolHandle.SetIndexCount(thingList.Where(t => t.live).Count());
                 foreach (Tuple<ThingProp, int> thing in thingList
@@ -78,6 +84,8 @@ namespace ToolBox.SettingsDefComp
                     workCol.Widget(thing.Item1, thing.Item2);
                     flammabilityCol.Widget(thing.Item1, thing.Item2);
                     passabilityCol.Widget(thing.Item1, thing.Item2);
+                    linkCol.Widget(thing.Item1, thing.Item2);
+                    roofCol.Widget(thing.Item1, thing.Item2);
                     thing.Item1.CheckConfig();
                 }
                 resetButton.Widget(thingList);
