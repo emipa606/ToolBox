@@ -13,7 +13,8 @@ namespace ToolBox
         public bool scrollbar = true;
         public float width = 0;
         public float height = 0;
-        public List<DrawContent> drawContent = new List<DrawContent>();
+        public List<DrawProperties> drawProperties = new List<DrawProperties>();
+        public DrawMisc drawMisc = new DrawMisc();
 
         public bool checkSize = true;
 
@@ -33,46 +34,43 @@ namespace ToolBox
 
         public void AdaptSize(ref Rect rect, ref Rect rectView, ref bool drawScrollbar) 
         {
-            drawScrollbar = scrollbar;
             if (checkSize)
             {
-                drawContent.ForEach(c => c.CalcSize());
+                drawScrollbar = scrollbar;
+                List<float> width = new List<float>() { 0 };
+                List<float> height = new List<float>() { 0 };
+                drawProperties.ForEach(c => c.CalcSize(width, height));
+                drawMisc.CalcSize(width, height);
+
+                //Compares and takes the highest width and height of all the 
+                if (width.Max() > this.width)
+                {
+                    this.width = width.Max();
+                }
+                if (height.Max() > this.width)
+                {
+                    this.height = height.Max();
+                }
                 checkSize = false;
             }
-            float addHeight = 0f;
-            bool widerContent = drawContent.Select(c => c.width).Max() > rect.width;
-            bool higherContent = drawContent.Select(c => c.height).Max() > rect.height;
-            bool widerSettings = width > rect.width;
-            bool higherSettings = height > rect.height;
-            if (widerSettings)
+
+            if (this.width > rect.width)
             {
-                rectView.width = width;
-                rect.width = width;
+                rectView.width = this.width;
+                rect.width = this.width;
                 rectView.height -= 16f;
-                addHeight += 1f;
             }
-            else if (widerContent)
+            if (this.height > rect.height)
             {
-                rectView.width = drawContent.Select(d => d.width).Max();
-                rect.width = drawContent.Select(d => d.width).Max();
-                rectView.height -= 16f;
-                addHeight += 1f;
-            }
-            if (higherSettings)
-            {
-                rectView.height = height;
-                rect.height = height;
-            }
-            else if (higherContent)
-            {
-                rectView.height = drawContent.Select(d => d.height).Max() + addHeight;
-                rect.height = drawContent.Select(d => d.height).Max() + addHeight;
+                rectView.height = this.height;
+                rect.height = this.height;
             }
         }
 
         public void Display() 
         {
-            drawContent.ForEach(c => c.CompileWidgets());
+            drawProperties.ForEach(c => c.CompileWidgets());
+            drawMisc.CompileWidgets();
         }
     }
 }

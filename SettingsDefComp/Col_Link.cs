@@ -27,15 +27,15 @@ namespace ToolBox.SettingsDefComp
             LinkFlags.Custom10
         };
 
-        public override void Header()
+        public override void SetSize(int thingCount, List<float> width, List<float> height, float multiplier)
         {
             if (drawDefault)
             {
                 header = "Link";
                 headerPos = 24.5f;
-                width = 75f;
+                this.width = 75f;
             }
-            base.Header();
+            base.SetSize(thingCount, width, height, multiplier);
         }
 
         public void Widget(ThingProp thing, int line)

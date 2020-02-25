@@ -13,15 +13,18 @@ namespace ToolBox.SettingsDefComp
             Traversability.Standable
         };
 
-        public override void Header()
+        Rect overlay = new Rect();
+        Color color = new Color();
+
+        public override void SetSize(int thingCount, List<float> width, List<float> height, float multiplier)
         {
             if (drawDefault)
             {
                 header = "Passability";
                 headerPos = 32.5f;
-                width = 130f;
+                this.width = 130f;
             }
-            base.Header();
+            base.SetSize(thingCount, width, height, multiplier);
         }
 
         public void Widget(ThingProp thing, int line)
@@ -44,6 +47,22 @@ namespace ToolBox.SettingsDefComp
                     }
                     Find.WindowStack.Add(new FloatMenu(list));
                 }
+                switch (thing.passabilityProp.option)
+                {
+                    case Traversability.Standable:
+                        overlay = new Rect(x, (24f * line) + vertLine, width, 22f);
+                        color = new Color(0f, 0.55f, 0f, 0.35f);
+                        break;
+                    case Traversability.PassThroughOnly:
+                        overlay = new Rect(x, (24f * line) + vertLine, width, 22f);
+                        color = new Color(0.35f, 0.35f, 0.35f, 0.35f);
+                        break;
+                    case Traversability.Impassable:
+                        overlay = new Rect(x, (24f * line) + vertLine, width, 22f);
+                        color = new Color(0.60f, 0f, 0f, 0.35f);
+                        break;
+                }
+                Widgets.DrawBoxSolid(overlay, color);
                 thing.passabilityProp.CheckConfig();
             }
         }

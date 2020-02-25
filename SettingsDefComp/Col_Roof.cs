@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -10,15 +6,31 @@ namespace ToolBox.SettingsDefComp
 {
     public class Col_Roof : ColPropBase
     {
-        public override void Header()
+        public IList<RoofMode> modeList_A = new List<RoofMode>()
+        {
+            RoofMode.Auto,
+            RoofMode.Manual,
+            RoofMode.None
+        };
+
+        public IList<RoofMode> modeList_B = new List<RoofMode>()
+        {
+            RoofMode.Manual,
+            RoofMode.None
+        };
+
+        Rect overlay = new Rect();
+        Color color = new Color();
+
+        public override void SetSize(int thingCount, List<float> width, List<float> height, float multiplier)
         {
             if (drawDefault)
             {
                 header = "Roof";
-                headerPos = 24.5f;
-                width = 75f;
+                headerPos = 22.5f;
+                this.width = 75f;
             }
-            base.Header();
+            base.SetSize(thingCount, width, height, multiplier);
         }
 
         public void Widget(ThingProp thing, int line)
@@ -30,50 +42,54 @@ namespace ToolBox.SettingsDefComp
             if (!thing.roofProp.load && draw)
             {
                 Roofing roofing = new Roofing(ThingDef.Named(thing.defName));
+                IList<RoofMode> roofOptions;
+                if (roofing.IsDoor || roofing.IsImpassable)
+                {
+                    roofOptions = modeList_A;
+                }
+                else
+                {
+                    roofOptions = modeList_B;
+                }
                 if (Widgets.ButtonText(new Rect(x, (24f * line) + vertLine, width, 22f), thing.roofProp.option.ToString()))
                 {
-                    bool a;
-                    bool b;
-                    switch (thing.roofProp.option)
+                    List<FloatMenuOption> list = new List<FloatMenuOption>();
+                    foreach (RoofMode options in roofOptions)
                     {
-                        case RoofMode.Auto:
-                            thing.roofProp.option = RoofMode.Manual;
-                            a = ThingDef.Named(thing.defName).holdsRoof = true;
-                            b =ThingDef.Named(thing.defName).building.allowAutoroof = false;
-                            Log.Error($"holdsRoof is {a}");
-                            Log.Error($"allowsAutoRoof is {b}");
-                            break;
-                        case RoofMode.Manual:
-                            thing.roofProp.option = RoofMode.None;
-                            a = ThingDef.Named(thing.defName).holdsRoof = false;
-                            b = ThingDef.Named(thing.defName).building.allowAutoroof = false;
-                            Log.Error($"holdsRoof is {a}");
-                            Log.Error($"allowsAutoRoof is {b}");
-                            break;
-                        case RoofMode.None:
-                            if (roofing.IsDoor || roofing.IsImpassable)
-                            {
-                                thing.roofProp.option = RoofMode.Auto;
-                                a = ThingDef.Named(thing.defName).holdsRoof = true;
-                                b = ThingDef.Named(thing.defName).building.allowAutoroof = true;
-                            }
-                            else
-                            {
-                                thing.roofProp.option = RoofMode.Manual;
-                                a = ThingDef.Named(thing.defName).holdsRoof = true;
-                                b = ThingDef.Named(thing.defName).building.allowAutoroof = false;
-                            }
-                            Log.Error($"holdsRoof is {a}");
-                            Log.Error($"allowsAutoRoof is {b}");
-                            break;
+                        list.Add(new FloatMenuOption(options.ToString(), delegate () { thing.roofProp.option = options; }));
                     }
+                    Find.WindowStack.Add(new FloatMenu(list));
                 }
-                if (thing.roofProp.option == RoofMode.Auto && !roofing.IsDoor && !roofing.IsImpassable)
+
+                switch (thing.roofProp.option)
                 {
-                    thing.roofProp.option = RoofMode.Manual;
+                    case RoofMode.Auto:
+                        if (!roofing.IsDoor && !roofing.IsImpassable)
+                        {
+                            thing.roofProp.option = RoofMode.Manual;
+                        }
+                        ThingDef.Named(thing.defName).holdsRoof = true;
+                        ThingDef.Named(thing.defName).building.allowAutoroof = true;
+                        overlay = new Rect(x, (24f * line) + vertLine, width, 22f);
+                        color = new Color(0f, 0.55f, 0f, 0.35f);
+                        break;
+                    case RoofMode.Manual:
+                        ThingDef.Named(thing.defName).holdsRoof = true;
+                        ThingDef.Named(thing.defName).building.allowAutoroof = false;
+                        overlay = new Rect(x, (24f * line) + vertLine, width, 22f);
+                        color = new Color(0.35f, 0.35f, 0.35f, 0.35f);
+                        break;
+                    case RoofMode.None:
+                        ThingDef.Named(thing.defName).holdsRoof = false;
+                        ThingDef.Named(thing.defName).building.allowAutoroof = false;
+                        overlay = new Rect(x, (24f * line) + vertLine, width, 22f);
+                        color = new Color(0.60f, 0f, 0f, 0.35f);
+                        break;
                 }
+                Widgets.DrawBoxSolid(overlay, color);
                 thing.roofProp.CheckConfig();
             }
+            
             //Place a check if it is a door or impassable to live update label.
         }
     }

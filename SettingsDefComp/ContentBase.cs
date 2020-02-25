@@ -1,6 +1,6 @@
 ﻿namespace ToolBox.SettingsDefComp
 {
-    public class ColBase
+    public class ContentBase
     {
         public float width = 0f;
         public float height = 0f;

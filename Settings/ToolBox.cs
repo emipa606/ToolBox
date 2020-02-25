@@ -131,7 +131,7 @@ namespace ToolBox.Settings
         {
             //Loads the changed thing properties.
             IEnumerable<SettingsDefComp.ThingProp> thingList = DefDatabase<SettingsDef>.AllDefs
-                    .SelectMany(s => s.drawContent
+                    .SelectMany(s => s.drawProperties
                     .SelectMany(d => d.thingList)
                     .Where(t => t.live));
             foreach (SettingsDefComp.ThingProp thing in thingList)
@@ -141,7 +141,7 @@ namespace ToolBox.Settings
 
             //Gets configured things.
             settings.thingList = DefDatabase<SettingsDef>.AllDefs
-                .SelectMany(s => s.drawContent
+                .SelectMany(s => s.drawProperties
                 .SelectMany(d => d.thingList
                 .Where(x => x.config && x.live)))
                 .ToList();

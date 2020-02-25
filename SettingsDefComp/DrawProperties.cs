@@ -6,7 +6,7 @@ using Verse;
 
 namespace ToolBox.SettingsDefComp
 {
-    public class DrawContent
+    public class DrawProperties
     {
         public List<ThingProp> thingList = new List<ThingProp>();
         public Col_Label labelCol = new Col_Label();
@@ -20,13 +20,14 @@ namespace ToolBox.SettingsDefComp
         public Col_Passability passabilityCol = new Col_Passability();
         public Col_Link linkCol = new Col_Link();
         public Col_Roof roofCol = new Col_Roof();
+        public Textbox textBox = new Textbox();
         public ResetButton resetButton = new ResetButton();
         public float width = 0;
         public float height = 0;
 
         public IList<int> index = new List<int>();
 
-        public void CalcSize() 
+        public void CalcSize(List<float> widthList, List<float> heightList) 
         {
             if (!thingList.NullOrEmpty())
             {
@@ -43,13 +44,32 @@ namespace ToolBox.SettingsDefComp
                 passabilityCol.SetSize(thingList.Count(), width, height, 23.8f);
                 linkCol.SetSize(thingList.Count(), width, height, 23.8f);
                 roofCol.SetSize(thingList.Count(), width, height, 23.8f);
+                textBox.SetSize(width, height);
                 if ((resetButton.width > 0f) && (resetButton.height > 0f))
                 {
                     width.Add(resetButton.x + resetButton.width);
                     height.Add(resetButton.y + resetButton.height);
                 }
-                this.width = width.Max();
-                this.height = height.Max();
+
+                //Chooses if wider than the set width
+                if (this.width > width.Max())
+                {
+                    widthList.Add(this.width);
+                }
+                else
+                {
+                    widthList.Add(width.Max());
+                }
+
+                //Chooses if higher than the set height
+                if (this.height > height.Max())
+                {
+                    heightList.Add(this.height);
+                }
+                else
+                {
+                    heightList.Add(height.Max());
+                }
             }
         }
 
@@ -57,6 +77,7 @@ namespace ToolBox.SettingsDefComp
         {
             if (!thingList.NullOrEmpty())
             {
+                //ThingProp based widgets
                 labelCol.Header();
                 costCol.Header();
                 baseHPCol.Header();
@@ -90,6 +111,9 @@ namespace ToolBox.SettingsDefComp
                 }
                 resetButton.Widget(thingList);
             }
+
+            //Design based widgets
+            textBox.Widget();
         }
     }
 }

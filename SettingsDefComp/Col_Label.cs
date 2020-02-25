@@ -5,11 +5,6 @@ namespace ToolBox.SettingsDefComp
 {
     public class Col_Label : ColPropBase
     {
-        public override void Header() 
-        {
-            base.Header();
-        }
-
         public void Widget(ThingProp thing, int line)
         {
             if (thing.labelProp.load && draw)

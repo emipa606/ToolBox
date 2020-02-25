@@ -3,7 +3,7 @@ using ToolBox.Tools;
 
 namespace ToolBox.SettingsDefComp
 {
-    public class ColPropBase  : ColBase
+    public class ColPropBase  : ContentBase
     {
         public bool draw = false;
         public bool drawDefault = false;

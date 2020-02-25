@@ -1,21 +1,22 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Verse;
 
 namespace ToolBox.SettingsDefComp
 {
     public class Col_Cost : ColPropBase
     {
-        public override void Header()
+        public override void SetSize(int thingCount, List<float> width, List<float> height, float multiplier)
         {
             if (drawDefault)
             {
                 header = "Cost";
                 headerPos = 5f;
-                width = 40f;
+                this.width = 40f;
                 min = 1f;
                 max = 9999f;
             }
-            base.Header();
+            base.SetSize(thingCount, width, height, multiplier);
         }
 
         public void Widget(ThingProp thing, int line)

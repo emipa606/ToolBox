@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Verse;
 
 namespace ToolBox.SettingsDefComp
@@ -8,15 +9,15 @@ namespace ToolBox.SettingsDefComp
         public new float min = 0f;
         public new float max = 100f;
 
-        public override void Header()
+        public override void SetSize(int thingCount, List<float> width, List<float> height, float multiplier)
         {
             if (drawDefault)
             {
                 header = "Fill";
                 headerPos = 6.6f;
-                width = 31f;
+                this.width = 31f;
             }
-            base.Header();
+            base.SetSize(thingCount, width, height, multiplier);
         }
 
         public void Widget(ThingProp thing, int line)

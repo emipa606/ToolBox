@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -6,18 +7,17 @@ namespace ToolBox.SettingsDefComp
 {
     public class Col_Beauty : ColPropBase
     {
-
-        public override void Header()
+        public override void SetSize(int thingCount, List<float> width, List<float> height, float multiplier)
         {
             if (drawDefault)
             {
                 header = "Beauty";
                 headerPos = 2.2f;
-                width = 48.5f;
+                this.width = 48.5f;
                 min = -9999f;
                 max = 99999f;
             }
-            base.Header();
+            base.SetSize(thingCount, width, height, multiplier);
         }
 
         /// <summary>

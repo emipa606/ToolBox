@@ -15,7 +15,7 @@ namespace ToolBox.Core
         {
             //ThingProp list
             IEnumerable<ThingProp> thingProps = DefDatabase<SettingsDef>.AllDefs
-                .SelectMany(s => s.drawContent
+                .SelectMany(s => s.drawProperties
                 .SelectMany(d => d.thingList));
 
             //Groups similar DefNames in ThingList and reports it.

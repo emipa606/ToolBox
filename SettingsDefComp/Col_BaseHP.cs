@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -6,17 +7,17 @@ namespace ToolBox.SettingsDefComp
 {
     public class Col_BaseHP : ColPropBase
     {
-        public override void Header()
+        public override void SetSize(int thingCount, List<float> width, List<float> height, float multiplier)
         {
             if (drawDefault)
             {
                 header = "BaseHP";
                 headerPos = 2.2f;
-                width = 56f;
+                this.width = 56f;
                 min = 1f;
                 max = 999999f;
             }
-            base.Header();
+            base.SetSize(thingCount, width, height, multiplier);
         }
 
         public void Widget(ThingProp thing, int line)

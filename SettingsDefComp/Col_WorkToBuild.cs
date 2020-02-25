@@ -1,23 +1,25 @@
 ﻿using UnityEngine;
 using Verse;
 using RimWorld;
+using System.Collections.Generic;
 
 namespace ToolBox.SettingsDefComp
 {
     public class Col_WorkToBuild : ColPropBase
     {
-        public override void Header()
+        public override void SetSize(int thingCount, List<float> width, List<float> height, float multiplier)
         {
             if (drawDefault)
             {
                 header = "Work";
                 headerPos = 3.5f;
-                width = 40f;
+                this.width = 40f;
                 min = 0f;
                 max = 9999f;
             }
-            base.Header();
+            base.SetSize(thingCount, width, height, multiplier);
         }
+
         public void Widget(ThingProp thing, int line)
         {
             if (thing.workProp.load && draw)
