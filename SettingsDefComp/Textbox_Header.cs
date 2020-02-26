@@ -9,16 +9,26 @@ namespace ToolBox.SettingsDefComp
         public GameFont fontSize = GameFont.Medium;
         public string text;
 
-        //fix width & height
         public void Content(Textbox textBox)
         {
-            Text.Font = fontSize;
-            Widgets.Label(new Rect(
-                    textBox.x + x + textBox.leftMargin,
-                    textBox.y + y + textBox.topMargin,
-                    Math.Abs(textBox.width - x - textBox.leftMargin),
-                    Math.Abs(textBox.height - y - textBox.topMargin)),
-                    text);
+            if (!text.NullOrEmpty())
+            {
+                if ((Math.Abs(textBox.width - x - textBox.leftMargin) < width) || (width <= 0f))
+                {
+                    width = Math.Abs(textBox.width - x - textBox.leftMargin);
+                }
+                if ((Math.Abs(textBox.height - y - textBox.topMargin) < height) || (height <= 0f))
+                {
+                    height = Math.Abs(textBox.height - y - textBox.topMargin);
+                }
+                Text.Font = fontSize;
+                Widgets.Label(new Rect(
+                        textBox.x + x + textBox.leftMargin,
+                        textBox.y + y + textBox.topMargin,
+                        width,
+                        height),
+                        text);
+            }
         }
     }
 }
