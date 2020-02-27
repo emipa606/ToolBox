@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Verse;
+using ToolBox.SettingsDefComp;
+using UnityEngine;
 
 namespace ToolBox.Tools
 {
@@ -41,6 +41,32 @@ namespace ToolBox.Tools
                 return num += 24f;
             }
             return num;
+        }
+
+        /// <summary>
+        /// width is always higher than margin x2
+        /// width - leftMargin * 2 = Y
+        /// Y > x
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="textBox"></param>
+        /// <returns></returns>
+        public static Rect SetWrapedRect(float x, float y, float width, float height, Textbox textBox) 
+        {
+            if (x < 0f) { x = 0f; }
+            if (y < 0f) { y = 0f; }
+            if (textBox.width > textBox.leftMargin * 2f)
+            {
+                if ((Math.Abs(textBox.width - x) - textBox.leftMargin < width) || (width <= 0f))
+                {
+                    width = Math.Abs(textBox.width - x - textBox.leftMargin);
+                }
+            }
+
+            return new Rect();
         }
     }
 }

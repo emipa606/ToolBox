@@ -13,18 +13,18 @@ namespace ToolBox.SettingsDefComp
         {
             if (!text.NullOrEmpty())
             {
-                if ((Math.Abs(textBox.width - x - textBox.leftMargin) < width) || (width <= 0f))
+                if ((Math.Abs(textBox.leftMargin - textBox.width - x) < width) || (width <= 0f))
                 {
-                    width = Math.Abs(textBox.width - x - textBox.leftMargin);
+                    width = Math.Abs(textBox.leftMargin - textBox.width - x);
                 }
-                if ((Math.Abs(textBox.height - y - textBox.topMargin) < height) || (height <= 0f))
+                if ((Math.Abs(textBox.topMargin - textBox.height - y) < height) || (height <= 0f))
                 {
-                    height = Math.Abs(textBox.height - y - textBox.topMargin);
+                    height = Math.Abs(textBox.topMargin - textBox.height - y);
                 }
                 Text.Font = fontSize;
                 Widgets.Label(new Rect(
-                    textBox.x + x + textBox.leftMargin,
-                    textBox.y + y + textBox.topMargin,
+                    x + textBox.x + textBox.leftMargin,
+                    y + textBox.y + textBox.topMargin,
                     width,
                     height),
                     text);
