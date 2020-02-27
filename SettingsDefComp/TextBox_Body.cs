@@ -23,11 +23,11 @@ namespace ToolBox.SettingsDefComp
                 }
                 Text.Font = fontSize;
                 Widgets.Label(new Rect(
-                        textBox.x + x + textBox.leftMargin,
-                        textBox.y + y + textBox.topMargin,
-                        width,
-                        height),
-                        text);
+                    textBox.x + x + textBox.leftMargin,
+                    textBox.y + y + textBox.topMargin,
+                    width,
+                    height),
+                    text);
             }
         }
     }
