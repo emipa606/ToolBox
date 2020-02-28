@@ -9,19 +9,24 @@ namespace ToolBox.SettingsDefComp
     {
         public string path;
         public float scale = 1f;
+        public bool warn = false;
 
         public void Content(Textbox textBox)
         {
             Texture2D texture = ContentFinder<Texture2D>.Get(path);
             if (!texture.NullOrBad())
             {
-                Rect rect = ToolHandle.SetWrapedRect(x, y, width, height, textBox);
-                float cordWidth = float.Parse("0" + width.ToString());
+                if (width <= 0f)
+                {
+                    width = texture.width;
+                }
+                if (height <= 0f)
+                {
+                    height = texture.height;
+                }
+                Rect rect = ToolHandle.SetWrapedRect(this, textBox);
                 Widgets.DrawTextureFitted(
-                    rect, texture, scale,
-                    new Vector2(rect.width, rect.height), 
-                    new Rect(0f, 0f, width, height * 0f));
-                Log.ErrorOnce($"width: {rect.width}, height: {rect.height}", 1);
+                    rect, texture, scale);
             }
         }
     }

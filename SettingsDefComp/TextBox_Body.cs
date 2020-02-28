@@ -5,7 +5,7 @@ using Verse;
 
 namespace ToolBox.SettingsDefComp
 {
-    public class Textbox_Body : ContentBase
+    public class Textbox_Body : TextBoxCompBase
     {
         public GameFont fontSize = GameFont.Small;
         public string text;
@@ -15,7 +15,7 @@ namespace ToolBox.SettingsDefComp
             if (!text.NullOrEmpty())
             {
                 Text.Font = fontSize;
-                Widgets.Label(ToolHandle.SetWrapedRect(x, y, width, height, textBox), text);
+                Widgets.Label(ToolHandle.SetWrapedRect(this, textBox), text);
             }
         }
     }

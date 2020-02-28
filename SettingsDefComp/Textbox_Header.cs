@@ -9,13 +9,14 @@ namespace ToolBox.SettingsDefComp
     {
         public GameFont fontSize = GameFont.Medium;
         public string text;
+        public bool warn = false;
 
         public void Content(Textbox textBox)
         {
             if (!text.NullOrEmpty())
             {
                 Text.Font = fontSize;
-                Widgets.Label(ToolHandle.SetWrapedRect(x, y, width, height, textBox), text);
+                Widgets.Label(ToolHandle.SetWrapedRect(this, textBox), text);
             }
         }
     }

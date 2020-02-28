@@ -73,6 +73,7 @@
     <Compile Include="SettingsDefComp\DrawMisc.cs" />
     <Compile Include="SettingsDefComp\DrawProperties.cs" />
     <Compile Include="SettingsDefComp\Col_Label.cs" />
+    <Compile Include="SettingsDefComp\TextBoxCompBase.cs" />
     <Compile Include="SettingsDefComp\ResetButton.cs" />
     <Compile Include="SettingsDefComp\RoofMode.cs" />
     <Compile Include="SettingsDefComp\Roofing.cs" />

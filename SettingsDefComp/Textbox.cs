@@ -6,10 +6,8 @@ namespace ToolBox.SettingsDefComp
 {
     public class Textbox : ContentBase
     {
-        public float topMargin = 3.5f;
-        public float bottomMargin;
+        public float topMargin = 5f;
         public float leftMargin = 6f;
-        public float rightMargin;
         public List<Textbox_Header> textHeader = new List<Textbox_Header>();
         public List<Textbox_Body> textBody = new List<Textbox_Body>();
         public List<Textbox_Image> image = new List<Textbox_Image>();
