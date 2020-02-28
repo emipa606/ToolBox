@@ -1,6 +1,7 @@
 ﻿using Verse;
 using UnityEngine;
 using System;
+using ToolBox.Tools;
 
 namespace ToolBox.SettingsDefComp
 {
@@ -14,36 +15,12 @@ namespace ToolBox.SettingsDefComp
             Texture2D texture = ContentFinder<Texture2D>.Get(path);
             if (!texture.NullOrBad())
             {
-                if (x < 0f) { x = 0; }
-                if (y < 0f) { y = 0; }
-                if (width <= 0f)
-                {
-                    width = texture.width;
-                }
-                if ((Math.Abs(textBox.leftMargin - textBox.width - x) < width) || (width <= 0f))
-                {
-                    width = Math.Abs(textBox.leftMargin - textBox.width - x);
-                }
-
-                if (height <= 0f)
-                {
-                    height = texture.height;
-                }
-                if ((Math.Abs(textBox.topMargin - textBox.height - y) < height) || (height <= 0f))
-                {
-                    height = Math.Abs(textBox.topMargin - textBox.height - y);
-                }
-                Rect rect = new Rect(
-                    x + textBox.x + textBox.leftMargin,
-                    y + textBox.y + textBox.topMargin,
-                    width,
-                    height);
+                Rect rect = ToolHandle.SetWrapedRect(x, y, width, height, textBox);
+                float cordWidth = float.Parse("0" + width.ToString());
                 Widgets.DrawTextureFitted(
-                    rect,
-                    texture,
-                    scale,
-                    new Vector2(rect.x, rect.y), 
-                    new Rect(0f, 0f, 1f, 1f));
+                    rect, texture, scale,
+                    new Vector2(rect.width, rect.height), 
+                    new Rect(0f, 0f, width, height * 0f));
                 Log.ErrorOnce($"width: {rect.width}, height: {rect.height}", 1);
             }
         }
