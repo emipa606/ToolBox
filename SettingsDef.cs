@@ -13,8 +13,8 @@ namespace ToolBox
         public bool scrollbar = true;
         public float width = 0;
         public float height = 0;
-        public List<DrawProperties> drawProperties = new List<DrawProperties>();
-        public DrawMisc drawMisc = new DrawMisc();
+        public List<UI_Configurator> configurator = new List<UI_Configurator>();
+        public UI_Design design = new UI_Design();
 
         public bool checkSize = true;
 
@@ -32,6 +32,7 @@ namespace ToolBox
             yield break;
         }
 
+        //Adapts the size of Rect container based on the size and position of all the drawn widgets.
         public void AdaptSize(ref Rect rect, ref Rect rectView, ref bool drawScrollbar) 
         {
             if (checkSize)
@@ -39,8 +40,8 @@ namespace ToolBox
                 drawScrollbar = scrollbar;
                 List<float> width = new List<float>() { 0 };
                 List<float> height = new List<float>() { 0 };
-                drawProperties.ForEach(c => c.CalcSize(width, height));
-                drawMisc.CalcSize(width, height);
+                configurator.ForEach(c => c.CalcSize(width, height));
+                design.CalcSize(width, height);
 
                 //Compares and takes the highest width and height of all the 
                 if (width.Max() > this.width)
@@ -54,23 +55,25 @@ namespace ToolBox
                 checkSize = false;
             }
 
+            //If the initialized size is higher than the calculated size, it will use the given size instead.
             if (this.width > rect.width)
             {
-                rectView.width = this.width;
-                rect.width = this.width;
+                rectView.width = width;
+                rect.width = width;
                 rectView.height -= 16f;
             }
             if (this.height > rect.height)
             {
-                rectView.height = this.height;
-                rect.height = this.height;
+                rectView.height = height;
+                rect.height = height;
             }
         }
 
+        //Gets all the compilation of widgets and is compiled again in Display for later calling in ToolBox
         public void Display() 
         {
-            drawProperties.ForEach(c => c.CompileWidgets());
-            drawMisc.CompileWidgets();
+            configurator.ForEach(c => c.CompileWidgets());
+            design.CompileWidgets();
         }
     }
 }

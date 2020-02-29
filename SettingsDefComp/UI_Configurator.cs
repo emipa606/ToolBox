@@ -6,7 +6,7 @@ using Verse;
 
 namespace ToolBox.SettingsDefComp
 {
-    public class DrawProperties
+    public class UI_Configurator
     {
         public List<ThingProp> thingList = new List<ThingProp>();
         public Col_Label labelCol = new Col_Label();
@@ -27,6 +27,7 @@ namespace ToolBox.SettingsDefComp
 
         public IList<int> index = new List<int>();
 
+        //Gets the highest width and height of the loaded widgets and sets it to the DrawProperties' width and height.
         public void CalcSize(List<float> widthList, List<float> heightList) 
         {
             if (!thingList.NullOrEmpty())
@@ -73,11 +74,12 @@ namespace ToolBox.SettingsDefComp
             }
         }
 
+        //Loads all the drawn Widgets of DrawProperties
         public void CompileWidgets() 
         {
             if (!thingList.NullOrEmpty())
             {
-                //ThingProp based widgets
+                //Headers... a lot of em.
                 labelCol.Header();
                 costCol.Header();
                 baseHPCol.Header();
@@ -89,13 +91,18 @@ namespace ToolBox.SettingsDefComp
                 passabilityCol.Header();
                 linkCol.Header();
                 roofCol.Header();
-                thingList.ForEach(x => x.LiveCheck());
-                index = ToolHandle.SetIndexCount(thingList.Where(t => t.live).Count());
+
+                //Does a check of all things in thingList if they are existing or not.
+                thingList.ForEach(x => x.LiveCheck()); 
+
+                //Gets and sets a count from 0 to the number of thingList.
+                index = ToolHandle.SetIndexCount(thingList.Where(t => t.live).Count()); 
                 foreach (Tuple<ThingProp, int> thing in thingList
                     .Where(t => t.live)
                     .OrderBy(t => t.pos)
                     .Zip(index, Tuple.Create))
                 {
+                    //ThingProp based widgets
                     labelCol.Widget(thing.Item1, thing.Item2);
                     costCol.Widget(thing.Item1, thing.Item2);
                     baseHPCol.Widget(thing.Item1, thing.Item2);
@@ -111,9 +118,6 @@ namespace ToolBox.SettingsDefComp
                 }
                 resetButton.Widget(thingList);
             }
-
-            //Design based widgets
-            textBox.Widget();
         }
     }
 }

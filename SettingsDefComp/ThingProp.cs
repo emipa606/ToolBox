@@ -4,6 +4,10 @@ using Verse;
 
 namespace ToolBox.SettingsDefComp
 {
+    /// <summary>
+    /// A collection of modifiable properties of a Thing that is connected to a specific Widget
+    /// that allows value change.
+    /// </summary>
     public class ThingProp : IExposable
     {
         public string defName;

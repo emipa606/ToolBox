@@ -5,6 +5,9 @@ using Verse;
 
 namespace ToolBox.SettingsDefComp
 {
+    /// <summary>
+    /// Resets the Widgets of all the modified ThingProp values.
+    /// </summary>
     public class ResetButton
     {
         public bool drawDefault = false;

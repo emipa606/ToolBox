@@ -11,10 +11,12 @@ namespace ToolBox.SettingsDefComp
         public string numBuffer;
         public char config = '0';
 
+        //A method for saving data
         public virtual void ExposeData()
         {
         }
 
+        //Sets the beggining values that can't be placed in a constructor
         public virtual void Preset(string defName) 
         {
             numBuffer = numInt.ToString();
@@ -22,6 +24,7 @@ namespace ToolBox.SettingsDefComp
             load = false;
         }
 
+        //Checks whether the value of the ThingProp is changed
         public virtual void CheckConfig()
         {
             if (numInt == numIntDefault[0])

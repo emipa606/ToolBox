@@ -8,6 +8,11 @@ namespace ToolBox.Tools
 {
     public static class ToolHandle
     {
+        /// <summary>
+        /// Returns a list of numbers starting from 0 to the highest, based on the (int)maxNum. 
+        /// </summary>
+        /// <param name="maxNum"></param>
+        /// <returns></returns>
         public static IList<int> SetIndexCount(int maxNum)
         {
             IList<int> list = new List<int>();
@@ -20,31 +25,36 @@ namespace ToolBox.Tools
             return list;
         }
 
-        public static Rect SetWrapedRect(ContentBase contentBase, Textbox textBox, bool warn = false) 
+        /// <summary>
+        /// Returns a Rect that adapts and stays within its container.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="textBox"></param>
+        /// <param name="warn"></param>
+        /// <returns></returns>
+        public static Rect SetWrapedRect( float x, float y, float width, float height, Textbox textBox, bool warn = false) 
         {
             //Sets axis and textBox margin to 0f to avoid positive difference/answers
-            if (contentBase.x < 0f) { contentBase.x = 0f; }
-            if (contentBase.y < 0f) { contentBase.y = 0f; }
+            if (x < 0f) { x = 0f; }
+            if (y < 0f) { y = 0f; }
             if (textBox.leftMargin < 0f) { textBox.leftMargin = 0f; }
             if (textBox.topMargin < 0f) { textBox.topMargin = 0f; }
 
-            if ((textBox.width - (textBox.leftMargin * 2f) - contentBase.x < contentBase.width) || (contentBase.width <= 0f))
+            if ((textBox.width - (textBox.leftMargin * 2f) - x < width) || (width <= 0f))
             {
-                if ((textBox.width - (textBox.leftMargin * 2f) - contentBase.x < contentBase.width) && warn)
-                {
-                    Log.Error("");
-                }
-                contentBase.width = textBox.width - (textBox.leftMargin * 2f) - contentBase.x;
+                width = textBox.width - (textBox.leftMargin * 2f) - x;
             }
-            if ((textBox.height - (textBox.topMargin * 2f) - contentBase.y < contentBase.height) || (contentBase.height <= 0f))
+            if ((textBox.height - (textBox.topMargin * 2f) - y < height) || (height <= 0f))
             {
-                contentBase.height = textBox.height - (textBox.topMargin * 2f) - contentBase.y;
+                height = textBox.height - (textBox.topMargin * 2f) - y;
             }
-
             return new Rect(
-                textBox.x + textBox.leftMargin + contentBase.x,
-                textBox.y + textBox.topMargin + contentBase.y,
-                contentBase.width, contentBase.height);
+                textBox.x + textBox.leftMargin + x,
+                textBox.y + textBox.topMargin + y,
+                width, height);
         }
     }
 }

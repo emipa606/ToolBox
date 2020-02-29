@@ -26,6 +26,7 @@ namespace ToolBox.Settings
             settings = GetSettings<ToolBoxSettings>();
         }
 
+        //Loads the settings window for ToolBox
         public override void DoSettingsWindowContents(Rect rect)
         {
             Rect categoryRect = new Rect(rect.x, rect.y, rect.width / 5f, rect.height);//172.8 width
@@ -41,11 +42,6 @@ namespace ToolBox.Settings
             //This flags would matter once I make a ToolBox Home category.
             bool drawContentScroll = true;
             bool drawSeparator = true;
-
-            /* 
-             * To do:
-             * -Do the other inputs.
-             */
 
             //CategoryRect Resize
             float categorRectHeight = 0f;
@@ -127,11 +123,13 @@ namespace ToolBox.Settings
             Widgets.EndScrollView();
         }
 
+        //Sets and checks the old saved values for saving/resaving.
+        //settings.thingList is where it's all sent and saved.
         public override void WriteSettings()
         {
             //Loads the changed thing properties.
-            IEnumerable<SettingsDefComp.ThingProp> thingList = DefDatabase<SettingsDef>.AllDefs
-                    .SelectMany(s => s.drawProperties
+            IEnumerable<ThingProp> thingList = DefDatabase<SettingsDef>.AllDefs
+                    .SelectMany(s => s.configurator
                     .SelectMany(d => d.thingList)
                     .Where(t => t.live));
             foreach (SettingsDefComp.ThingProp thing in thingList)
@@ -141,7 +139,7 @@ namespace ToolBox.Settings
 
             //Gets configured things.
             settings.thingList = DefDatabase<SettingsDef>.AllDefs
-                .SelectMany(s => s.drawProperties
+                .SelectMany(s => s.configurator
                 .SelectMany(d => d.thingList
                 .Where(x => x.config && x.live)))
                 .ToList();

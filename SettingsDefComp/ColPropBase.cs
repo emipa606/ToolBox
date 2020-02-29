@@ -14,6 +14,7 @@ namespace ToolBox.SettingsDefComp
         public float min = 0f;
         public float max = 0f;
 
+        //Loads a label that acts as a header--also sets the value for (bool)draw.
         public virtual void Header() 
         {
             draw = width > 0f;
@@ -31,6 +32,7 @@ namespace ToolBox.SettingsDefComp
             }
         }
 
+        //Gets and adds the size of the Widget to the DrawProperties/DrawMisc height and width.
         public virtual void SetSize(int thingCount, List<float> width, List<float> height, float multiplier)
         {
             if ((this.width > 0f) || (this.height > 0f) || drawDefault)

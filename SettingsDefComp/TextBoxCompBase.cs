@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Verse;
-
-namespace ToolBox.SettingsDefComp
+﻿namespace ToolBox.SettingsDefComp
 {
-    public class TextBoxCompBase : ContentBase
+    public class TextboxCompBase : ContentBase
     {
         public bool warn = false;
     }

@@ -70,10 +70,11 @@
     <Compile Include="SettingsDefComp\Col_Path.cs" />
     <Compile Include="SettingsDefComp\Col_Roof.cs" />
     <Compile Include="SettingsDefComp\Col_WorkToBuild.cs" />
-    <Compile Include="SettingsDefComp\DrawMisc.cs" />
-    <Compile Include="SettingsDefComp\DrawProperties.cs" />
+    <Compile Include="SettingsDefComp\DesignBase.cs" />
+    <Compile Include="SettingsDefComp\UI_Design.cs" />
+    <Compile Include="SettingsDefComp\UI_Configurator.cs" />
     <Compile Include="SettingsDefComp\Col_Label.cs" />
-    <Compile Include="SettingsDefComp\TextBoxCompBase.cs" />
+    <Compile Include="SettingsDefComp\TextboxCompBase.cs" />
     <Compile Include="SettingsDefComp\ResetButton.cs" />
     <Compile Include="SettingsDefComp\RoofMode.cs" />
     <Compile Include="SettingsDefComp\Roofing.cs" />
@@ -96,6 +97,9 @@
     <Compile Include="SettingsDefComp\ThingProp_Path.cs" />
     <Compile Include="SettingsDefComp\ThingProp_Roof.cs" />
     <Compile Include="SettingsDefComp\ThingProp_WorkToBuild.cs" />
+    <Compile Include="SettingsDefComp\Widget_Header.cs" />
+    <Compile Include="SettingsDefComp\Widget_Image.cs" />
+    <Compile Include="SettingsDefComp\Widget_Text.cs" />
     <Compile Include="Settings\ToolBox.cs" />
     <Compile Include="Settings\ToolBoxSettings.cs" />
     <Compile Include="SettingsDef.cs" />
