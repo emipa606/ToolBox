@@ -20,7 +20,6 @@ namespace ToolBox.SettingsDefComp
         public Col_Passability passabilityCol = new Col_Passability();
         public Col_Link linkCol = new Col_Link();
         public Col_Roof roofCol = new Col_Roof();
-        public Textbox textBox = new Textbox();
         public ResetButton resetButton = new ResetButton();
         public float width = 0;
         public float height = 0;
@@ -45,7 +44,6 @@ namespace ToolBox.SettingsDefComp
                 passabilityCol.SetSize(thingList.Count(), width, height, 23.8f);
                 linkCol.SetSize(thingList.Count(), width, height, 23.8f);
                 roofCol.SetSize(thingList.Count(), width, height, 23.8f);
-                textBox.SetSize(width, height);
                 if ((resetButton.width > 0f) && (resetButton.height > 0f))
                 {
                     width.Add(resetButton.x + resetButton.width);
