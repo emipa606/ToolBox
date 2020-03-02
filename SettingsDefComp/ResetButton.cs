@@ -8,14 +8,10 @@ namespace ToolBox.SettingsDefComp
     /// <summary>
     /// Resets the Widgets of all the modified ThingProp values.
     /// </summary>
-    public class ResetButton
+    public class ResetButton : ContentBase
     {
         public bool drawDefault = false;
         public string label = "Reset";
-        public float height;
-        public float width;
-        public float x;
-        public float y;
 
         public virtual void Widget(List<ThingProp> thingList) 
         {
