@@ -8,7 +8,7 @@ namespace ToolBox.SettingsDefComp
     {
         public float topMargin = 5f;
         public float leftMargin = 6f;
-        public List<Textbox_Text> text = new List<Textbox_Text>();
+        public List<Textbox_Label> label = new List<Textbox_Label>();
         public List<Textbox_Image> image = new List<Textbox_Image>();
 
         public void Widget() 
@@ -16,7 +16,7 @@ namespace ToolBox.SettingsDefComp
             if (width > 0f && height > 0f)
             {
                 Widgets.DrawMenuSection(new Rect(x, y, width, height));
-                text.ForEach(x => x.Content(this));
+                label.ForEach(x => x.Content(this));
                 image.ForEach(x => x.Content(this));
             }
         }

@@ -6,7 +6,7 @@ namespace ToolBox.SettingsDefComp
     public class UI_Design
     {
         public List<Textbox> textBox = new List<Textbox>();
-        public List<Widget_Text> text = new List<Widget_Text>();
+        public List<Widget_Label> label = new List<Widget_Label>();
         public List<Widget_Image> image = new List<Widget_Image>();
         public float width = 0;
         public float height = 0;
@@ -17,7 +17,7 @@ namespace ToolBox.SettingsDefComp
             List<float> width = new List<float>() { 0 };
             List<float> height = new List<float>() { 0 };
             textBox.ForEach(x => x.SetSize(width, height));
-            text.ForEach(x => x.SetSize(width, height));
+            label.ForEach(x => x.SetSize(width, height));
             image.ForEach(x => x.SetSize(width, height));
 
             //Chooses if wider than the set width
@@ -45,7 +45,7 @@ namespace ToolBox.SettingsDefComp
         public void CompileWidgets() 
         {
             textBox.ForEach(x => x.Widget());
-            text.ForEach(x => x.Widget());
+            label.ForEach(x => x.Widget());
             image.ForEach(x => x.Widget());
         }
     }

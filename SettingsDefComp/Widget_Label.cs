@@ -6,7 +6,7 @@ namespace ToolBox.SettingsDefComp
 {
     //Note: adaptability to content Rect is quite inaccurate.
     //This is due to unknown multiplier used for Medium fonts.
-    public class Widget_Text : DesignBase
+    public class Widget_Label : DesignBase
     {
         public GameFont fontSize = GameFont.Small;
         public string text;
