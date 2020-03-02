@@ -3,7 +3,7 @@ using Verse;
 
 namespace ToolBox.SettingsDefComp
 {
-    public class Textbox_Body : TextboxCompBase
+    public class Textbox_Text : TextboxCompBase
     {
         public GameFont fontSize = GameFont.Small;
         public string text;

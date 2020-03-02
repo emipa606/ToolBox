@@ -6,7 +6,6 @@ namespace ToolBox.SettingsDefComp
     public class UI_Design
     {
         public List<Textbox> textBox = new List<Textbox>();
-        public List<Widget_Header> header = new List<Widget_Header>();
         public List<Widget_Text> text = new List<Widget_Text>();
         public List<Widget_Image> image = new List<Widget_Image>();
         public float width = 0;
@@ -18,7 +17,6 @@ namespace ToolBox.SettingsDefComp
             List<float> width = new List<float>() { 0 };
             List<float> height = new List<float>() { 0 };
             textBox.ForEach(x => x.SetSize(width, height));
-            header.ForEach(x => x.SetSize(width, height));
             text.ForEach(x => x.SetSize(width, height));
             image.ForEach(x => x.SetSize(width, height));
 
@@ -47,7 +45,6 @@ namespace ToolBox.SettingsDefComp
         public void CompileWidgets() 
         {
             textBox.ForEach(x => x.Widget());
-            header.ForEach(x => x.Widget());
             text.ForEach(x => x.Widget());
             image.ForEach(x => x.Widget());
         }

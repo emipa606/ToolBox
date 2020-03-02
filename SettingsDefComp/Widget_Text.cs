@@ -4,6 +4,8 @@ using Verse;
 
 namespace ToolBox.SettingsDefComp
 {
+    //Note: adaptability to content Rect is quite inaccurate.
+    //This is due to unknown multiplier used for Medium fonts.
     public class Widget_Text : DesignBase
     {
         public GameFont fontSize = GameFont.Small;
@@ -16,10 +18,18 @@ namespace ToolBox.SettingsDefComp
                 if (this.width <= 0f)
                 {
                     this.width = Text.CalcSize(text).x;
+                    if (fontSize == GameFont.Medium)
+                    {
+                        this.width *= 1.534f;
+                    }
                 }
                 if (this.height <= 0f)
                 {
                     this.height = Text.CalcSize(text).y;
+                    if (fontSize == GameFont.Medium)
+                    {
+                        this.width *= 1.534f;
+                    }
                 }
             }
             base.SetSize(width, height);

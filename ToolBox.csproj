@@ -79,8 +79,7 @@
     <Compile Include="SettingsDefComp\RoofMode.cs" />
     <Compile Include="SettingsDefComp\Roofing.cs" />
     <Compile Include="SettingsDefComp\Textbox.cs" />
-    <Compile Include="SettingsDefComp\Textbox_Body.cs" />
-    <Compile Include="SettingsDefComp\Textbox_Header.cs" />
+    <Compile Include="SettingsDefComp\Textbox_Text.cs" />
     <Compile Include="SettingsDefComp\Textbox_Image.cs" />
     <Compile Include="SettingsDefComp\ThingProp.cs" />
     <Compile Include="SettingsDefComp\ThingPropBase.cs" />
@@ -97,9 +96,8 @@
     <Compile Include="SettingsDefComp\ThingProp_Path.cs" />
     <Compile Include="SettingsDefComp\ThingProp_Roof.cs" />
     <Compile Include="SettingsDefComp\ThingProp_WorkToBuild.cs" />
-    <Compile Include="SettingsDefComp\Widget_Header.cs" />
-    <Compile Include="SettingsDefComp\Widget_Image.cs" />
     <Compile Include="SettingsDefComp\Widget_Text.cs" />
+    <Compile Include="SettingsDefComp\Widget_Image.cs" />
     <Compile Include="Settings\ToolBox.cs" />
     <Compile Include="Settings\ToolBoxSettings.cs" />
     <Compile Include="SettingsDef.cs" />
