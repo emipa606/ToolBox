@@ -35,7 +35,7 @@ namespace ToolBox.Tools
         /// <param name="textBox"></param>
         /// <param name="warn"></param>
         /// <returns></returns>
-        public static Rect SetWrapedRect( float x, float y, float width, float height, Textbox textBox, bool warn = false) 
+        public static Rect SetWrapedRect( float x, float y, float width, float height, Textbox textBox) 
         {
             //Sets axis and textBox margin to 0f to avoid positive difference/answers
             if (x < 0f) { x = 0f; }

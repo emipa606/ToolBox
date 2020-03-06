@@ -71,6 +71,8 @@
     <Compile Include="SettingsDefComp\Col_Roof.cs" />
     <Compile Include="SettingsDefComp\Col_WorkToBuild.cs" />
     <Compile Include="SettingsDefComp\DesignBase.cs" />
+    <Compile Include="SettingsDefComp\LineType.cs" />
+    <Compile Include="SettingsDefComp\Textbox_Line.cs" />
     <Compile Include="SettingsDefComp\UI_Design.cs" />
     <Compile Include="SettingsDefComp\UI_Configurator.cs" />
     <Compile Include="SettingsDefComp\Col_Label.cs" />
