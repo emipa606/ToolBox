@@ -9,7 +9,7 @@ namespace ToolBox
     public class SettingsDef : Def
     {
         public float position = 0;
-        public CategoryLevel level = 0;
+        public CategoryLevel level = CategoryLevel.Middle;
         public bool scrollbar = true;
         public float width = 0;
         public float height = 0;

@@ -14,7 +14,7 @@ namespace ToolBox.SettingsDefComp
                 header = "Beauty";
                 headerPos = 2.2f;
                 this.width = 48.5f;
-                min = -9999f;
+                min = -99999f;
                 max = 99999f;
             }
             base.SetSize(thingCount, width, height, multiplier);

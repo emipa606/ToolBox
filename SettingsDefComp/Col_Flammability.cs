@@ -14,7 +14,6 @@ namespace ToolBox.SettingsDefComp
         {
             if (drawDefault)
             {
-                //Replace burn with Flammability
                 header = "Flammability";
                 headerPos = 2.2f;
                 this.width = 85f;
