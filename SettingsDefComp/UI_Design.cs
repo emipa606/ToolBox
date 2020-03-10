@@ -8,6 +8,7 @@ namespace ToolBox.SettingsDefComp
         public List<Textbox> textBox = new List<Textbox>();
         public List<Widget_Label> label = new List<Widget_Label>();
         public List<Widget_Image> image = new List<Widget_Image>();
+        public List<Widget_Line> line = new List<Widget_Line>();
         public float width = 0;
         public float height = 0;
 
@@ -19,6 +20,7 @@ namespace ToolBox.SettingsDefComp
             textBox.ForEach(x => x.SetSize(width, height));
             label.ForEach(x => x.SetSize(width, height));
             image.ForEach(x => x.SetSize(width, height));
+            line.ForEach(x => x.SetSize(width, height));
 
             //Chooses if wider than the set width
             if (this.width > width.Max())
@@ -47,6 +49,7 @@ namespace ToolBox.SettingsDefComp
             textBox.ForEach(x => x.Widget());
             label.ForEach(x => x.Widget());
             image.ForEach(x => x.Widget());
+            line.ForEach(x => x.Widget());
         }
     }
 }

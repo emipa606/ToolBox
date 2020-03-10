@@ -9,7 +9,14 @@ namespace ToolBox.SettingsDefComp
         {
             if (thing.labelProp.load && draw)
             {
-                thing.labelProp.label = ThingDef.Named(thing.defName).label;
+                if (!thing.label.NullOrEmpty())
+                {
+                    thing.labelProp.label = thing.label;
+                }
+                else
+                {
+                    thing.labelProp.label = ThingDef.Named(thing.defName).label;
+                }
                 thing.labelProp.load = false;
             }
             if (!thing.labelProp.load && draw)

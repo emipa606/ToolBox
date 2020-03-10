@@ -11,6 +11,7 @@ namespace ToolBox.SettingsDefComp
     public class ThingProp : IExposable
     {
         public string defName;
+        public string label;
         public int pos = 0;
         public StringBuilder configBuilder = new StringBuilder("0000000000"); //Increase the 0s for every new Prop.
         public string configID;

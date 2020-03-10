@@ -44,7 +44,11 @@ namespace ToolBox.SettingsDefComp
             if (thing.linkProp.load && draw && linkable)
             {
                 thing.linkProp.Preset(thing.defName);
-                linkOptions.Add(thing.linkProp.optionDefault[0]);
+                LinkFlags F = thing.linkProp.optionDefault[0];
+                if ((F > LinkFlags.Barricades && F < LinkFlags.Custom1) || (F > LinkFlags.Custom10))
+                {
+                    linkOptions.Add(thing.linkProp.optionDefault[0]);
+                }
             }
             if (!thing.linkProp.load && draw && linkable)
             {
