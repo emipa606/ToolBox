@@ -44,11 +44,7 @@ namespace ToolBox.SettingsDefComp
                 passabilityCol.SetSize(thingList.Count(), width, height, 23.8f);
                 linkCol.SetSize(thingList.Count(), width, height, 23.8f);
                 roofCol.SetSize(thingList.Count(), width, height, 23.8f);
-                if ((resetButton.width > 0f) && (resetButton.height > 0f))
-                {
-                    width.Add(resetButton.x + resetButton.width);
-                    height.Add(resetButton.y + resetButton.height);
-                }
+                resetButton.SetSize(width, height);
 
                 //Chooses if wider than the set width
                 if (this.width > width.Max())

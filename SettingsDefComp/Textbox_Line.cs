@@ -10,22 +10,19 @@ namespace ToolBox.SettingsDefComp
 
         public void Content(Textbox textBox) 
         {
-            if (length > 0f)
+            if (lineType == LineType.Horizontal)
             {
-                if (lineType == LineType.Horizontal)
-                {
-                    Widgets.DrawLineHorizontal(
-                        textBox.x + textBox.leftMargin + x,
-                        textBox.y + textBox.topMargin + y,
-                        ToolHandle.SetWrapedRect(x, y, width, length, textBox).width);
-                }
-                else
-                {
-                    Widgets.DrawLineVertical(
-                        textBox.x + textBox.leftMargin + x,
-                        textBox.y + textBox.topMargin + y,
-                        ToolHandle.SetWrapedRect(x, y, width, length, textBox).height);
-                }
+                Widgets.DrawLineHorizontal(
+                    textBox.x + textBox.leftMargin + x,
+                    textBox.y + textBox.topMargin + y,
+                    ToolHandle.SetWrapedRect(x, y, width, length, textBox).width);
+            }
+            else
+            {
+                Widgets.DrawLineVertical(
+                    textBox.x + textBox.leftMargin + x,
+                    textBox.y + textBox.topMargin + y,
+                    ToolHandle.SetWrapedRect(x, y, width, length, textBox).height);
             }
         }
     }

@@ -15,12 +15,6 @@ namespace ToolBox.SettingsDefComp
 
         public virtual void Widget(List<ThingProp> thingList) 
         {
-            if (drawDefault)
-            {
-                label = "Reset";
-                height = 22f;
-                width = 50f;
-            }
             if ((width > 0f) && (height > 0f))
             {
                 if (Widgets.ButtonText(new Rect(x, y, width, height), label))
@@ -58,6 +52,20 @@ namespace ToolBox.SettingsDefComp
                         { thing.roofProp.option = thing.roofProp.optionDefault[0]; }
                     }
                 }
+            }
+        }
+
+        public virtual void SetSize(List<float> width, List<float> height)
+        {
+            if (drawDefault)
+            {
+                this.height = 22f;
+                this.width = 50f;
+            }
+            if ((this.width > 0f) || (this.height > 0f))
+            {
+                width.Add(x + this.width + 1f);
+                height.Add(y + this.height + 1f);
             }
         }
     }
