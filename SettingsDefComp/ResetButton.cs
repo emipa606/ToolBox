@@ -50,6 +50,9 @@ namespace ToolBox.SettingsDefComp
 
                         if (thing.roofProp.config.Equals('1'))
                         { thing.roofProp.option = thing.roofProp.optionDefault[0]; }
+
+                        if (thing.terrainProp.config.Equals('1'))
+                        { thing.terrainProp.option = thing.terrainProp.optionDefault[0]; }
                     }
                 }
             }

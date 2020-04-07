@@ -33,7 +33,7 @@ namespace ToolBox.Core
                 .GetMod<Settings.ToolBox>()
                 .GetSettings<ToolBoxSettings>().thingList;
             IList<ThingProp> savedThingProps = new List<ThingProp>();
-            int IDLength = 10; //Change this for every new Prop addition.
+            int IDLength = 11; //Change this for every new Prop addition.
             foreach (ThingProp thingProp_Raw in savedThingProps_Raw)
             {
                 try
@@ -123,6 +123,21 @@ namespace ToolBox.Core
                         case RoofMode.None:
                             ThingDef.Named(thingProp.defName).holdsRoof = false;
                             ThingDef.Named(thingProp.defName).building.allowAutoroof = false;
+                            break;
+                    }
+                }
+                if (savedThingProp.configID[10].Equals('1'))
+                {
+                    switch (savedThingProp.terrainProp.savedOption)
+                    {
+                        case TerrainMode.Light:
+                            ThingDef.Named(thingProp.defName).terrainAffordanceNeeded = TerrainAffordanceDefOf.Light;
+                            break;
+                        case TerrainMode.Medium:
+                            ThingDef.Named(thingProp.defName).terrainAffordanceNeeded = TerrainAffordanceDefOf.Medium;
+                            break;
+                        case TerrainMode.Heavy:
+                            ThingDef.Named(thingProp.defName).terrainAffordanceNeeded = TerrainAffordanceDefOf.Heavy;
                             break;
                     }
                 }

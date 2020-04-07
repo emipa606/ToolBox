@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Core\StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsDefComp\Col_Terrain.cs" />
     <Compile Include="SettingsDefComp\ContentBase.cs" />
     <Compile Include="SettingsDefComp\Col_BaseHP.cs" />
     <Compile Include="SettingsDefComp\ColPropBase.cs" />
@@ -72,7 +73,10 @@
     <Compile Include="SettingsDefComp\Col_WorkToBuild.cs" />
     <Compile Include="SettingsDefComp\DesignBase.cs" />
     <Compile Include="SettingsDefComp\LineType.cs" />
+    <Compile Include="SettingsDefComp\TerrainAffordance.cs" />
+    <Compile Include="SettingsDefComp\TerrainMode.cs" />
     <Compile Include="SettingsDefComp\Textbox_Line.cs" />
+    <Compile Include="SettingsDefComp\ThingProp_Terrain.cs" />
     <Compile Include="SettingsDefComp\UI_Design.cs" />
     <Compile Include="SettingsDefComp\UI_Configurator.cs" />
     <Compile Include="SettingsDefComp\Col_Label.cs" />

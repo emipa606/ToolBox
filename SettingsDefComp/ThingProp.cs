@@ -13,7 +13,7 @@ namespace ToolBox.SettingsDefComp
         public string defName;
         public string label;
         public int pos = 0;
-        public StringBuilder configBuilder = new StringBuilder("0000000000"); //Increase the 0s for every new Prop.
+        public StringBuilder configBuilder = new StringBuilder("00000000000"); //Increase the 0s for every new Prop.
         public string configID;
         public bool config = false;
         public bool live = true;
@@ -31,6 +31,7 @@ namespace ToolBox.SettingsDefComp
         //Select type ThingProps
         public ThingProp_Passability passabilityProp = new ThingProp_Passability();
         public ThingProp_Link linkProp = new ThingProp_Link();
+        public ThingProp_Terrain terrainProp = new ThingProp_Terrain();
 
         //Button type ThingProps
         public ThingProp_Roof roofProp = new ThingProp_Roof();
@@ -62,6 +63,7 @@ namespace ToolBox.SettingsDefComp
             configBuilder[7] = passabilityProp.config;
             configBuilder[8] = linkProp.config;
             configBuilder[9] = roofProp.config;
+            configBuilder[10] = terrainProp.config;
             configID = configBuilder.ToString();
             if (configID.Contains("1"))
             {
@@ -115,6 +117,10 @@ namespace ToolBox.SettingsDefComp
             {
                 roofProp.Preset(defName);
             }
+            if ((terrainProp.optionDefault.Count > 1) && terrainProp.load)
+            {
+                terrainProp.Preset(defName);
+            }
             CheckConfig();
         }
 
@@ -132,6 +138,7 @@ namespace ToolBox.SettingsDefComp
             passabilityProp.ExposeData();
             linkProp.ExposeData();
             roofProp.ExposeData();
+            terrainProp.ExposeData();
         }
     }
 }

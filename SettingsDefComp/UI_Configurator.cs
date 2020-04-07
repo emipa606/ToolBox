@@ -20,6 +20,7 @@ namespace ToolBox.SettingsDefComp
         public Col_Passability passabilityCol = new Col_Passability();
         public Col_Link linkCol = new Col_Link();
         public Col_Roof roofCol = new Col_Roof();
+        public Col_Terrain terrainCol = new Col_Terrain();
         public ResetButton resetButton = new ResetButton();
         public float width = 0;
         public float height = 0;
@@ -44,6 +45,7 @@ namespace ToolBox.SettingsDefComp
                 passabilityCol.SetSize(thingList.Count(), width, height, 23.8f);
                 linkCol.SetSize(thingList.Count(), width, height, 23.8f);
                 roofCol.SetSize(thingList.Count(), width, height, 23.8f);
+                terrainCol.SetSize(thingList.Count(), width, height, 23.8f);
                 resetButton.SetSize(width, height);
 
                 //Chooses if wider than the set width
@@ -85,6 +87,7 @@ namespace ToolBox.SettingsDefComp
                 passabilityCol.Header();
                 linkCol.Header();
                 roofCol.Header();
+                terrainCol.Header();
 
                 //Does a check of all things in thingList if they are existing or not.
                 thingList.ForEach(x => x.LiveCheck()); 
@@ -108,6 +111,7 @@ namespace ToolBox.SettingsDefComp
                     passabilityCol.Widget(thing.Item1, thing.Item2);
                     linkCol.Widget(thing.Item1, thing.Item2);
                     roofCol.Widget(thing.Item1, thing.Item2);
+                    terrainCol.Widget(thing.Item1, thing.Item2);
                     thing.Item1.CheckConfig();
                 }
                 resetButton.Widget(thingList);
