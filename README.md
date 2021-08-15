@@ -63,7 +63,7 @@ A1: Yes, as long as you&apos;re not modifying both of the same property of a Thi
 
 https://ko-fi.com/nifity#]![Image](https://i.imgur.com/ac3XaOI.png)
 
-https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NUYHNTAMU88U6&source]![Image](https://i.imgur.com/UxwY8Uz.gif)
+https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=NUYHNTAMU88U6&amp;source]![Image](https://i.imgur.com/UxwY8Uz.gif)
 
 ![Image](https://i.imgur.com/p7Fv1Z6.gif)
 
