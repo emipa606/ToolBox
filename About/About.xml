@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <name>ToolBox (Continued)</name>
   <packageId>Mlie.Toolbox</packageId>
@@ -11,20 +11,24 @@
   </supportedVersions>
   <modDependencies />
   <loadAfter />
-  <description>[img]https://i.imgur.com/WAEzk68.png[/img]
+  <description>[img]https://i.imgur.com/buuPQel.png[/img]
 Update of Nifs mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=2016186459
 
-[img]https://i.imgur.com/7Gzt3Rg.png[/img]
+[img]https://i.imgur.com/pufA0kM.png[/img]
 
 [table]
     [tr]
         [td][url=https://invite.gg/Mlie][img]https://i.imgur.com/zdzzBrc.png[/img][/url][/td]
         [td][url=https://github.com/emipa606/Toolbox][img]https://i.imgur.com/kTkpTOE.png[/img][/url][/td]
     [/tr]
+    [tr]
+        [td][img]https://i.imgur.com/WjDSfUn.png[/img][/td]
+        [td][img]https://i.imgur.com/h5VwTNL.png[/img][/td]
+    [/tr]
 [/table]
 	
-[img]https://i.imgur.com/NOW7jU1.png[/img]
+[img]https://i.imgur.com/Z4GOv8H.png[/img]
 [img]https://i.imgur.com/pLIIppn.png[/img]
 ToolBox is an XML based framework, designed for making mod settings that allow changes to ThingDef properties. Examples: cost, hitpoints, beauty, etc. It can also be used to provide a guide or information regarding your mod. It currently has 11 property widgets that can be applied to a ThingDef, and will continue to expand in the future.
 
@@ -39,41 +43,33 @@ Note: the settings will appear inside of the ToolBox settings. It does not act a
 -Added 1.2 in supported versions
 
 »Minor Update (v1.0.2.2) [04/07/20]
--Added &lt;terrainCol&gt; for creating TerrainAffordanceNeeded option button.
+-Added terrainCol for creating TerrainAffordanceNeeded option button.
 
 »Minor Update (v1.0.1.2) [03/10/20]
 -SettingsDef level default is now Middle.
 -Any LinkFlags that already exists will not be added in the listOptions.
--Added &lt;label&gt; in &lt;thingList&gt;. It will replace the collected ThingDef label/name and allow custom labels.
--&lt;label&gt; for &lt;textBox&gt; now has an option to center text: (bool)&lt;center&gt;.
--Added &lt;line&gt; which creates a line depending on lineType: Vertical or Horizontal.
+-Added label in thingList. It will replace the collected ThingDef label/name and allow custom labels.
+-label for textBox now has an option to center text: (bool)center.
+-Added line which creates a line depending on lineType: Vertical or Horizontal.
 
 »Build update (v1.0.0.2) [03/07/20]
 -Changed the default min of beautyCol to -99999 instead of -9999.
 
 
 [img]https://i.imgur.com/UUqdkMB.png[/img]
-Any mod that does not have any modifiable ThingDef should be fine. And if it does, the level of incompatibility may depend on the mod placement. It is advised to use a mod&apos;s default mod setting, instead of making one using ToolBox. Issues may occur if the two mods are changing the same property of a ThingDef. It will either pick one over the other or simply not change at all.
+Any mod that does not have any modifiable ThingDef should be fine. And if it does, the level of incompatibility may depend on the mod placement. It is advised to use a mod's default mod setting, instead of making one using ToolBox. Issues may occur if the two mods are changing the same property of a ThingDef. It will either pick one over the other or simply not change at all.
 
 
 [img]https://i.imgur.com/9mpk8FJ.png[/img]
 Q1: Is this compatible with RIMMSqol?
-A1: Yes, as long as you&apos;re not modifying both of the same property of a ThingDef.
+A1: Yes, as long as you're not modifying both of the same property of a ThingDef.
 
 
 [img]https://i.imgur.com/RfFm9v4.png[/img]
 »[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2050680665]Architect Expanded - Fences[/url]
 »[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2021234555]Gizmo Begone![/url]
 
-
-[img]https://i.imgur.com/ghttZNv.png[/img]
-»[url=https://github.com/Nif-kun/ToolBox]Github upload[/url]
-
-[url=https://ko-fi.com/nifity#][img]https://i.imgur.com/ac3XaOI.png[/img][/url]
-[url=https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=NUYHNTAMU88U6&amp;source][img]https://i.imgur.com/UxwY8Uz.gif[/img][/url]
-[img]https://i.imgur.com/p7Fv1Z6.gif[/img]
-
-[img]https://i.imgur.com/Rs6T6cr.png[/img]
+[img]https://i.imgur.com/PwoNOj4.png[/img]
 [list]
 [*] See if the the error persists if you just have this mod and its requirements active.
 [*] If not, try adding your other mods until it happens again.
@@ -84,4 +80,3 @@ A1: Yes, as long as you&apos;re not modifying both of the same property of a Thi
 [/list]
 </description>
 </ModMetaData>
-
