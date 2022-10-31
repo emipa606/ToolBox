@@ -2,39 +2,38 @@
 using UnityEngine;
 using Verse;
 
-namespace ToolBox.SettingsDefComp
+namespace ToolBox.SettingsDefComp;
+
+public class Widget_Image : DesignBase
 {
-    public class Widget_Image : DesignBase
+    public string path;
+    public float scale = 1f;
+    public Texture2D texture;
+
+    public override void SetSize(List<float> width, List<float> height)
     {
-        public string path;
-        public float scale = 1f;
-        public Texture2D texture;
-
-        public override void SetSize(List<float> width, List<float> height)
+        texture = ContentFinder<Texture2D>.Get(path);
+        if (!texture.NullOrBad())
         {
-            texture = ContentFinder<Texture2D>.Get(path);
-            if (!texture.NullOrBad())
+            if (this.width <= 0f)
             {
-                if (this.width <= 0f)
-                {
-                    this.width = texture.width;
-                }
-
-                if (this.height <= 0f)
-                {
-                    this.height = texture.height;
-                }
+                this.width = texture.width;
             }
 
-            base.SetSize(width, height);
+            if (this.height <= 0f)
+            {
+                this.height = texture.height;
+            }
         }
 
-        public virtual void Widget()
+        base.SetSize(width, height);
+    }
+
+    public virtual void Widget()
+    {
+        if (!texture.NullOrBad())
         {
-            if (!texture.NullOrBad())
-            {
-                Widgets.DrawTextureFitted(new Rect(x, y, width, height), texture, scale);
-            }
+            Widgets.DrawTextureFitted(new Rect(x, y, width, height), texture, scale);
         }
     }
 }

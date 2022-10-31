@@ -1,7 +1,6 @@
-﻿namespace ToolBox.SettingsDefComp
+﻿namespace ToolBox.SettingsDefComp;
+
+public class ThingPropBase
 {
-    public class ThingPropBase
-    {
-        public bool load = true;
-    }
+    public bool load = true;
 }

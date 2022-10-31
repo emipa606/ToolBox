@@ -1,7 +1,6 @@
-﻿namespace ToolBox.SettingsDefComp
+﻿namespace ToolBox.SettingsDefComp;
+
+public class ThingProp_Label : ThingPropBase
 {
-    public class ThingProp_Label : ThingPropBase
-    {
-        public string label;
-    }
+    public string label;
 }

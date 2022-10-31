@@ -1,47 +1,46 @@
 ﻿using System.Collections.Generic;
 using Verse;
 
-namespace ToolBox.SettingsDefComp
+namespace ToolBox.SettingsDefComp;
+
+public class ThingProp_Roof : ThingPropSelect
 {
-    public class ThingProp_Roof : ThingPropSelect
+    public RoofMode option;
+    public IList<RoofMode> optionDefault = new List<RoofMode> { RoofMode.None };
+    public RoofMode savedOption;
+
+    public override void ExposeData()
     {
-        public RoofMode option;
-        public IList<RoofMode> optionDefault = new List<RoofMode> {RoofMode.None};
-        public RoofMode savedOption;
+        Scribe_Values.Look(ref savedOption, "roof");
+    }
 
-        public override void ExposeData()
+    public override void Preset(string defName)
+    {
+        if (optionDefault.Count > 1)
         {
-            Scribe_Values.Look(ref savedOption, "roof");
+            optionDefault[0] = optionDefault[1];
+            option = new Roofing(ThingDef.Named(defName)).Mode;
+        }
+        else
+        {
+            option = optionDefault[0] = new Roofing(ThingDef.Named(defName)).Mode;
         }
 
-        public override void Preset(string defName)
-        {
-            if (optionDefault.Count > 1)
-            {
-                optionDefault[0] = optionDefault[1];
-                option = new Roofing(ThingDef.Named(defName)).Mode;
-            }
-            else
-            {
-                option = optionDefault[0] = new Roofing(ThingDef.Named(defName)).Mode;
-            }
+        CheckConfig();
+        base.Preset(defName);
+    }
 
-            CheckConfig();
-            base.Preset(defName);
+    public override void CheckConfig()
+    {
+        if (option == optionDefault[0])
+        {
+            config = '0';
+            savedOption = new RoofMode();
         }
-
-        public override void CheckConfig()
+        else
         {
-            if (option == optionDefault[0])
-            {
-                config = '0';
-                savedOption = new RoofMode();
-            }
-            else
-            {
-                config = '1';
-                savedOption = option;
-            }
+            config = '1';
+            savedOption = option;
         }
     }
 }

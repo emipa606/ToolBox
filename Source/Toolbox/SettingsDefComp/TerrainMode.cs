@@ -1,9 +1,8 @@
-﻿namespace ToolBox.SettingsDefComp
+﻿namespace ToolBox.SettingsDefComp;
+
+public enum TerrainMode
 {
-    public enum TerrainMode
-    {
-        Light,
-        Medium,
-        Heavy
-    }
+    Light,
+    Medium,
+    Heavy
 }

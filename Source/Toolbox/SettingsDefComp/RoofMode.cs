@@ -1,9 +1,8 @@
-﻿namespace ToolBox.SettingsDefComp
+﻿namespace ToolBox.SettingsDefComp;
+
+public enum RoofMode
 {
-    public enum RoofMode
-    {
-        Auto,
-        Manual,
-        None
-    }
+    Auto,
+    Manual,
+    None
 }

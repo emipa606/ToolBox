@@ -1,8 +1,7 @@
-﻿namespace ToolBox.SettingsDefComp
+﻿namespace ToolBox.SettingsDefComp;
+
+public enum LineType
 {
-    public enum LineType
-    {
-        Horizontal,
-        Vertical
-    }
+    Horizontal,
+    Vertical
 }

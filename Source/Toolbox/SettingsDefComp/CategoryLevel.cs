@@ -1,10 +1,9 @@
-﻿namespace ToolBox.SettingsDefComp
+﻿namespace ToolBox.SettingsDefComp;
+
+public enum CategoryLevel
 {
-    public enum CategoryLevel
-    {
-        None,
-        Top,
-        Middle,
-        Bottom
-    }
+    None,
+    Top,
+    Middle,
+    Bottom
 }

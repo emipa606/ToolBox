@@ -1,28 +1,27 @@
 ﻿using RimWorld;
 using Verse;
 
-namespace ToolBox.SettingsDefComp
+namespace ToolBox.SettingsDefComp;
+
+public class TerrainAffordance
 {
-    public class TerrainAffordance
+    public TerrainAffordance(ThingDef thingDef)
     {
-        public TerrainAffordance(ThingDef thingDef)
+        if (thingDef.terrainAffordanceNeeded == TerrainAffordanceDefOf.Light)
         {
-            if (thingDef.terrainAffordanceNeeded == TerrainAffordanceDefOf.Light)
-            {
-                Mode = TerrainMode.Light;
-            }
-
-            if (thingDef.terrainAffordanceNeeded == TerrainAffordanceDefOf.Medium)
-            {
-                Mode = TerrainMode.Medium;
-            }
-
-            if (thingDef.terrainAffordanceNeeded == TerrainAffordanceDefOf.Heavy)
-            {
-                Mode = TerrainMode.Heavy;
-            }
+            Mode = TerrainMode.Light;
         }
 
-        public TerrainMode Mode { get; set; }
+        if (thingDef.terrainAffordanceNeeded == TerrainAffordanceDefOf.Medium)
+        {
+            Mode = TerrainMode.Medium;
+        }
+
+        if (thingDef.terrainAffordanceNeeded == TerrainAffordanceDefOf.Heavy)
+        {
+            Mode = TerrainMode.Heavy;
+        }
     }
+
+    public TerrainMode Mode { get; set; }
 }

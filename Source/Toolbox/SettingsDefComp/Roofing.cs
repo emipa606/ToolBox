@@ -1,55 +1,54 @@
 ﻿using Verse;
 
-namespace ToolBox.SettingsDefComp
+namespace ToolBox.SettingsDefComp;
+
+public class Roofing
 {
-    public class Roofing
+    public Roofing(ThingDef thingDef)
     {
-        public Roofing(ThingDef thingDef)
+        HoldsRoof = thingDef.holdsRoof;
+        AutoRoof = thingDef.building.allowAutoroof;
+        IsDoor = thingDef.IsDoor;
+        IsImpassable = thingDef.passability == Traversability.Impassable;
+        if (IsDoor)
         {
-            HoldsRoof = thingDef.holdsRoof;
-            AutoRoof = thingDef.building.allowAutoroof;
-            IsDoor = thingDef.IsDoor;
-            IsImpassable = thingDef.passability == Traversability.Impassable;
-            if (IsDoor)
+            if (HoldsRoof && AutoRoof)
             {
-                if (HoldsRoof && AutoRoof)
-                {
-                    Mode = RoofMode.Auto;
-                }
-
-                if (HoldsRoof && !AutoRoof)
-                {
-                    Mode = RoofMode.Manual;
-                }
-
-                if (!HoldsRoof)
-                {
-                    Mode = RoofMode.None;
-                }
+                Mode = RoofMode.Auto;
             }
-            else
+
+            switch (HoldsRoof)
             {
-                if (HoldsRoof && AutoRoof)
-                {
-                    Mode = IsImpassable ? RoofMode.Auto : RoofMode.Manual;
-                }
-
-                if (HoldsRoof && !AutoRoof)
-                {
+                case true when !AutoRoof:
                     Mode = RoofMode.Manual;
-                }
-
-                if (!HoldsRoof)
-                {
+                    break;
+                case false:
                     Mode = RoofMode.None;
-                }
+                    break;
             }
         }
+        else
+        {
+            if (HoldsRoof && AutoRoof)
+            {
+                Mode = IsImpassable ? RoofMode.Auto : RoofMode.Manual;
+            }
 
-        public bool HoldsRoof { get; set; }
-        public bool AutoRoof { get; set; }
-        public bool IsDoor { get; set; }
-        public bool IsImpassable { get; set; }
-        public RoofMode Mode { get; set; }
+            switch (HoldsRoof)
+            {
+                case true when !AutoRoof:
+                    Mode = RoofMode.Manual;
+                    break;
+                case false:
+                    Mode = RoofMode.None;
+                    break;
+            }
+        }
     }
+
+    public bool HoldsRoof { get; set; }
+    public bool AutoRoof { get; set; }
+    public bool IsDoor { get; set; }
+    public bool IsImpassable { get; set; }
+    public RoofMode Mode { get; set; }
 }

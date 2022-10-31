@@ -1,7 +1,6 @@
-﻿namespace ToolBox.SettingsDefComp
+﻿namespace ToolBox.SettingsDefComp;
+
+public class TextboxCompBase : ContentBase
 {
-    public class TextboxCompBase : ContentBase
-    {
-        public bool warn = false;
-    }
+    public bool warn = false;
 }

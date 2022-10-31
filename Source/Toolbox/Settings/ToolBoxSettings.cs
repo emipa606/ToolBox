@@ -2,17 +2,16 @@
 using ToolBox.SettingsDefComp;
 using Verse;
 
-namespace ToolBox.Settings
-{
-    public class ToolBoxSettings : ModSettings
-    {
-        //Saving occurs here. thingList gets value on the ToolBox.WriteSettings()
-        public List<ThingProp> thingList = new List<ThingProp>();
+namespace ToolBox.Settings;
 
-        public override void ExposeData()
-        {
-            Scribe_Collections.Look(ref thingList, "thingList", LookMode.Deep);
-            base.ExposeData();
-        }
+public class ToolBoxSettings : ModSettings
+{
+    //Saving occurs here. thingList gets value on the ToolBox.WriteSettings()
+    public List<ThingProp> thingList = new List<ThingProp>();
+
+    public override void ExposeData()
+    {
+        Scribe_Collections.Look(ref thingList, "thingList", LookMode.Deep);
+        base.ExposeData();
     }
 }

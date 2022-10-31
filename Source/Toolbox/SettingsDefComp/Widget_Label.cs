@@ -2,50 +2,49 @@
 using UnityEngine;
 using Verse;
 
-namespace ToolBox.SettingsDefComp
+namespace ToolBox.SettingsDefComp;
+
+//Note: adaptability to content Rect is quite inaccurate.
+//This is due to unknown multiplier used for Medium fonts.
+public class Widget_Label : DesignBase
 {
-    //Note: adaptability to content Rect is quite inaccurate.
-    //This is due to unknown multiplier used for Medium fonts.
-    public class Widget_Label : DesignBase
+    public GameFont fontSize = GameFont.Small;
+    public string text;
+
+    public override void SetSize(List<float> width, List<float> height)
     {
-        public GameFont fontSize = GameFont.Small;
-        public string text;
-
-        public override void SetSize(List<float> width, List<float> height)
+        if (!text.NullOrEmpty())
         {
-            if (!text.NullOrEmpty())
+            if (this.width <= 0f)
             {
-                if (this.width <= 0f)
+                this.width = Text.CalcSize(text).x;
+                if (fontSize == GameFont.Medium)
                 {
-                    this.width = Text.CalcSize(text).x;
-                    if (fontSize == GameFont.Medium)
-                    {
-                        this.width *= 1.534f;
-                    }
-                }
-
-                if (this.height <= 0f)
-                {
-                    this.height = Text.CalcSize(text).y;
-                    if (fontSize == GameFont.Medium)
-                    {
-                        this.width *= 1.534f;
-                    }
+                    this.width *= 1.534f;
                 }
             }
 
-            base.SetSize(width, height);
-        }
-
-        public virtual void Widget()
-        {
-            if (text.NullOrEmpty())
+            if (this.height <= 0f)
             {
-                return;
+                this.height = Text.CalcSize(text).y;
+                if (fontSize == GameFont.Medium)
+                {
+                    this.width *= 1.534f;
+                }
             }
-
-            Text.Font = fontSize;
-            Widgets.Label(new Rect(x, y, width, height), text);
         }
+
+        base.SetSize(width, height);
+    }
+
+    public virtual void Widget()
+    {
+        if (text.NullOrEmpty())
+        {
+            return;
+        }
+
+        Text.Font = fontSize;
+        Widgets.Label(new Rect(x, y, width, height), text);
     }
 }
