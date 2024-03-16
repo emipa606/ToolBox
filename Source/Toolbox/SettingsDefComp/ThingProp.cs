@@ -10,31 +10,34 @@ namespace ToolBox.SettingsDefComp;
 /// </summary>
 public class ThingProp : IExposable
 {
-    public ThingProp_BaseHP baseHPProp = new ThingProp_BaseHP();
-    public ThingProp_Beauty beautyProp = new ThingProp_Beauty();
-    public bool config;
-    public StringBuilder configBuilder = new StringBuilder("00000000000"); //Increase the 0s for every new Prop.
-    public string configID;
-    public ThingProp_Cost costProp = new ThingProp_Cost();
-    public string defName;
-    public ThingProp_Fill fillProp = new ThingProp_Fill();
-    public ThingProp_Flammability flammabilityProp = new ThingProp_Flammability();
-    public string label;
+    public readonly ThingProp_BaseHP baseHPProp = new ThingProp_BaseHP();
+    public readonly ThingProp_Beauty beautyProp = new ThingProp_Beauty();
+
+    public readonly StringBuilder
+        configBuilder = new StringBuilder("00000000000"); //Increase the 0s for every new Prop.
+
+    public readonly ThingProp_Cost costProp = new ThingProp_Cost();
+    public readonly ThingProp_Fill fillProp = new ThingProp_Fill();
+    public readonly ThingProp_Flammability flammabilityProp = new ThingProp_Flammability();
 
     //Input type ThingProps
-    public ThingProp_Label labelProp = new ThingProp_Label();
-    public ThingProp_Link linkProp = new ThingProp_Link();
-    public bool live = true;
+    public readonly ThingProp_Label labelProp = new ThingProp_Label();
+    public readonly ThingProp_Link linkProp = new ThingProp_Link();
 
     //Select type ThingProps
-    public ThingProp_Passability passabilityProp = new ThingProp_Passability();
-    public ThingProp_Path pathProp = new ThingProp_Path();
-    public int pos = 0;
+    public readonly ThingProp_Passability passabilityProp = new ThingProp_Passability();
+    public readonly ThingProp_Path pathProp = new ThingProp_Path();
+    public readonly int pos = 0;
 
     //Button type ThingProps
-    public ThingProp_Roof roofProp = new ThingProp_Roof();
-    public ThingProp_Terrain terrainProp = new ThingProp_Terrain();
-    public ThingProp_WorkToBuild workProp = new ThingProp_WorkToBuild();
+    public readonly ThingProp_Roof roofProp = new ThingProp_Roof();
+    public readonly ThingProp_Terrain terrainProp = new ThingProp_Terrain();
+    public readonly ThingProp_WorkToBuild workProp = new ThingProp_WorkToBuild();
+    public bool config;
+    public string configID;
+    public string defName;
+    public string label;
+    public bool live = true;
 
     public void ExposeData()
     {
@@ -59,7 +62,7 @@ public class ThingProp : IExposable
         {
             if (live)
             {
-                var unused = ThingDef.Named(defName).defName;
+                _ = ThingDef.Named(defName).defName;
             }
         }
         catch (NullReferenceException)

@@ -5,9 +5,9 @@ namespace ToolBox.SettingsDefComp;
 
 public class ColPropBase : ContentBase
 {
+    public readonly bool drawDefault = false;
+    public readonly bool hasHeader = true;
     public bool draw;
-    public bool drawDefault = false;
-    public bool hasHeader = true;
     public string header = "null";
     public float headerPos = 0f;
     public float max = 0f;

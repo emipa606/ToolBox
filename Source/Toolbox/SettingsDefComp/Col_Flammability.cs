@@ -7,8 +7,8 @@ namespace ToolBox.SettingsDefComp;
 
 public class Col_Flammability : ColPropBase
 {
-    public new float max = 100f;
-    public new float min = 0f;
+    public new readonly float max = 100f;
+    public new readonly float min = 0f;
 
     public override void SetSize(int thingCount, List<float> width, List<float> height, float multiplier)
     {

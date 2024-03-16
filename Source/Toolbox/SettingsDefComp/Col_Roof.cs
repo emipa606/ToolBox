@@ -6,20 +6,20 @@ namespace ToolBox.SettingsDefComp;
 
 public class Col_Roof : ColPropBase
 {
-    private Color color;
-
-    public IList<RoofMode> modeList_A = new List<RoofMode>
+    public readonly IList<RoofMode> modeList_A = new List<RoofMode>
     {
         RoofMode.Auto,
         RoofMode.Manual,
         RoofMode.None
     };
 
-    public IList<RoofMode> modeList_B = new List<RoofMode>
+    public readonly IList<RoofMode> modeList_B = new List<RoofMode>
     {
         RoofMode.Manual,
         RoofMode.None
     };
+
+    private Color color;
 
     private Rect overlay;
 

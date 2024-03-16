@@ -46,9 +46,9 @@ public class Roofing
         }
     }
 
-    public bool HoldsRoof { get; set; }
-    public bool AutoRoof { get; set; }
-    public bool IsDoor { get; set; }
-    public bool IsImpassable { get; set; }
-    public RoofMode Mode { get; set; }
+    public bool HoldsRoof { get; }
+    public bool AutoRoof { get; }
+    public bool IsDoor { get; }
+    public bool IsImpassable { get; }
+    public RoofMode Mode { get; }
 }

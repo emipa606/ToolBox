@@ -8,24 +8,24 @@ namespace ToolBox.SettingsDefComp;
 
 public class UI_Configurator
 {
-    public Col_BaseHP baseHPCol = new Col_BaseHP();
-    public Col_Beauty beautyCol = new Col_Beauty();
-    public Col_Cost costCol = new Col_Cost();
-    public Col_Fill fillCol = new Col_Fill();
-    public Col_Flammability flammabilityCol = new Col_Flammability();
-    public float height = 0;
+    public readonly Col_BaseHP baseHPCol = new Col_BaseHP();
+    public readonly Col_Beauty beautyCol = new Col_Beauty();
+    public readonly Col_Cost costCol = new Col_Cost();
+    public readonly Col_Fill fillCol = new Col_Fill();
+    public readonly Col_Flammability flammabilityCol = new Col_Flammability();
+    public readonly float height = 0;
+    public readonly Col_Label labelCol = new Col_Label();
+    public readonly Col_Link linkCol = new Col_Link();
+    public readonly Col_Passability passabilityCol = new Col_Passability();
+    public readonly Col_Path pathCol = new Col_Path();
+    public readonly ResetButton resetButton = new ResetButton();
+    public readonly Col_Roof roofCol = new Col_Roof();
+    public readonly Col_Terrain terrainCol = new Col_Terrain();
+    public readonly List<ThingProp> thingList = [];
+    public readonly float width = 0;
+    public readonly Col_WorkToBuild workCol = new Col_WorkToBuild();
 
     public IList<int> index = new List<int>();
-    public Col_Label labelCol = new Col_Label();
-    public Col_Link linkCol = new Col_Link();
-    public Col_Passability passabilityCol = new Col_Passability();
-    public Col_Path pathCol = new Col_Path();
-    public ResetButton resetButton = new ResetButton();
-    public Col_Roof roofCol = new Col_Roof();
-    public Col_Terrain terrainCol = new Col_Terrain();
-    public List<ThingProp> thingList = new List<ThingProp>();
-    public float width = 0;
-    public Col_WorkToBuild workCol = new Col_WorkToBuild();
 
     //Gets the highest width and height of the loaded widgets and sets it to the DrawProperties' width and height.
     public void CalcSize(List<float> widthList, List<float> heightList)
@@ -66,7 +66,7 @@ public class UI_Configurator
             return;
         }
 
-        //Headers... a lot of em.
+        //Headers... a lot of 'em.
         labelCol.Header();
         costCol.Header();
         baseHPCol.Header();

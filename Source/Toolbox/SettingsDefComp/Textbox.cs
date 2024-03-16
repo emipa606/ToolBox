@@ -6,10 +6,10 @@ namespace ToolBox.SettingsDefComp;
 
 public class Textbox : DesignBase
 {
-    public List<Textbox_Image> image = new List<Textbox_Image>();
-    public List<Textbox_Label> label = new List<Textbox_Label>();
+    public readonly List<Textbox_Image> image = [];
+    public readonly List<Textbox_Label> label = [];
+    public readonly List<Textbox_Line> line = [];
     public float leftMargin = 6f;
-    public List<Textbox_Line> line = new List<Textbox_Line>();
     public float topMargin = 5f;
 
     public void Widget()

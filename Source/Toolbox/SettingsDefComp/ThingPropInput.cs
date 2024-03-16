@@ -5,10 +5,10 @@ namespace ToolBox.SettingsDefComp;
 
 public class ThingPropInput : ThingPropBase, IExposable
 {
+    public readonly IList<int> numIntDefault = new List<int> { 0 };
     public char config = '0';
     public string numBuffer;
     public int numInt;
-    public IList<int> numIntDefault = new List<int> { 0 };
     public int numSavedInt;
 
     //A method for saving data

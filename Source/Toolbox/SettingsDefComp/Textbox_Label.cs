@@ -6,8 +6,8 @@ namespace ToolBox.SettingsDefComp;
 
 public class Textbox_Label : ContentBase
 {
-    public bool center = false;
-    public GameFont fontSize = GameFont.Small;
+    public readonly bool center = false;
+    public readonly GameFont fontSize = GameFont.Small;
     public string text;
 
     public void Content(Textbox textBox)

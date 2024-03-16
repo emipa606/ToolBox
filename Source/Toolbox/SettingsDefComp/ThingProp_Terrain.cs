@@ -5,9 +5,8 @@ namespace ToolBox.SettingsDefComp;
 
 public class ThingProp_Terrain : ThingPropSelect
 {
+    public readonly IList<TerrainMode> optionDefault = new List<TerrainMode> { TerrainMode.Light };
     public TerrainMode option;
-
-    public IList<TerrainMode> optionDefault = new List<TerrainMode> { TerrainMode.Light };
     public TerrainMode savedOption;
 
     public override void ExposeData()

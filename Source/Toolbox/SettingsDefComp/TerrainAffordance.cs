@@ -23,5 +23,5 @@ public class TerrainAffordance
         }
     }
 
-    public TerrainMode Mode { get; set; }
+    public TerrainMode Mode { get; }
 }

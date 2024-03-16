@@ -14,6 +14,7 @@ public class ToolBox : Mod
     private readonly Color lineColor = new Color(105f, 105f, 105f, 0.5f);
     private readonly Listing_Standard listing_Category = new Listing_Standard();
     private readonly Listing_Standard listing_Content = new Listing_Standard();
+    public readonly ToolBoxSettings settings;
 
     private readonly IEnumerable<SettingsDef> settingsDef_Enum =
         DefDatabase<SettingsDef>.AllDefs.OrderBy(c => c.position);
@@ -21,14 +22,13 @@ public class ToolBox : Mod
     private readonly Vector2 topHoriLine = new Vector2(168f, 40f);
     private Vector2 categoryScroll = new Vector2(0f, 0f);
     private Vector2 contentScroll = new Vector2(0f, 0f);
-    public ToolBoxSettings settings;
 
     private string settingsDef_Flag = "Default";
 
     public ToolBox(ModContentPack content) : base(content)
     {
         currentVersion =
-            VersionFromManifest.GetVersionFromModMetaData(ModLister.GetActiveModWithIdentifier("Mlie.Toolbox"));
+            VersionFromManifest.GetVersionFromModMetaData(content.ModMetaData);
         settings = GetSettings<ToolBoxSettings>();
     }
 

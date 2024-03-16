@@ -5,8 +5,8 @@ namespace ToolBox.SettingsDefComp;
 
 public class ThingProp_Passability : ThingPropSelect
 {
+    public readonly IList<Traversability> optionDefault = new List<Traversability> { Traversability.Standable };
     public Traversability option;
-    public IList<Traversability> optionDefault = new List<Traversability> { Traversability.Standable };
     public Traversability savedOption;
 
     public override void ExposeData()

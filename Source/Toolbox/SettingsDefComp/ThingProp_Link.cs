@@ -5,8 +5,8 @@ namespace ToolBox.SettingsDefComp;
 
 public class ThingProp_Link : ThingPropSelect
 {
+    public readonly IList<LinkFlags> optionDefault = new List<LinkFlags> { LinkFlags.None };
     public LinkFlags option;
-    public IList<LinkFlags> optionDefault = new List<LinkFlags> { LinkFlags.None };
     public LinkFlags savedOption;
 
     public override void ExposeData()

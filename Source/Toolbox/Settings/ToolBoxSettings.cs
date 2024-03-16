@@ -7,7 +7,7 @@ namespace ToolBox.Settings;
 public class ToolBoxSettings : ModSettings
 {
     //Saving occurs here. thingList gets value on the ToolBox.WriteSettings()
-    public List<ThingProp> thingList = new List<ThingProp>();
+    public List<ThingProp> thingList = [];
 
     public override void ExposeData()
     {

@@ -8,13 +8,13 @@ namespace ToolBox;
 
 public class SettingsDef : Def
 {
+    public readonly List<UI_Configurator> configurator = [];
+    public readonly UI_Design design = new UI_Design();
+    public readonly CategoryLevel level = CategoryLevel.Middle;
+    public readonly float position = 0;
+    public readonly bool scrollbar = true;
     public bool checkSize = true;
-    public List<UI_Configurator> configurator = new List<UI_Configurator>();
-    public UI_Design design = new UI_Design();
     public float height;
-    public CategoryLevel level = CategoryLevel.Middle;
-    public float position = 0;
-    public bool scrollbar = true;
     public float width;
 
     public static SettingsDef Named(string defName)

@@ -7,16 +7,16 @@ namespace ToolBox.SettingsDefComp;
 
 public class Col_Terrain : ColPropBase
 {
-    private Color color;
-
-    private Rect overlay;
-
-    public IList<TerrainMode> terrainOptions = new List<TerrainMode>
+    public readonly IList<TerrainMode> terrainOptions = new List<TerrainMode>
     {
         TerrainMode.Light,
         TerrainMode.Medium,
         TerrainMode.Heavy
     };
+
+    private Color color;
+
+    private Rect overlay;
 
     public override void SetSize(int thingCount, List<float> width, List<float> height, float multiplier)
     {

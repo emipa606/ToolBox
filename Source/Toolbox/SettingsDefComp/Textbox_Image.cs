@@ -6,8 +6,8 @@ namespace ToolBox.SettingsDefComp;
 
 public class Textbox_Image : TextboxCompBase
 {
+    public readonly float scale = 1f;
     public string path;
-    public float scale = 1f;
 
     public void Content(Textbox textBox)
     {

@@ -38,7 +38,7 @@ internal class StartUp
         {
             try
             {
-                var unused = ThingDef.Named(thingProp_Raw.defName).defName;
+                _ = ThingDef.Named(thingProp_Raw.defName).defName;
 
                 //Updates any outdated configID from previous saves.
                 if (thingProp_Raw.configID.Length < IDLength)

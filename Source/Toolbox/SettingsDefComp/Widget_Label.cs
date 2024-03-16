@@ -8,7 +8,7 @@ namespace ToolBox.SettingsDefComp;
 //This is due to unknown multiplier used for Medium fonts.
 public class Widget_Label : DesignBase
 {
-    public GameFont fontSize = GameFont.Small;
+    public readonly GameFont fontSize = GameFont.Small;
     public string text;
 
     public override void SetSize(List<float> width, List<float> height)

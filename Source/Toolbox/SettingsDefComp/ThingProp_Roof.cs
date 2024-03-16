@@ -5,8 +5,8 @@ namespace ToolBox.SettingsDefComp;
 
 public class ThingProp_Roof : ThingPropSelect
 {
+    public readonly IList<RoofMode> optionDefault = new List<RoofMode> { RoofMode.None };
     public RoofMode option;
-    public IList<RoofMode> optionDefault = new List<RoofMode> { RoofMode.None };
     public RoofMode savedOption;
 
     public override void ExposeData()

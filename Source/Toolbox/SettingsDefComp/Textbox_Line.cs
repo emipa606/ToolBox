@@ -5,8 +5,8 @@ namespace ToolBox.SettingsDefComp;
 
 public class Textbox_Line : ContentBase
 {
-    public float length = 0f;
-    public LineType lineType = LineType.Horizontal;
+    public readonly float length = 0f;
+    public readonly LineType lineType = LineType.Horizontal;
 
     public void Content(Textbox textBox)
     {

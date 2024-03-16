@@ -10,8 +10,8 @@ namespace ToolBox.SettingsDefComp;
 /// </summary>
 public class ResetButton : ContentBase
 {
-    public bool drawDefault = false;
-    public string label = "Reset";
+    public readonly bool drawDefault = false;
+    public readonly string label = "Reset";
 
     public virtual void Widget(List<ThingProp> thingList)
     {

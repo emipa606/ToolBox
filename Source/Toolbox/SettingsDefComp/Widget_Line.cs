@@ -4,8 +4,8 @@ namespace ToolBox.SettingsDefComp;
 
 public class Widget_Line : DesignBase
 {
-    public float length = 0f;
-    public LineType lineType = LineType.Horizontal;
+    public readonly float length = 0f;
+    public readonly LineType lineType = LineType.Horizontal;
 
     public virtual void Widget()
     {

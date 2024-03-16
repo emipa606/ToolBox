@@ -6,7 +6,7 @@ namespace ToolBox.SettingsDefComp;
 
 public class Col_Link : ColPropBase
 {
-    public IList<LinkFlags> linkOptions = new List<LinkFlags>
+    public readonly IList<LinkFlags> linkOptions = new List<LinkFlags>
     {
         LinkFlags.None,
         LinkFlags.MapEdge,

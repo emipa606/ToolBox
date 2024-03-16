@@ -6,16 +6,16 @@ namespace ToolBox.SettingsDefComp;
 
 public class Col_Passability : ColPropBase
 {
-    private Color color;
-
-    private Rect overlay;
-
-    public IList<Traversability> passOptions = new List<Traversability>
+    public readonly IList<Traversability> passOptions = new List<Traversability>
     {
         Traversability.Impassable,
         Traversability.PassThroughOnly,
         Traversability.Standable
     };
+
+    private Color color;
+
+    private Rect overlay;
 
     public override void SetSize(int thingCount, List<float> width, List<float> height, float multiplier)
     {
