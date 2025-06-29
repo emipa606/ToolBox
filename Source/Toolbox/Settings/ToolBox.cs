@@ -10,20 +10,20 @@ namespace ToolBox.Settings;
 public class ToolBox : Mod
 {
     private static string currentVersion;
-    private readonly Vector2 bottomHoriLine = new Vector2(168f, 623f);
-    private readonly Color lineColor = new Color(105f, 105f, 105f, 0.5f);
-    private readonly Listing_Standard listing_Category = new Listing_Standard();
-    private readonly Listing_Standard listing_Content = new Listing_Standard();
-    public readonly ToolBoxSettings settings;
+    private readonly Vector2 bottomHoriLine = new(168f, 623f);
+    private readonly Color lineColor = new(105f, 105f, 105f, 0.5f);
+    private readonly Listing_Standard listingCategory = new();
+    private readonly Listing_Standard listingContent = new();
+    private readonly ToolBoxSettings settings;
 
-    private readonly IEnumerable<SettingsDef> settingsDef_Enum =
+    private readonly IEnumerable<SettingsDef> settingsDefEnum =
         DefDatabase<SettingsDef>.AllDefs.OrderBy(c => c.position);
 
-    private readonly Vector2 topHoriLine = new Vector2(168f, 40f);
-    private Vector2 categoryScroll = new Vector2(0f, 0f);
-    private Vector2 contentScroll = new Vector2(0f, 0f);
+    private readonly Vector2 topHoriLine = new(168f, 40f);
+    private Vector2 categoryScroll = new(0f, 0f);
+    private Vector2 contentScroll = new(0f, 0f);
 
-    private string settingsDef_Flag = "Default";
+    private string settingsDefFlag = "Default";
 
     public ToolBox(ModContentPack content) : base(content)
     {
@@ -48,80 +48,80 @@ public class ToolBox : Mod
         var contentRectScroll = new Rect(categoryRect.width + 5f, rect.y, rect.width - categoryRect.width - 5f,
             rect.height);
         var contentView = new Rect(contentRect.x, rect.y, contentRect.width - 25f, rect.height);
-        var hasTop = settingsDef_Enum.Count(c => c.level.Equals(CategoryLevel.Top)) != 0;
-        var hasMiddle = settingsDef_Enum.Count(c => c.level.Equals(CategoryLevel.Middle)) != 0;
-        var hasBottom = settingsDef_Enum.Count(c => c.level.Equals(CategoryLevel.Bottom)) != 0;
+        var hasTop = settingsDefEnum.Count(c => c.level.Equals(CategoryLevel.Top)) != 0;
+        var hasMiddle = settingsDefEnum.Count(c => c.level.Equals(CategoryLevel.Middle)) != 0;
+        var hasBottom = settingsDefEnum.Count(c => c.level.Equals(CategoryLevel.Bottom)) != 0;
 
         //This flags would matter once I make a ToolBox Home category.
         var drawContentScroll = true;
         var drawSeparator = true;
 
         //CategoryRect Resize
-        var categorRectHeight = 0f;
+        var categoryRectHeight = 0f;
         if (hasTop)
         {
-            categorRectHeight += 10f;
+            categoryRectHeight += 10f;
         }
 
         if (hasMiddle)
         {
-            categorRectHeight += 10f;
+            categoryRectHeight += 10f;
         }
 
         if (hasBottom)
         {
-            categorRectHeight += 10f;
+            categoryRectHeight += 10f;
         }
 
-        if (categorRectHeight + (settingsDef_Enum.Count() * 31.5f) > categoryRect.height)
+        if (categoryRectHeight + (settingsDefEnum.Count() * 31.5f) > categoryRect.height)
         {
             drawSeparator = false;
-            categoryView.height = categorRectHeight + (settingsDef_Enum.Count() * 31.5f);
-            categoryRect.height = categorRectHeight + (settingsDef_Enum.Count() * 31.5f);
+            categoryView.height = categoryRectHeight + (settingsDefEnum.Count() * 31.5f);
+            categoryRect.height = categoryRectHeight + (settingsDefEnum.Count() * 31.5f);
         }
 
         //Category Sect.
         //Note: Deciding on adding an option in hope to put a button that disables scrollbar on category.
         Widgets.BeginScrollView(categoryRectScroll, ref categoryScroll, categoryView);
-        listing_Category.Begin(categoryRect);
-        listing_Category.ColumnWidth = categoryRect.width - 15.5f;
-        foreach (var topCategory in settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Top)))
+        listingCategory.Begin(categoryRect);
+        listingCategory.ColumnWidth = categoryRect.width - 15.5f;
+        foreach (var topCategory in settingsDefEnum.Where(c => c.level.Equals(CategoryLevel.Top)))
         {
-            if (listing_Category.ButtonText(topCategory.label))
+            if (listingCategory.ButtonText(topCategory.label))
             {
-                settingsDef_Flag = topCategory.defName;
+                settingsDefFlag = topCategory.defName;
             }
         }
 
         if (hasTop && (hasMiddle || hasBottom)) //Divider under Top level
         {
-            listing_Category.GapLine(5f);
-            listing_Category.Gap(5f);
+            listingCategory.GapLine(5f);
+            listingCategory.Gap(5f);
         }
 
-        foreach (var middleCategory in settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Middle)))
+        foreach (var middleCategory in settingsDefEnum.Where(c => c.level.Equals(CategoryLevel.Middle)))
         {
-            if (listing_Category.ButtonText(middleCategory.label))
+            if (listingCategory.ButtonText(middleCategory.label))
             {
-                settingsDef_Flag = middleCategory.defName;
+                settingsDefFlag = middleCategory.defName;
             }
         }
 
         if (hasMiddle && hasBottom) //Divider under Middle level
         {
-            listing_Category.GapLine(5f);
-            listing_Category.Gap(5f);
+            listingCategory.GapLine(5f);
+            listingCategory.Gap(5f);
         }
 
-        foreach (var bottomCategory in settingsDef_Enum.Where(c => c.level.Equals(CategoryLevel.Bottom)))
+        foreach (var bottomCategory in settingsDefEnum.Where(c => c.level.Equals(CategoryLevel.Bottom)))
         {
-            if (listing_Category.ButtonText(bottomCategory.label))
+            if (listingCategory.ButtonText(bottomCategory.label))
             {
-                settingsDef_Flag = bottomCategory.defName;
+                settingsDefFlag = bottomCategory.defName;
             }
         }
 
-        listing_Category.End();
+        listingCategory.End();
         Widgets.EndScrollView();
 
         //Separator: Category and Content Divider
@@ -131,9 +131,9 @@ public class ToolBox : Mod
         }
 
         //ContentRect Resize
-        foreach (var settingsDef in settingsDef_Enum)
+        foreach (var settingsDef in settingsDefEnum)
         {
-            if (settingsDef.defName.Equals(settingsDef_Flag))
+            if (settingsDef.defName.Equals(settingsDefFlag))
             {
                 settingsDef.AdaptSize(ref contentRect, ref contentView, ref drawContentScroll);
             }
@@ -141,10 +141,10 @@ public class ToolBox : Mod
 
         //Content Sect.
         Widgets.BeginScrollView(contentRectScroll, ref contentScroll, contentView, drawContentScroll);
-        listing_Content.Begin(contentRect);
-        foreach (var settingsDef in settingsDef_Enum)
+        listingContent.Begin(contentRect);
+        foreach (var settingsDef in settingsDefEnum)
         {
-            if (settingsDef.defName.Equals(settingsDef_Flag))
+            if (settingsDef.defName.Equals(settingsDefFlag))
             {
                 settingsDef.Display();
             }
@@ -152,13 +152,13 @@ public class ToolBox : Mod
 
         if (currentVersion != null)
         {
-            listing_Content.Gap();
+            listingContent.Gap();
             GUI.contentColor = Color.gray;
-            listing_Content.Label("Toolbox.CurrentModVersion".Translate(currentVersion));
+            listingContent.Label("Toolbox.CurrentModVersion".Translate(currentVersion));
             GUI.contentColor = Color.white;
         }
 
-        listing_Content.End();
+        listingContent.End();
         Widgets.EndScrollView();
     }
 

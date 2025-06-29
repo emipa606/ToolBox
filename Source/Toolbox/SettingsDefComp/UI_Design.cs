@@ -5,12 +5,12 @@ namespace ToolBox.SettingsDefComp;
 
 public class UI_Design
 {
-    public readonly float height = 0;
-    public readonly List<Widget_Image> image = [];
-    public readonly List<Widget_Label> label = [];
-    public readonly List<Widget_Line> line = [];
-    public readonly List<Textbox> textBox = [];
-    public readonly float width = 0;
+    private readonly float height = 0;
+    private readonly List<Widget_Image> image = [];
+    private readonly List<Widget_Label> label = [];
+    private readonly List<Widget_Line> line = [];
+    private readonly List<Textbox> textBox = [];
+    private readonly float width = 0;
 
     //Gets the highest width and height of the loaded widgets and sets it to the DrawMisc's width and height.
     public void CalcSize(List<float> widthList, List<float> heightList)

@@ -6,9 +6,9 @@ namespace ToolBox.SettingsDefComp;
 
 public class Textbox : DesignBase
 {
-    public readonly List<Textbox_Image> image = [];
-    public readonly List<Textbox_Label> label = [];
-    public readonly List<Textbox_Line> line = [];
+    private readonly List<Textbox_Image> image = [];
+    private readonly List<Textbox_Label> label = [];
+    private readonly List<Textbox_Line> line = [];
     public float leftMargin = 6f;
     public float topMargin = 5f;
 

@@ -16,16 +16,6 @@ public class Roofing
             {
                 Mode = RoofMode.Auto;
             }
-
-            switch (HoldsRoof)
-            {
-                case true when !AutoRoof:
-                    Mode = RoofMode.Manual;
-                    break;
-                case false:
-                    Mode = RoofMode.None;
-                    break;
-            }
         }
         else
         {
@@ -33,21 +23,21 @@ public class Roofing
             {
                 Mode = IsImpassable ? RoofMode.Auto : RoofMode.Manual;
             }
+        }
 
-            switch (HoldsRoof)
-            {
-                case true when !AutoRoof:
-                    Mode = RoofMode.Manual;
-                    break;
-                case false:
-                    Mode = RoofMode.None;
-                    break;
-            }
+        switch (HoldsRoof)
+        {
+            case true when !AutoRoof:
+                Mode = RoofMode.Manual;
+                break;
+            case false:
+                Mode = RoofMode.None;
+                break;
         }
     }
 
-    public bool HoldsRoof { get; }
-    public bool AutoRoof { get; }
+    private bool HoldsRoof { get; }
+    private bool AutoRoof { get; }
     public bool IsDoor { get; }
     public bool IsImpassable { get; }
     public RoofMode Mode { get; }

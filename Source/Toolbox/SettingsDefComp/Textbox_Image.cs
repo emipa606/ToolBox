@@ -6,7 +6,7 @@ namespace ToolBox.SettingsDefComp;
 
 public class Textbox_Image : TextboxCompBase
 {
-    public readonly float scale = 1f;
+    private readonly float scale = 1f;
     public string path;
 
     public void Content(Textbox textBox)
@@ -44,7 +44,7 @@ public class Textbox_Image : TextboxCompBase
             warn = false;
         }
 
-        var rect = ToolHandle.SetWrapedRect(x, y, width, height, textBox);
+        var rect = ToolHandle.SetWrappedRect(x, y, width, height, textBox);
         Widgets.DrawTextureFitted(rect, texture, scale);
     }
 }

@@ -6,7 +6,7 @@ namespace ToolBox.SettingsDefComp;
 
 public class Col_Passability : ColPropBase
 {
-    public readonly IList<Traversability> passOptions = new List<Traversability>
+    private readonly IList<Traversability> passOptions = new List<Traversability>
     {
         Traversability.Impassable,
         Traversability.PassThroughOnly,

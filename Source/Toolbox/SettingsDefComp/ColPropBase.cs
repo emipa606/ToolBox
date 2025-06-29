@@ -5,14 +5,14 @@ namespace ToolBox.SettingsDefComp;
 
 public class ColPropBase : ContentBase
 {
-    public readonly bool drawDefault = false;
-    public readonly bool hasHeader = true;
-    public bool draw;
-    public string header = "null";
-    public float headerPos = 0f;
-    public float max = 0f;
-    public float min = 0f;
-    public float vertLine;
+    protected readonly bool drawDefault = false;
+    private readonly bool hasHeader = true;
+    protected bool draw;
+    protected string header = "null";
+    protected float headerPos = 0f;
+    protected float max = 0f;
+    protected float min = 0f;
+    protected float vertLine;
 
     //Loads a label that acts as a header--also sets the value for (bool)draw.
     public virtual void Header()

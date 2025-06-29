@@ -6,8 +6,8 @@ namespace ToolBox.SettingsDefComp;
 
 public class Col_Fill : ColPropBase
 {
-    public new readonly float max = 100f;
-    public new readonly float min = 0f;
+    private new readonly float max = 100f;
+    private new readonly float min = 0f;
 
     public override void SetSize(int thingCount, List<float> width, List<float> height, float multiplier)
     {

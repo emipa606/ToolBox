@@ -2,5 +2,5 @@
 
 public class TextboxCompBase : ContentBase
 {
-    public bool warn = false;
+    protected bool warn = false;
 }

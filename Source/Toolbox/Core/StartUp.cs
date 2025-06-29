@@ -16,7 +16,7 @@ internal class StartUp
         //ThingProp list
         var thingProps = DefDatabase<SettingsDef>.AllDefs
             .SelectMany(s => s.configurator
-                .SelectMany(d => d.thingList));
+                .SelectMany(d => d.thingList)).ToArray();
 
         //Groups similar DefNames in ThingList and reports it.
         var sameDefName = thingProps
@@ -29,27 +29,27 @@ internal class StartUp
         }
 
         //Checks if ThingDef from savedThingProps_Raw still exists and places it in savedThingProps if it does.
-        IEnumerable<ThingProp> savedThingProps_Raw = LoadedModManager
+        IEnumerable<ThingProp> savedThingPropsRaw = LoadedModManager
             .GetMod<Settings.ToolBox>()
             .GetSettings<ToolBoxSettings>().thingList;
         IList<ThingProp> savedThingProps = new List<ThingProp>();
-        var IDLength = 11; //Change this for every new Prop addition.
-        foreach (var thingProp_Raw in savedThingProps_Raw)
+        const int idLength = 11; //Change this for every new Prop addition.
+        foreach (var thingPropRaw in savedThingPropsRaw)
         {
             try
             {
-                _ = ThingDef.Named(thingProp_Raw.defName).defName;
+                _ = ThingDef.Named(thingPropRaw.defName).defName;
 
                 //Updates any outdated configID from previous saves.
-                if (thingProp_Raw.configID.Length < IDLength)
+                if (thingPropRaw.configID.Length < idLength)
                 {
-                    for (var i = thingProp_Raw.configID.Length; i < IDLength; i++)
+                    for (var i = thingPropRaw.configID.Length; i < idLength; i++)
                     {
-                        thingProp_Raw.configID += "0";
+                        thingPropRaw.configID += "0";
                     }
                 }
 
-                savedThingProps.Add(thingProp_Raw);
+                savedThingProps.Add(thingPropRaw);
             }
             catch (NullReferenceException)
             {

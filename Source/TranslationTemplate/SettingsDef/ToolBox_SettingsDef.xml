@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: Home -->
+  <ToolBoxHome.label>Home</ToolBoxHome.label>
+  <!-- EN:     <color=#FFD800>Author: Nif Version: 1.0.2.0</color> -->
+  <ToolBoxHome.design.textBox.0.label.0.text>    &lt;color=#FFD800>Author: Nif Version: 1.0.2.0&lt;/color></ToolBoxHome.design.textBox.0.label.0.text>
+  <!-- EN: <color=#FFA3AD>Support me!</color> -->
+  <ToolBoxHome.design.textBox.1.label.0.text>&lt;color=#FFA3AD>Support me!&lt;/color></ToolBoxHome.design.textBox.1.label.0.text>
+  <!-- EN: ToolBox is an XML based framework, designed for making mod settings that allow changes to ThingDef properties. Examples: cost, hitpoints, beauty, etc. It can also be used to provide a guide or information regarding a mod. It currently has 10 property widgets that can be applied to a ThingDef, and will continue to expand in the future. -->
+  <ToolBoxHome.design.textBox.2.label.0.text>ToolBox is an XML based framework, designed for making mod settings that allow changes to ThingDef properties. Examples: cost, hitpoints, beauty, etc. It can also be used to provide a guide or information regarding a mod. It currently has 10 property widgets that can be applied to a ThingDef, and will continue to expand in the future.</ToolBoxHome.design.textBox.2.label.0.text>
+  <!-- EN: Mods that uses ToolBox will have default ThingDef properties and is labeled based on what is it is. However, there may be instances when a mod has relabeled the widgets. Example: Fill is labeled as Cover. There are also varying update types to a property, such as Cost requiring a game restart while Beauty updates after change. Live is colored green, purple is reload, while red is restart.  -->
+  <ToolBoxHome.design.textBox.2.label.1.text>Mods that uses ToolBox will have default ThingDef properties and is labeled based on what is it is. However, there may be instances when a mod has relabeled the widgets. Example: Fill is labeled as Cover. There are also varying update types to a property, such as Cost requiring a game restart while Beauty updates after change. Live is colored green, purple is reload, while red is restart. </ToolBoxHome.design.textBox.2.label.1.text>
+  <!-- EN: Properties		         Description -->
+  <ToolBoxHome.design.textBox.2.label.2.text>Properties		         Description</ToolBoxHome.design.textBox.2.label.2.text>
+  <!-- EN:            <color=#FF4E4E>Cost</color> -->
+  <ToolBoxHome.design.textBox.2.label.3.text>           &lt;color=#FF4E4E>Cost&lt;/color></ToolBoxHome.design.textBox.2.label.3.text>
+  <!-- EN: amount of resources needed to construct. -->
+  <ToolBoxHome.design.textBox.2.label.4.text>amount of resources needed to construct.</ToolBoxHome.design.textBox.2.label.4.text>
+  <!-- EN:          <color=#1CE733>Beauty</color> -->
+  <ToolBoxHome.design.textBox.2.label.5.text>         &lt;color=#1CE733>Beauty&lt;/color></ToolBoxHome.design.textBox.2.label.5.text>
+  <!-- EN: rate of how enjoyable an object is to look at. -->
+  <ToolBoxHome.design.textBox.2.label.6.text>rate of how enjoyable an object is to look at.</ToolBoxHome.design.textBox.2.label.6.text>
+  <!-- EN:         <color=#1CE733>BaseHP</color> -->
+  <ToolBoxHome.design.textBox.2.label.7.text>        &lt;color=#1CE733>BaseHP&lt;/color></ToolBoxHome.design.textBox.2.label.7.text>
+  <!-- EN: base MaxHP of an object, multiplied with the material. -->
+  <ToolBoxHome.design.textBox.2.label.8.text>base MaxHP of an object, multiplied with the material.</ToolBoxHome.design.textBox.2.label.8.text>
+  <!-- EN:             <color=#1CE733>Fill</color> -->
+  <ToolBoxHome.design.textBox.2.label.9.text>            &lt;color=#1CE733>Fill&lt;/color></ToolBoxHome.design.textBox.2.label.9.text>
+  <!-- EN: percent of cover an object provides. -->
+  <ToolBoxHome.design.textBox.2.label.10.text>percent of cover an object provides.</ToolBoxHome.design.textBox.2.label.10.text>
+  <!-- EN:            <color=#1CE733>Path</color> -->
+  <ToolBoxHome.design.textBox.2.label.11.text>           &lt;color=#1CE733>Path&lt;/color></ToolBoxHome.design.textBox.2.label.11.text>
+  <!-- EN: reduction of movement to pass through an object. -->
+  <ToolBoxHome.design.textBox.2.label.12.text>reduction of movement to pass through an object.</ToolBoxHome.design.textBox.2.label.12.text>
+  <!-- EN:      <color=#1CE733>Flammability</color> -->
+  <ToolBoxHome.design.textBox.2.label.13.text>     &lt;color=#1CE733>Flammability&lt;/color></ToolBoxHome.design.textBox.2.label.13.text>
+  <!-- EN: rate of how likely and strong an object burns. -->
+  <ToolBoxHome.design.textBox.2.label.14.text>rate of how likely and strong an object burns.</ToolBoxHome.design.textBox.2.label.14.text>
+  <!-- EN:            <color=#1CE733>Work</color> -->
+  <ToolBoxHome.design.textBox.2.label.15.text>           &lt;color=#1CE733>Work&lt;/color></ToolBoxHome.design.textBox.2.label.15.text>
+  <!-- EN: time it takes to build an object based on gameticks. -->
+  <ToolBoxHome.design.textBox.2.label.16.text>time it takes to build an object based on gameticks.</ToolBoxHome.design.textBox.2.label.16.text>
+  <!-- EN:       <color=#1CE733>Passability</color> -->
+  <ToolBoxHome.design.textBox.2.label.17.text>      &lt;color=#1CE733>Passability&lt;/color></ToolBoxHome.design.textBox.2.label.17.text>
+  <!-- EN: an object's state of being passable. -->
+  <ToolBoxHome.design.textBox.2.label.18.text>an object's state of being passable.</ToolBoxHome.design.textBox.2.label.18.text>
+  <!-- EN:            <color=#BA4FFE>Roof</color> -->
+  <ToolBoxHome.design.textBox.2.label.19.text>           &lt;color=#BA4FFE>Roof&lt;/color></ToolBoxHome.design.textBox.2.label.19.text>
+  <!-- EN: an object's roofing mode. -->
+  <ToolBoxHome.design.textBox.2.label.20.text>an object's roofing mode.</ToolBoxHome.design.textBox.2.label.20.text>
+  <!-- EN:            <color=#BA4FFE>Link</color> -->
+  <ToolBoxHome.design.textBox.2.label.21.text>           &lt;color=#BA4FFE>Link&lt;/color></ToolBoxHome.design.textBox.2.label.21.text>
+  <!-- EN: type of link an object can connect to. -->
+  <ToolBoxHome.design.textBox.2.label.22.text>type of link an object can connect to.</ToolBoxHome.design.textBox.2.label.22.text>
+</LanguageData>

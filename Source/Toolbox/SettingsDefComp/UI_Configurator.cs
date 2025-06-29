@@ -8,24 +8,24 @@ namespace ToolBox.SettingsDefComp;
 
 public class UI_Configurator
 {
-    public readonly Col_BaseHP baseHPCol = new Col_BaseHP();
-    public readonly Col_Beauty beautyCol = new Col_Beauty();
-    public readonly Col_Cost costCol = new Col_Cost();
-    public readonly Col_Fill fillCol = new Col_Fill();
-    public readonly Col_Flammability flammabilityCol = new Col_Flammability();
-    public readonly float height = 0;
-    public readonly Col_Label labelCol = new Col_Label();
-    public readonly Col_Link linkCol = new Col_Link();
-    public readonly Col_Passability passabilityCol = new Col_Passability();
-    public readonly Col_Path pathCol = new Col_Path();
-    public readonly ResetButton resetButton = new ResetButton();
-    public readonly Col_Roof roofCol = new Col_Roof();
-    public readonly Col_Terrain terrainCol = new Col_Terrain();
+    private readonly Col_BaseHP baseHPCol = new();
+    private readonly Col_Beauty beautyCol = new();
+    private readonly Col_Cost costCol = new();
+    private readonly Col_Fill fillCol = new();
+    private readonly Col_Flammability flammabilityCol = new();
+    private readonly float height = 0;
+    private readonly Col_Label labelCol = new();
+    private readonly Col_Link linkCol = new();
+    private readonly Col_Passability passabilityCol = new();
+    private readonly Col_Path pathCol = new();
+    private readonly ResetButton resetButton = new();
+    private readonly Col_Roof roofCol = new();
+    private readonly Col_Terrain terrainCol = new();
     public readonly List<ThingProp> thingList = [];
-    public readonly float width = 0;
-    public readonly Col_WorkToBuild workCol = new Col_WorkToBuild();
+    private readonly float width = 0;
+    private readonly Col_WorkToBuild workCol = new();
 
-    public IList<int> index = new List<int>();
+    private IList<int> index = new List<int>();
 
     //Gets the highest width and height of the loaded widgets and sets it to the DrawProperties' width and height.
     public void CalcSize(List<float> widthList, List<float> heightList)

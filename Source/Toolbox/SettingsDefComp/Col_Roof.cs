@@ -6,14 +6,14 @@ namespace ToolBox.SettingsDefComp;
 
 public class Col_Roof : ColPropBase
 {
-    public readonly IList<RoofMode> modeList_A = new List<RoofMode>
+    private readonly IList<RoofMode> modeListA = new List<RoofMode>
     {
         RoofMode.Auto,
         RoofMode.Manual,
         RoofMode.None
     };
 
-    public readonly IList<RoofMode> modeList_B = new List<RoofMode>
+    private readonly IList<RoofMode> modeListB = new List<RoofMode>
     {
         RoofMode.Manual,
         RoofMode.None
@@ -51,11 +51,11 @@ public class Col_Roof : ColPropBase
         IList<RoofMode> roofOptions;
         if (roofing.IsDoor || roofing.IsImpassable)
         {
-            roofOptions = modeList_A;
+            roofOptions = modeListA;
         }
         else
         {
-            roofOptions = modeList_B;
+            roofOptions = modeListB;
         }
 
         if (Widgets.ButtonText(new Rect(x, (24f * line) + vertLine, width, 22f),

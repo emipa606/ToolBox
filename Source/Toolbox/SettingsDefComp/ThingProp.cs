@@ -10,29 +10,29 @@ namespace ToolBox.SettingsDefComp;
 /// </summary>
 public class ThingProp : IExposable
 {
-    public readonly ThingProp_BaseHP baseHPProp = new ThingProp_BaseHP();
-    public readonly ThingProp_Beauty beautyProp = new ThingProp_Beauty();
+    public readonly ThingProp_BaseHP baseHPProp = new();
+    public readonly ThingProp_Beauty beautyProp = new();
 
-    public readonly StringBuilder
-        configBuilder = new StringBuilder("00000000000"); //Increase the 0s for every new Prop.
+    private readonly StringBuilder
+        configBuilder = new("00000000000"); //Increase the 0s for every new Prop.
 
-    public readonly ThingProp_Cost costProp = new ThingProp_Cost();
-    public readonly ThingProp_Fill fillProp = new ThingProp_Fill();
-    public readonly ThingProp_Flammability flammabilityProp = new ThingProp_Flammability();
+    public readonly ThingProp_Cost costProp = new();
+    public readonly ThingProp_Fill fillProp = new();
+    public readonly ThingProp_Flammability flammabilityProp = new();
 
     //Input type ThingProps
-    public readonly ThingProp_Label labelProp = new ThingProp_Label();
-    public readonly ThingProp_Link linkProp = new ThingProp_Link();
+    public readonly ThingProp_Label labelProp = new();
+    public readonly ThingProp_Link linkProp = new();
 
     //Select type ThingProps
-    public readonly ThingProp_Passability passabilityProp = new ThingProp_Passability();
-    public readonly ThingProp_Path pathProp = new ThingProp_Path();
+    public readonly ThingProp_Passability passabilityProp = new();
+    public readonly ThingProp_Path pathProp = new();
     public readonly int pos = 0;
 
     //Button type ThingProps
-    public readonly ThingProp_Roof roofProp = new ThingProp_Roof();
-    public readonly ThingProp_Terrain terrainProp = new ThingProp_Terrain();
-    public readonly ThingProp_WorkToBuild workProp = new ThingProp_WorkToBuild();
+    public readonly ThingProp_Roof roofProp = new();
+    public readonly ThingProp_Terrain terrainProp = new();
+    public readonly ThingProp_WorkToBuild workProp = new();
     public bool config;
     public string configID;
     public string defName;

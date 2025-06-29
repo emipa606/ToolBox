@@ -6,9 +6,9 @@ namespace ToolBox.SettingsDefComp;
 
 public class Widget_Image : DesignBase
 {
-    public readonly float scale = 1f;
+    private readonly float scale = 1f;
     public string path;
-    public Texture2D texture;
+    private Texture2D texture;
 
     public override void SetSize(List<float> width, List<float> height)
     {

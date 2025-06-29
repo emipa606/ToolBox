@@ -6,8 +6,8 @@ namespace ToolBox.SettingsDefComp;
 
 public class Textbox_Label : ContentBase
 {
-    public readonly bool center = false;
-    public readonly GameFont fontSize = GameFont.Small;
+    private readonly bool center = false;
+    private readonly GameFont fontSize = GameFont.Small;
     public string text;
 
     public void Content(Textbox textBox)
@@ -25,6 +25,6 @@ public class Textbox_Label : ContentBase
         }
 
         Text.Font = fontSize;
-        Widgets.Label(ToolHandle.SetWrapedRect(x, y, width, height, textBox), text);
+        Widgets.Label(ToolHandle.SetWrappedRect(x, y, width, height, textBox), text);
     }
 }

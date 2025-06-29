@@ -7,7 +7,7 @@ namespace ToolBox.SettingsDefComp;
 
 public class Col_Terrain : ColPropBase
 {
-    public readonly IList<TerrainMode> terrainOptions = new List<TerrainMode>
+    private readonly IList<TerrainMode> terrainOptions = new List<TerrainMode>
     {
         TerrainMode.Light,
         TerrainMode.Medium,

@@ -33,7 +33,7 @@ public static class ToolHandle
     /// <param name="height"></param>
     /// <param name="textBox"></param>
     /// <returns></returns>
-    public static Rect SetWrapedRect(float x, float y, float width, float height, Textbox textBox)
+    public static Rect SetWrappedRect(float x, float y, float width, float height, Textbox textBox)
     {
         //Sets axis and textBox margin to 0f to avoid positive difference/answers
         if (x < 0f)
