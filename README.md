@@ -1,26 +1,26 @@
 # [ToolBox (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=2576079360)
 
-![Image](https://i.imgur.com/buuPQel.png)
+![Image](https://img.litet.net/logos/Info.png)
 
 Update of Nifs mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=2016186459
 
-![Image](https://i.imgur.com/pufA0kM.png)
+![Image](https://img.litet.net/logos/Notice.png)
 	
-![Image](https://i.imgur.com/Z4GOv8H.png)
+![Image](https://img.litet.net/logos/OriginalDescription.png)
 
-![Image](https://i.imgur.com/pLIIppn.png)
+![Image](https://img.litet.net/pLIIppn.png)
 
 ToolBox is an XML based framework, designed for making mod settings that allow changes to ThingDef properties. Examples: cost, hitpoints, beauty, etc. It can also be used to provide a guide or information regarding your mod. It currently has 11 property widgets that can be applied to a ThingDef, and will continue to expand in the future.
 
 Note: the settings will appear inside of the ToolBox settings. It does not act as an independent setting.
 
-![Image](https://i.imgur.com/ZQrScUl.png)
+![Image](https://img.litet.net/ZQrScUl.png)
 
 [ Github Wiki](https://github.com/Nif-kun/ToolBox/wiki) (Updated for v1.0.2.2)
 
 
-![Image](https://i.imgur.com/bCAtkVT.png)
+![Image](https://img.litet.net/bCAtkVT.png)
 
 »Minor Update (v1.0.2.3) [08/11/20]
 -Added 1.2 in supported versions
@@ -39,29 +39,29 @@ Note: the settings will appear inside of the ToolBox settings. It does not act a
 -Changed the default min of beautyCol to -99999 instead of -9999.
 
 
-![Image](https://i.imgur.com/UUqdkMB.png)
+![Image](https://img.litet.net/UUqdkMB.png)
 
 Any mod that does not have any modifiable ThingDef should be fine. And if it does, the level of incompatibility may depend on the mod placement. It is advised to use a mod's default mod setting, instead of making one using ToolBox. Issues may occur if the two mods are changing the same property of a ThingDef. It will either pick one over the other or simply not change at all.
 
 
-![Image](https://i.imgur.com/9mpk8FJ.png)
+![Image](https://img.litet.net/9mpk8FJ.png)
 
 Q1: Is this compatible with RIMMSqol?
 A1: Yes, as long as you're not modifying both of the same property of a ThingDef.
 
 
-![Image](https://i.imgur.com/RfFm9v4.png)
+![Image](https://img.litet.net/RfFm9v4.png)
 
 »[Architect Expanded - Fences](https://steamcommunity.com/sharedfiles/filedetails/?id=2050680665)
 »[Gizmo Begone!](https://steamcommunity.com/sharedfiles/filedetails/?id=2021234555)
 
-![Image](https://i.imgur.com/PwoNOj4.png)
+![Image](https://img.litet.net/logos/ReportingIssues.png)
 
 
 
 -  See if the the error persists if you just have this mod and its requirements active.
 -  If not, try adding your other mods until it happens again.
--  Post your error-log using [HugsLib](https://steamcommunity.com/workshop/filedetails/?id=818773962) or the standalone [Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) and command Ctrl+F12
+-  Always post your log using the [Log Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404)
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.
@@ -69,4 +69,4 @@ A1: Yes, as long as you're not modifying both of the same property of a ThingDef
 
  
 
-[![Image](https://img.shields.io/github/v/release/emipa606/Toolbox?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2576079360) | tags:  framework
+[![Image](https://img.shields.io/github/v/release/emipa606/Toolbox?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2576079360) | framework

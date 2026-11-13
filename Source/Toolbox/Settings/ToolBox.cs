@@ -38,19 +38,19 @@ public class ToolBox : Mod
     }
 
     //Loads the settings window for ToolBox
-    public override void DoSettingsWindowContents(Rect rect)
+    public override void DoSettingsWindowContents(Rect inRect)
     {
-        var categoryRect = new Rect(rect.x, rect.y, rect.width / 5f, rect.height); //172.8 width
-        var categoryRectScroll = new Rect(rect.x, rect.y, rect.width / 5f, rect.height);
-        var categoryView = new Rect(rect.x, rect.y, categoryRect.width - 25f, rect.height);
-        var contentRect = new Rect(categoryRect.width + 5f, rect.y, rect.width - categoryRect.width - 5f,
-            rect.height);
-        var contentRectScroll = new Rect(categoryRect.width + 5f, rect.y, rect.width - categoryRect.width - 5f,
-            rect.height);
-        var contentView = new Rect(contentRect.x, rect.y, contentRect.width - 25f, rect.height);
-        var hasTop = settingsDefEnum.Count(c => c.level.Equals(CategoryLevel.Top)) != 0;
-        var hasMiddle = settingsDefEnum.Count(c => c.level.Equals(CategoryLevel.Middle)) != 0;
-        var hasBottom = settingsDefEnum.Count(c => c.level.Equals(CategoryLevel.Bottom)) != 0;
+        var categoryRect = new Rect(inRect.x, inRect.y, inRect.width / 5f, inRect.height); //172.8 width
+        var categoryRectScroll = new Rect(inRect.x, inRect.y, inRect.width / 5f, inRect.height);
+        var categoryView = new Rect(inRect.x, inRect.y, categoryRect.width - 25f, inRect.height);
+        var contentRect = new Rect(categoryRect.width + 5f, inRect.y, inRect.width - categoryRect.width - 5f,
+            inRect.height);
+        var contentRectScroll = new Rect(categoryRect.width + 5f, inRect.y, inRect.width - categoryRect.width - 5f,
+            inRect.height);
+        var contentView = new Rect(contentRect.x, inRect.y, contentRect.width - 25f, inRect.height);
+        var hasTop = settingsDefEnum.Any(c => c.level.Equals(CategoryLevel.Top));
+        var hasMiddle = settingsDefEnum.Any(c => c.level.Equals(CategoryLevel.Middle));
+        var hasBottom = settingsDefEnum.Any(c => c.level.Equals(CategoryLevel.Bottom));
 
         //This flags would matter once I make a ToolBox Home category.
         var drawContentScroll = true;
@@ -131,23 +131,17 @@ public class ToolBox : Mod
         }
 
         //ContentRect Resize
-        foreach (var settingsDef in settingsDefEnum)
+        foreach (var settingsDef in settingsDefEnum.Where(s => s.defName.Equals(settingsDefFlag)))
         {
-            if (settingsDef.defName.Equals(settingsDefFlag))
-            {
-                settingsDef.AdaptSize(ref contentRect, ref contentView, ref drawContentScroll);
-            }
+            settingsDef.AdaptSize(ref contentRect, ref contentView, ref drawContentScroll);
         }
 
         //Content Sect.
         Widgets.BeginScrollView(contentRectScroll, ref contentScroll, contentView, drawContentScroll);
         listingContent.Begin(contentRect);
-        foreach (var settingsDef in settingsDefEnum)
+        foreach (var settingsDef in settingsDefEnum.Where(s => s.defName.Equals(settingsDefFlag)))
         {
-            if (settingsDef.defName.Equals(settingsDefFlag))
-            {
-                settingsDef.Display();
-            }
+            settingsDef.Display();
         }
 
         if (currentVersion != null)

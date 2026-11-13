@@ -1,0 +1,91 @@
+# GitHub Copilot Instructions for ToolBox (Continued) Mod
+
+## Mod Overview and Purpose
+
+**ToolBox (Continued)** is an XML-based framework designed to facilitate the modification of **ThingDef** properties within the RimWorld modding environment. This mod allows developers to create customizable settings that can change various attributes such as **cost**, **hitpoints**, **beauty**, and more. Additionally, it provides a way to present information or guides related to the mod, enhancing the user experience.
+
+## Key Features and Systems
+
+1. **Property Widgets**: ToolBox currently supports 11 different property widgets that can be applied to a **ThingDef**. These widgets include:
+   - **Cost**: Adjust the cost of a **ThingDef**.
+   - **Hitpoints**: Modify the hitpoints of a **ThingDef**.
+   - **Beauty**: Change the beauty rating of a **ThingDef**.
+   - **TerrainAffordanceNeeded**: Create a TerrainAffordanceNeeded option button.
+   - **Label**: Customize the label of a **ThingDef**.
+   - **Line**: Draw a vertical or horizontal line in the settings interface.
+
+2. **SettingsDef**: ToolBox uses **SettingsDef** to define the settings for a mod. This allows for the creation of categories and levels of settings that can be easily managed.
+
+3. **Integration with Existing Mods**: While ToolBox is designed to enhance modding capabilities, it's important to note that compatibility with other mods can vary. Specifically, if two mods attempt to modify the same property of a **ThingDef**, the outcome may not be predictable. It is recommended to use the default settings provided by a mod instead of creating new ones with ToolBox.
+
+4. **XML Integration**: ToolBox relies heavily on XML files to define its settings and widgets. This allows for a flexible and easily maintainable configuration.
+
+5. **Harmony Patching**: ToolBox uses Harmony patching to integrate its widgets and settings into the RimWorld game environment. This ensures that the modifications are applied correctly without interfering with the base game or other mods.
+
+## Coding Patterns and Conventions
+
+When contributing to or developing with ToolBox (Continued), please adhere to the following coding patterns and conventions:
+
+1. **Namespaces and Structure**: Use namespaces that clearly indicate the purpose of the classes. For example, `Toolbox.SettingsDefComp` for components related to **SettingsDef**.
+
+2. **Naming Conventions**: Follow standard C# naming conventions, including PascalCase for class names, camelCase for method names, and PascalCase for properties.
+
+3. **Comments and Documentation**: Ensure that your code is well-documented with comments and XML documentation. This will help other developers understand your code and make it easier to maintain.
+
+4. **Error Handling**: Implement robust error handling to manage potential issues during runtime. This includes checking for null values and handling exceptions gracefully.
+
+5. **Code Reusability**: Aim to write reusable and modular code. This will make your code easier to maintain and extend.
+
+## XML Integration
+
+ToolBox heavily relies on XML files to define its settings and widgets. When working with XML files, please follow these guidelines:
+
+1. **Structure and Validation**: Ensure that your XML files adhere to the correct structure and pass validation checks. This will prevent runtime errors.
+
+2. **Namespace and Schema**: Use the appropriate namespaces and schemas when defining your XML files. This ensures that the files are correctly interpreted by the ToolBox framework.
+
+3. **Version Compatibility**: Ensure that your XML files are compatible with the version of ToolBox you are working with. This may involve checking for any version-specific changes or updates.
+
+## Harmony Patching
+
+Harmony patching is an essential part of ToolBox (Continued). When creating or modifying Harmony patches, please adhere to these guidelines:
+
+1. **Patch Naming**: Use descriptive names for your patches. This will make it easier to identify and manage the patches.
+
+2. **Patch Location**: Ensure that your patches are located in the correct directory and are properly referenced in your mod's manifest file.
+
+3. **Patch Order**: Be aware of the order in which patches are applied. This can affect the outcome of your modifications.
+
+4. **Patch Validation**: Validate your patches to ensure they are correctly applied and do not interfere with other patches or the base game.
+
+## Suggestions for Copilot
+
+When using GitHub Copilot to develop for ToolBox (Continued), consider the following suggestions:
+
+1. **Contextual Understanding**: Provide Copilot with context about the purpose and functionality of ToolBox. This will help it generate more relevant and accurate code.
+
+2. **Specific Requests**: When requesting code, be specific about the functionality you need. For example, request a new widget for modifying a specific **ThingDef** property.
+
+3. **Review and Validate**: Always review and validate the code generated by Copilot. Ensure that it adheres to the coding patterns and conventions outlined above.
+
+4. **Testing**: Test the generated code thoroughly to ensure that it works as expected and does not introduce any new issues.
+
+5. **Feedback and Iteration**: Provide feedback to Copilot about the effectiveness of its suggestions. This will help improve the quality of the generated code over time.
+
+By following these guidelines and suggestions, you can effectively use GitHub Copilot to enhance the development of the ToolBox (Continued) mod.
+
+## Project Solution Guidelines
+- Relevant mod XML files are included as Solution Items under the solution folder named XML, these can be read and modified from within the solution.
+- Use these in-solution XML files as the primary files for reference and modification.
+- The `.github/copilot-instructions.md` file is included in the solution under the `.github` solution folder, so it should be read/modified from within the solution instead of using paths outside the solution. Update this file once only, as it and the parent-path solution reference point to the same file in this workspace.
+- When making functional changes in this mod, ensure the documented features stay in sync with implementation; use the in-solution `.github` copy as the primary file.
+- In the solution is also a project called Assembly-CSharp, containing a read-only version of the decompiled game source, for reference and debugging purposes.
+- For any new documentation, update this copilot-instructions.md file rather than creating separate documentation files.
+
+
+## Hard rules (must follow)
+- Do NOT run commands that modify the repo (no git commit, git apply, dotnet format) unless explicitly asked.
+- Prefer minimal reads: read only the smallest code region needed (around the suspicious lines).
+- When mentioning SonarQube issues, automatically use the SonarQube MCP service to fetch and address issues instead of making inferred fixes without querying SonarQube first.
+- When mentioning the rimworld log, automatically use the Rimworld MCP service to fetch the log.
+

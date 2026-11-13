@@ -9,7 +9,7 @@ using Verse;
 namespace ToolBox.Core;
 
 [StaticConstructorOnStartup]
-internal class StartUp
+internal static class StartUp
 {
     static StartUp()
     {
@@ -53,6 +53,7 @@ internal class StartUp
             }
             catch (NullReferenceException)
             {
+                //Ignored
             }
         }
 
